@@ -261,20 +261,8 @@ const elements = {
     exportDataBtn: document.getElementById('exportDataBtn'),
     importFileInput: document.getElementById('importFileInput'),
     resetDefaultsBtn: document.getElementById('resetDefaultsBtn'),
-    bgVideo: document.getElementById('bgVideo'),
-    soundToggleBtn: document.getElementById('soundToggleBtn'),
-    soundIcon: document.getElementById('soundIcon'),
-    soundLabel: document.getElementById('soundLabel'),
     totalLinksCount: document.getElementById('totalLinksCount'),
     toastContainer: document.getElementById('toastContainer')
-};
-
-// Background Video Playlist State
-const bgPlaylist = {
-    desktop: ['bg.mp4', 'bg2.mp4', 'bg3.mp4'],
-    mobile: 'mobile-bg.mp4',
-    currentIndex: 0,
-    isMobileMode: false
 };
 
 /* ==========================================================================
@@ -286,75 +274,13 @@ function init() {
     setupEventListeners();
     renderTheme();
     renderLayoutView();
-    initBgVideoManager();
-    renderSoundState(false);
     renderNavBadges();
     renderContent();
     initVideoIntro();
 }
 
 function initBgVideoManager() {
-    const video = elements.bgVideo;
-    if (!video) return;
-
-    function checkMobileMode() {
-        return window.matchMedia('(max-width: 768px)').matches;
-    }
-
-    function updateVideoSource() {
-        const mobile = checkMobileMode();
-        bgPlaylist.isMobileMode = mobile;
-
-        let targetSrc = '';
-        if (mobile) {
-            targetSrc = bgPlaylist.mobile;
-        } else {
-            targetSrc = bgPlaylist.desktop[bgPlaylist.currentIndex];
-        }
-
-        const currentSrc = video.currentSrc || video.src;
-        if (!currentSrc || !currentSrc.endsWith(targetSrc)) {
-            video.src = targetSrc;
-            video.muted = state.soundMuted;
-            video.load();
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(e => console.warn('Background playlist play caught:', e));
-            }
-        }
-    }
-
-    // Advance playlist on video end
-    video.addEventListener('ended', () => {
-        if (bgPlaylist.isMobileMode) {
-            video.currentTime = 0;
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(e => console.warn('Mobile video replay caught:', e));
-            }
-        } else {
-            bgPlaylist.currentIndex = (bgPlaylist.currentIndex + 1) % bgPlaylist.desktop.length;
-            const nextSrc = bgPlaylist.desktop[bgPlaylist.currentIndex];
-            video.src = nextSrc;
-            video.muted = state.soundMuted;
-            video.load();
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(e => console.warn('Desktop next video play caught:', e));
-            }
-        }
-    });
-
-    // Handle viewport resize (mobile <-> desktop switch)
-    window.addEventListener('resize', () => {
-        const currentlyMobile = checkMobileMode();
-        if (currentlyMobile !== bgPlaylist.isMobileMode) {
-            updateVideoSource();
-        }
-    });
-
-    // Initial load
-    updateVideoSource();
+    // Background video removed
 }
 
 function initVideoIntro() {
@@ -711,36 +637,7 @@ function renderLayoutView() {
 }
 
 function renderSoundState(showNotification = false) {
-    if (!elements.bgVideo) return;
-
-    elements.bgVideo.muted = state.soundMuted;
-
-    // Always trigger playback to ensure background video plays continuously
-    const playPromise = elements.bgVideo.play();
-    if (playPromise !== undefined) {
-        playPromise.catch(err => {
-            if (!state.soundMuted) {
-                console.warn('Audio playback prevented:', err);
-                state.soundMuted = true;
-                elements.bgVideo.muted = true;
-                if (elements.soundIcon) elements.soundIcon.className = 'fa-solid fa-volume-xmark';
-                if (elements.soundLabel) elements.soundLabel.textContent = 'Sound Off';
-                if (elements.soundToggleBtn) elements.soundToggleBtn.classList.remove('sound-active');
-            }
-        });
-    }
-
-    if (state.soundMuted) {
-        if (elements.soundIcon) elements.soundIcon.className = 'fa-solid fa-volume-xmark';
-        if (elements.soundLabel) elements.soundLabel.textContent = 'Sound Off';
-        if (elements.soundToggleBtn) elements.soundToggleBtn.classList.remove('sound-active');
-        if (showNotification) showToast('Background sound muted');
-    } else {
-        if (elements.soundIcon) elements.soundIcon.className = 'fa-solid fa-volume-high text-rose';
-        if (elements.soundLabel) elements.soundLabel.textContent = 'Sound On';
-        if (elements.soundToggleBtn) elements.soundToggleBtn.classList.add('sound-active');
-        if (showNotification) showToast('Background sound enabled');
-    }
+    // Background sound removed
 }
 
 function renderNavBadges() {
