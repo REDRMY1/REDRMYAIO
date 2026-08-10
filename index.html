@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>REDRMY AIO - Personal Hub & Media Directory</title>
+    <meta name="description" content="REDRMY AIO - Handcrafted all-in-one bookmark launcher for Study, Movies, Anime, Manga, Live TV & Sports, and Comic Books.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Video Layer -->
+    <div class="bg-video-container" id="bgVideoContainer">
+        <video class="bg-video" id="bgVideo" autoplay muted playsinline preload="auto">
+            <source src="bg.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="bg-video-overlay"></div>
+    </div>
+
+    <!-- Video Intro Loading Screen -->
+    <div class="video-splash-screen" id="videoSplashScreen">
+        <video class="intro-video" id="introVideo" autoplay muted playsinline preload="auto">
+            <!-- Mobile / Portrait Video Intro -->
+            <source src="intro2.mp4" type="video/mp4" media="(max-width: 768px)">
+            <source src="intro2.mp4" type="video/mp4" media="(orientation: portrait)">
+            <!-- Desktop / Landscape Video Intro -->
+            <source src="intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-wrapper">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="logo-wrapper">
+                    <img src="logo.png" alt="REDRMY AIO Logo" class="app-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="logo-fallback" style="display:none;"><i class="fa-solid fa-shapes"></i></div>
+                </div>
+                <div class="brand-text">
+                    <h1 class="app-title">REDRMY <span>AIO</span></h1>
+                    <p class="app-subtitle">Handcrafted All-In-One Directory</p>
+                </div>
+            </div>
+
+            <!-- Controls (Search, Telegram Add Link, Sound, Theme, Layout, Settings) -->
+            <div class="header-actions">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search links or domain..." accesskey="/">
+                    <button class="clear-search-btn" id="clearSearchBtn" title="Clear Search" style="display: none;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <span class="search-shortcut">/</span>
+                </div>
+
+                <div class="action-buttons">
+                    <!-- User Requested Add Link Button via Telegram Bot -->
+                    <a href="https://t.me/Redrmy_bot?text=Here%20link%20-%20YOUR_LINK_HERE" target="_blank" rel="noopener noreferrer" class="telegram-btn" title="Add Link via Telegram">
+                        <i class="fa-brands fa-telegram"></i> Add Link
+                    </a>
+
+                    <!-- Background Video Sound On/Off Button -->
+                    <button class="btn btn-secondary icon-btn" id="soundToggleBtn" title="Toggle Sound On/Off">
+                        <i class="fa-solid fa-volume-xmark" id="soundIcon"></i>
+                        <span class="btn-text" id="soundLabel">Sound Off</span>
+                    </button>
+
+                    <button class="btn btn-secondary icon-btn" id="themeToggleBtn" title="Toggle Day/Night Mode">
+                        <i class="fa-solid fa-moon" id="themeIcon"></i>
+                        <span class="btn-text" id="themeLabel">Night</span>
+                    </button>
+
+                    <button class="btn btn-secondary icon-btn" id="layoutToggleBtn" title="Toggle Layout View">
+                        <i class="fa-solid fa-border-all" id="layoutIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Category Nav Filter Tabs with Scroll Buttons -->
+        <div class="category-wrapper">
+            <button class="category-scroll-btn scroll-left" id="scrollLeftBtn" title="Scroll Left" aria-label="Scroll Left">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            
+            <nav class="category-nav" id="categoryNav">
+                <button class="nav-tab active" data-category="all">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>All Links</span>
+                    <span class="badge" id="badge-all">0</span>
+                </button>
+                <button class="nav-tab" data-category="study">
+                    <i class="fa-solid fa-graduation-cap text-indigo"></i>
+                    <span>Study</span>
+                    <span class="badge" id="badge-study">0</span>
+                </button>
+                <button class="nav-tab" data-category="movies">
+                    <i class="fa-solid fa-film text-rose"></i>
+                    <span>Movies</span>
+                    <span class="badge" id="badge-movies">0</span>
+                </button>
+                <button class="nav-tab" data-category="animes">
+                    <i class="fa-solid fa-dragon text-purple"></i>
+                    <span>Animes</span>
+                    <span class="badge" id="badge-animes">0</span>
+                </button>
+                <button class="nav-tab" data-category="manga">
+                    <i class="fa-solid fa-book-open text-emerald"></i>
+                    <span>Manga</span>
+                    <span class="badge" id="badge-manga">0</span>
+                </button>
+                <button class="nav-tab" data-category="livetv">
+                    <i class="fa-solid fa-tv text-sky"></i>
+                    <span>Live TV & Sports</span>
+                    <span class="badge" id="badge-livetv">0</span>
+                </button>
+                <button class="nav-tab" data-category="comics">
+                    <i class="fa-solid fa-mask-snake text-orange"></i>
+                    <span>Comic Books</span>
+                    <span class="badge" id="badge-comics">0</span>
+                </button>
+            </nav>
+
+            <button class="category-scroll-btn scroll-right" id="scrollRightBtn" title="Scroll Right" aria-label="Scroll Right">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="content-container" id="contentContainer">
+            <!-- Dynamic Sections populated by JS -->
+        </main>
+
+        <!-- Empty Search Result View -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-icon"><i class="fa-solid fa-ghost"></i></div>
+            <h3>No links found</h3>
+            <p>Try adjusting your search query.</p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p class="footer-text">Crafted with warmth for <strong>REDRMY AIO</strong> &bull; Organised for focus & leisure</p>
+            <div class="footer-stats">
+                <span id="totalLinksCount">0 Links Saved</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- TELEGRAM POPUP MODAL -->
+    <div class="modal-backdrop telegram-modal-backdrop" id="telegramModal">
+        <div class="modal-content telegram-modal-content">
+            <button class="close-modal-btn telegram-close-btn" id="closeTelegramModalBtn">&times;</button>
+            <div class="telegram-popup-header">
+                <div class="telegram-icon-badge">
+                    <i class="fa-brands fa-telegram"></i>
+                </div>
+                <h3>Join REDRMY Courses!</h3>
+                <p>Get instant course updates, free study materials, live streams & premium links.</p>
+            </div>
+            <div class="telegram-channel-card">
+                <i class="fa-brands fa-telegram"></i>
+                <div class="channel-info">
+                    <span class="channel-name">REDRMY COURSES</span>
+                    <span class="channel-handle">t.me/REDRMYCOURSESS</span>
+                </div>
+            </div>
+            <div class="telegram-modal-actions">
+                <button class="btn btn-secondary" id="skipTelegramBtn">Maybe Later</button>
+                <a href="https://t.me/REDRMYCOURSESS" target="_blank" rel="noopener noreferrer" class="btn btn-telegram telegram-join-btn" id="joinTelegramBtn">
+                    <i class="fa-brands fa-telegram"></i> Join Channel
+                </a>
+            </div>
+            <div style="margin-top: 14px;">
+                <a href="https://t.me/Redrmy_bot?text=Here%20link%20-%20YOUR_LINK_HERE" target="_blank" rel="noopener noreferrer" class="telegram-btn" style="width: 100%; justify-content: center;">
+                    <i class="fa-brands fa-telegram"></i> Add Link
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACKUP / DATA MODAL -->
+    <div class="modal-backdrop" id="dataModal">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="closeDataModalBtn" style="position: absolute; top: 16px; right: 20px;">&times;</button>
+            <div class="data-settings-body">
+                <p>Manage your REDRMY AIO bookmarks. Export a JSON backup or restore default links anytime.</p>
+
+                <div class="data-action-card">
+                    <div class="action-info">
+                        <h4><i class="fa-brands fa-telegram text-sky"></i> Telegram Community</h4>
+                        <p>Join official channel for courses & updates.</p>
+                    </div>
+                    <a href="https://t.me/REDRMYCOURSESS" target="_blank" rel="noopener noreferrer" class="btn btn-telegram">Join Channel</a>
+                </div>
+
+                <div class="data-action-card">
+                    <div class="action-info">
+                        <h4><i class="fa-solid fa-download"></i> Export Data</h4>
+                        <p>Download a backup JSON file of all saved links.</p>
+                    </div>
+                    <button class="btn btn-secondary" id="exportDataBtn">Export JSON</button>
+                </div>
+
+                <div class="data-action-card">
+                    <div class="action-info">
+                        <h4><i class="fa-solid fa-upload"></i> Import Data</h4>
+                        <p>Upload a saved JSON file to restore your links.</p>
+                    </div>
+                    <label class="btn btn-secondary file-upload-btn">
+                        Import JSON
+                        <input type="file" id="importFileInput" accept=".json" style="display:none;">
+                    </label>
+                </div>
+
+                <div class="data-action-card danger">
+                    <div class="action-info">
+                        <h4><i class="fa-solid fa-rotate-left"></i> Restore Defaults</h4>
+                        <p>Reset to original curated default links.</p>
+                    </div>
+                    <button class="btn btn-danger" id="resetDefaultsBtn">Reset All</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="closeDataModalBtn2">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Custom JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
