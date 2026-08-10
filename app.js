@@ -15,6 +15,7 @@ const state = {
 
 // Category Definitions Metadata
 const categories = {
+    favorites: { name: 'Favorites', icon: 'fa-star', colorClass: 'text-amber' },
     study: { name: 'Study', icon: 'fa-graduation-cap', colorClass: 'text-indigo' },
     movies: { name: 'Movies', icon: 'fa-film', colorClass: 'text-rose' },
     animes: { name: 'Animes', icon: 'fa-dragon', colorClass: 'text-purple' },
@@ -89,7 +90,17 @@ const defaultLinks = [
             { title: 'Spidy RWA', url: 'https://spidyrwa.vercel.app/' }
         ]
     },
-    { id: '7', title: 'Study IQ', url: 'https://www.studyiq.com', category: 'study', desc: 'UPSC & Civil Services Learning', clicks: 14 },
+    {
+        id: '7',
+        title: 'Study IQ',
+        url: 'https://www.studyiq.com',
+        category: 'study',
+        desc: 'UPSC & Civil Services Learning',
+        clicks: 14,
+        sublinks: [
+            { title: 'Spidy IQ', url: 'https://spidyiq.vercel.app/' }
+        ]
+    },
     {
         id: '8',
         title: 'Selection Way',
@@ -261,6 +272,11 @@ const elements = {
     exportDataBtn: document.getElementById('exportDataBtn'),
     importFileInput: document.getElementById('importFileInput'),
     resetDefaultsBtn: document.getElementById('resetDefaultsBtn'),
+    aboutBtn: document.getElementById('aboutBtn'),
+    footerAboutTrigger: document.getElementById('footerAboutTrigger'),
+    aboutModal: document.getElementById('aboutModal'),
+    closeAboutModalBtn: document.getElementById('closeAboutModalBtn'),
+    closeAboutModalBtn2: document.getElementById('closeAboutModalBtn2'),
     totalLinksCount: document.getElementById('totalLinksCount'),
     toastContainer: document.getElementById('toastContainer')
 };
@@ -276,7 +292,18 @@ function init() {
     renderLayoutView();
     renderNavBadges();
     renderContent();
-    initVideoIntro();
+    initLiveClock();
+}
+
+function initLiveClock() {
+    function update() {
+        const clockEl = document.getElementById('clockTime');
+        if (!clockEl) return;
+        const now = new Date();
+        clockEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+    setInterval(update, 1000);
+    update();
 }
 
 function initBgVideoManager() {
@@ -284,52 +311,7 @@ function initBgVideoManager() {
 }
 
 function initVideoIntro() {
-    const splash = elements.videoSplashScreen;
-    const video = elements.introVideo;
-    if (!splash) return;
-
-    let isDismissed = false;
-
-    function dismissVideoSplash() {
-        if (isDismissed) return;
-        isDismissed = true;
-
-        if (video) {
-            video.pause();
-        }
-
-        splash.classList.add('fade-out');
-
-        // Open Telegram modal smoothly 400ms after video splash fades out
-        setTimeout(() => {
-            openModal(elements.telegramModal);
-        }, 400);
-    }
-
-    if (video) {
-        // Evaluate responsive <source> media query rules (intro2.mp4 on mobile / intro.mp4 on desktop)
-        video.load();
-
-        // Dismiss when video finishes playing
-        video.addEventListener('ended', dismissVideoSplash);
-
-        // Fallback: If video encounters error or fails to load, dismiss immediately
-        video.addEventListener('error', dismissVideoSplash);
-
-        // Attempt to play video (handles browsers requiring interaction or muted autoplay)
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(() => {
-                // If autoplay is blocked by browser, dismiss splash cleanly
-                dismissVideoSplash();
-            });
-        }
-    } else {
-        dismissVideoSplash();
-    }
-
-    // Safety fallback timeout (10 seconds max)
-    setTimeout(dismissVideoSplash, 10000);
+    // Intro video splash removed for maximum performance
 }
 
 function loadState() {
@@ -440,6 +422,20 @@ function loadState() {
             link9.sublinks.unshift({
                 title: 'Spidy Unacademy',
                 url: 'https://spidyunacademy.vercel.app/'
+            });
+            saveState();
+        }
+    }
+
+    // Sync Study IQ (id: '7')
+    const link7 = state.links.find(l => l.id === '7' || (l.title && l.title.toLowerCase().includes('study iq')));
+    if (link7) {
+        if (!link7.sublinks) link7.sublinks = [];
+        const hasSpidyIQ = link7.sublinks.some(s => s.url && s.url.includes('spidyiq.vercel.app'));
+        if (!hasSpidyIQ) {
+            link7.sublinks.unshift({
+                title: 'Spidy IQ',
+                url: 'https://spidyiq.vercel.app/'
             });
             saveState();
         }
@@ -617,12 +613,21 @@ function saveState() {
 
 function renderTheme() {
     elements.html.setAttribute('data-theme', state.theme);
-    if (state.theme === 'day') {
+    if (state.theme === 'cyber') {
+        elements.themeIcon.className = 'fa-solid fa-bolt text-amber';
+        elements.themeLabel.textContent = 'Cyber';
+    } else if (state.theme === 'emerald') {
+        elements.themeIcon.className = 'fa-solid fa-terminal text-emerald';
+        elements.themeLabel.textContent = 'Matrix';
+    } else if (state.theme === 'midnight') {
+        elements.themeIcon.className = 'fa-solid fa-user-astronaut text-sky';
+        elements.themeLabel.textContent = 'Space';
+    } else if (state.theme === 'day') {
         elements.themeIcon.className = 'fa-solid fa-sun text-amber';
         elements.themeLabel.textContent = 'Day';
     } else {
-        elements.themeIcon.className = 'fa-solid fa-moon';
-        elements.themeLabel.textContent = 'Night';
+        elements.themeIcon.className = 'fa-solid fa-moon text-indigo';
+        elements.themeLabel.textContent = 'Ember';
     }
 }
 
@@ -644,7 +649,12 @@ function renderNavBadges() {
     const totalCount = state.links.length;
     document.getElementById('badge-all').textContent = totalCount;
 
+    const favCount = state.links.filter(l => l.isFavorite).length;
+    const favBadge = document.getElementById('badge-favorites');
+    if (favBadge) favBadge.textContent = favCount;
+
     Object.keys(categories).forEach(catKey => {
+        if (catKey === 'favorites') return;
         const count = state.links.filter(l => l.category === catKey).length;
         const badgeEl = document.getElementById(`badge-${catKey}`);
         if (badgeEl) badgeEl.textContent = count;
@@ -657,7 +667,9 @@ function getFilteredLinks() {
     return state.links.filter(link => {
         // Category Filter
         let matchesCategory = true;
-        if (state.activeCategory !== 'all') {
+        if (state.activeCategory === 'favorites') {
+            matchesCategory = link.isFavorite === true;
+        } else if (state.activeCategory !== 'all') {
             matchesCategory = link.category === state.activeCategory;
         }
 
@@ -692,14 +704,20 @@ function renderContent() {
     // Determine which sections to show
     let categoriesToShow = [];
     if (state.activeCategory === 'all') {
-        categoriesToShow = Object.keys(categories);
+        const hasFavorites = state.links.some(l => l.isFavorite);
+        if (hasFavorites) {
+            categoriesToShow.push('favorites');
+        }
+        Object.keys(categories).forEach(k => {
+            if (k !== 'favorites') categoriesToShow.push(k);
+        });
     } else {
         categoriesToShow = [state.activeCategory];
     }
 
     categoriesToShow.forEach(catKey => {
-        const sectionLinks = filtered.filter(l => l.category === catKey);
-        if (sectionLinks.length === 0 && state.activeCategory === 'all') {
+        const sectionLinks = catKey === 'favorites' ? filtered.filter(l => l.isFavorite) : filtered.filter(l => l.category === catKey);
+        if (sectionLinks.length === 0 && (state.activeCategory === 'all' || state.activeCategory === 'favorites')) {
             return;
         }
 
@@ -769,20 +787,40 @@ function createLinkCard(link) {
     if (link.category !== 'study') {
         wrapper.className = 'link-card-wrapper square-card-wrapper';
         wrapper.innerHTML = `
-            <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="link-card square-card" style="text-decoration: none;" title="${escapeHtml(link.title)}">
-                <div class="link-favicon-wrapper">
-                    <img src="${faviconSrc}" class="link-favicon" alt="${link.title} icon"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="favicon-fallback" style="display:none;">${initial}</div>
-                </div>
-                <div class="link-title">${escapeHtml(link.title)}</div>
-            </a>
+            <div class="link-card square-card ${link.isFavorite ? 'is-fav-card' : ''}" title="${escapeHtml(link.title)}">
+                <button class="fav-star-btn ${link.isFavorite ? 'is-favorite' : ''}" title="${link.isFavorite ? 'Unpin from Favorites' : 'Pin to Favorites'}">
+                    <i class="fa-${link.isFavorite ? 'solid' : 'regular'} fa-star"></i>
+                </button>
+                <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="square-card-link" style="text-decoration: none;">
+                    <div class="link-favicon-wrapper">
+                        <img src="${faviconSrc}" class="link-favicon" alt="${link.title} icon"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="favicon-fallback" style="display:none;">${initial}</div>
+                    </div>
+                    <div class="link-title">${escapeHtml(link.title)}</div>
+                    ${(link.clicks && link.clicks >= 10) ? `<span class="hot-badge" title="${link.clicks} Clicks"><i class="fa-solid fa-fire"></i> Hot</span>` : ''}
+                </a>
+            </div>
         `;
-        const cardAnchor = wrapper.querySelector('.link-card');
+
+        const cardAnchor = wrapper.querySelector('.square-card-link');
         cardAnchor.addEventListener('click', () => {
             link.clicks = (link.clicks || 0) + 1;
             saveState();
         });
+
+        const favStarBtn = wrapper.querySelector('.fav-star-btn');
+        if (favStarBtn) {
+            favStarBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                link.isFavorite = !link.isFavorite;
+                saveState();
+                renderContent();
+                showToast(link.isFavorite ? `Pinned "${link.title}" to Favorites ⭐` : `Unpinned "${link.title}"`);
+            });
+        }
+
         return wrapper;
     }
 
@@ -829,7 +867,7 @@ function createLinkCard(link) {
     `;
 
     wrapper.innerHTML = `
-        <div class="link-card main-card-with-dropdown">
+        <div class="link-card main-card-with-dropdown ${link.isFavorite ? 'is-fav-card' : ''}">
             <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="main-card-clickable">
                 <div class="link-favicon-wrapper">
                     <img src="${faviconSrc}" class="link-favicon" alt="${link.title} icon"
@@ -837,7 +875,10 @@ function createLinkCard(link) {
                     <div class="favicon-fallback" style="display:none;">${initial}</div>
                 </div>
                 <div class="link-info">
-                    <div class="link-title">${escapeHtml(link.title)}</div>
+                    <div class="link-title-row">
+                        <span class="link-title">${escapeHtml(link.title)}</span>
+                        ${(link.clicks && link.clicks >= 10) ? `<span class="hot-badge" title="${link.clicks} Clicks"><i class="fa-solid fa-fire"></i> Hot</span>` : ''}
+                    </div>
                     <div class="link-domain">${escapeHtml(domainName)}</div>
                     ${link.desc ? `<div class="link-desc">${escapeHtml(link.desc)}</div>` : ''}
                 </div>
@@ -857,6 +898,18 @@ function createLinkCard(link) {
         link.clicks = (link.clicks || 0) + 1;
         saveState();
     });
+
+    const favStarBtn = wrapper.querySelector('.fav-star-btn');
+    if (favStarBtn) {
+        favStarBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            link.isFavorite = !link.isFavorite;
+            saveState();
+            renderContent();
+            showToast(link.isFavorite ? `Pinned "${link.title}" to Favorites ⭐` : `Unpinned "${link.title}"`);
+        });
+    }
 
     const toggleBtn = wrapper.querySelector('.dropdown-toggle-btn');
     toggleBtn.addEventListener('click', (e) => {
@@ -1033,11 +1086,16 @@ function setupEventListeners() {
         });
     }
 
-    // Theme Toggle (Day / Night)
+    // Theme Toggle (Cycle through 5 Color Palettes: Ember, Cyber, Matrix, Space, Day)
+    const themeSequence = ['night', 'cyber', 'emerald', 'midnight', 'day'];
     elements.themeToggleBtn.addEventListener('click', () => {
-        state.theme = state.theme === 'night' ? 'day' : 'night';
+        const currentIndex = themeSequence.indexOf(state.theme);
+        const nextIndex = (currentIndex + 1) % themeSequence.length;
+        state.theme = themeSequence[nextIndex];
         saveState();
         renderTheme();
+        const themeNames = { night: 'Night Ember 🌌', cyber: 'Cyber Neon ⚡', emerald: 'Matrix Emerald 🌿', midnight: 'Deep Space 🌊', day: 'Clean Day ☀️' };
+        showToast(`Switched theme: ${themeNames[state.theme]}`);
     });
 
     // Layout Toggle (Grid / List)
@@ -1066,11 +1124,31 @@ function setupEventListeners() {
     elements.importFileInput.addEventListener('change', importJSON);
     elements.resetDefaultsBtn.addEventListener('click', resetToDefaults);
 
+    // About Modal Triggers
+    if (elements.aboutBtn) {
+        elements.aboutBtn.addEventListener('click', () => openModal(elements.aboutModal));
+    }
+    if (elements.footerAboutTrigger) {
+        elements.footerAboutTrigger.addEventListener('click', () => openModal(elements.aboutModal));
+    }
+    if (elements.closeAboutModalBtn) {
+        elements.closeAboutModalBtn.addEventListener('click', () => closeModal(elements.aboutModal));
+    }
+    if (elements.closeAboutModalBtn2) {
+        elements.closeAboutModalBtn2.addEventListener('click', () => closeModal(elements.aboutModal));
+    }
+    if (elements.aboutModal) {
+        elements.aboutModal.addEventListener('click', (e) => {
+            if (e.target === elements.aboutModal) closeModal(elements.aboutModal);
+        });
+    }
+
     // Keyboard Shortcuts
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeModal(elements.dataModal);
             closeModal(elements.telegramModal);
+            closeModal(elements.aboutModal);
         }
         if (e.key === '/' && document.activeElement !== elements.searchInput) {
             e.preventDefault();

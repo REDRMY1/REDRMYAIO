@@ -31,18 +31,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Video Intro Loading Screen -->
-    <div class="video-splash-screen" id="videoSplashScreen">
-        <video class="intro-video" id="introVideo" autoplay muted playsinline preload="auto">
-            <!-- Mobile / Portrait Video Intro -->
-            <source src="intro2.mp4" type="video/mp4" media="(max-width: 768px)">
-            <source src="intro2.mp4" type="video/mp4" media="(orientation: portrait)">
-            <!-- Desktop / Landscape Video Intro -->
-            <source src="intro.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-
     <!-- Main Container -->
     <div class="app-wrapper">
         <!-- Header -->
@@ -55,6 +43,10 @@
                 <div class="brand-text">
                     <h1 class="app-title">REDRMY <span>AIO</span></h1>
                     <p class="app-subtitle">Handcrafted All-In-One Directory</p>
+                </div>
+                <div class="header-clock" id="headerClock" title="Live Local Time">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="clockTime">--:--:--</span>
                 </div>
             </div>
 
@@ -70,6 +62,11 @@
                 </div>
 
                 <div class="action-buttons">
+                    <button class="btn btn-secondary icon-btn" id="aboutBtn" title="About Developer">
+                        <i class="fa-solid fa-user-astronaut text-sky"></i>
+                        <span class="btn-text">About</span>
+                    </button>
+
                     <!-- User Requested Add Link Button via Telegram Bot -->
                     <a href="https://t.me/Redrmy_bot?text=Here%20link%20-%20YOUR_LINK_HERE" target="_blank" rel="noopener noreferrer" class="telegram-btn" title="Add Link via Telegram">
                         <i class="fa-brands fa-telegram"></i> Add Link
@@ -98,6 +95,11 @@
                     <i class="fa-solid fa-compass"></i>
                     <span>All Links</span>
                     <span class="badge" id="badge-all">0</span>
+                </button>
+                <button class="nav-tab" data-category="favorites">
+                    <i class="fa-solid fa-star text-amber"></i>
+                    <span>Favorites</span>
+                    <span class="badge" id="badge-favorites">0</span>
                 </button>
                 <button class="nav-tab" data-category="study">
                     <i class="fa-solid fa-graduation-cap text-indigo"></i>
@@ -148,13 +150,79 @@
             <p>Try adjusting your search query.</p>
         </div>
 
+        <!-- Community Education & Feedback Note -->
+        <div class="community-note-card">
+            <div class="note-icon-badge">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+            </div>
+            <div class="note-content">
+                <h4><i class="fa-solid fa-graduation-cap text-amber"></i> Support Free Education for Everyone</h4>
+                <p>If you know any free educational websites, apps, or study portals that can help underprivileged students access quality education, or if you have suggestions to improve this website, please share them with us!</p>
+            </div>
+            <a href="https://t.me/Redrmy4" target="_blank" rel="noopener noreferrer" class="btn btn-telegram note-contact-btn">
+                <i class="fa-brands fa-telegram"></i> Contact on Telegram
+            </a>
+        </div>
+
         <!-- Footer -->
         <footer class="app-footer">
+            <div class="footer-creator-badge" id="footerAboutTrigger" style="cursor: pointer;" title="Click to view About Developer">
+                <i class="fa-solid fa-code text-indigo"></i> Created by <strong>REDRMY</strong> (Age 18)
+            </div>
             <p class="footer-text">Crafted with warmth for <strong>REDRMY AIO</strong> &bull; Organised for focus & leisure</p>
             <div class="footer-stats">
                 <span id="totalLinksCount">0 Links Saved</span>
             </div>
         </footer>
+    </div>
+
+    <!-- ABOUT CREATOR MODAL -->
+    <div class="modal-backdrop" id="aboutModal">
+        <div class="modal-content about-modal-content">
+            <button class="close-modal-btn" id="closeAboutModalBtn" style="position: absolute; top: 16px; right: 20px;">&times;</button>
+            
+            <div class="about-card-header">
+                <div class="about-avatar-wrapper">
+                    <div class="about-avatar-icon"><i class="fa-solid fa-user-astronaut"></i></div>
+                    <span class="about-verified-badge" title="Verified Creator"><i class="fa-solid fa-check"></i></span>
+                </div>
+                <h2 class="about-dev-name">REDRMY</h2>
+                <div class="about-meta-pills">
+                    <span class="about-pill"><i class="fa-solid fa-cake-candles text-amber"></i> Age 18</span>
+                    <span class="about-pill"><i class="fa-solid fa-laptop-code text-sky"></i> Developer & Creator</span>
+                </div>
+                <p class="about-dev-bio">Passionate 18-year-old developer creating modern web experiences, AI tools, and all-in-one directory hubs.</p>
+            </div>
+
+            <div class="about-projects-wrapper">
+                <h4 class="about-section-heading"><i class="fa-solid fa-rocket text-amber"></i> Other Projects by REDRMY</h4>
+                <div class="about-projects-list">
+                    <a href="https://aimlredrmy.netlify.app/" target="_blank" rel="noopener noreferrer" class="about-project-item">
+                        <div class="project-icon text-purple"><i class="fa-solid fa-brain"></i></div>
+                        <div class="project-details">
+                            <div class="project-title">AI ML REDRMY</div>
+                            <div class="project-link">aimlredrmy.netlify.app</div>
+                            <div class="project-subtext">AI & Machine Learning Resources Hub</div>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square project-external-icon"></i>
+                    </a>
+
+                    <a href="https://redrmy41.netlify.app/" target="_blank" rel="noopener noreferrer" class="about-project-item">
+                        <div class="project-icon text-sky"><i class="fa-solid fa-globe"></i></div>
+                        <div class="project-details">
+                            <div class="project-title">REDRMY 41</div>
+                            <div class="project-link">redrmy41.netlify.app</div>
+                            <div class="project-subtext">Official REDRMY Platform & Web Portal</div>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square project-external-icon"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="modal-footer" style="margin-top: 20px;">
+                <button type="button" class="btn btn-secondary" id="closeAboutModalBtn2" style="width: 100%;">Close</button>
+            </div>
+        </div>
     </div>
 
     <!-- TELEGRAM POPUP MODAL -->
