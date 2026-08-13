@@ -1342,6 +1342,7 @@ html, body {
 .category-animes .links-grid,
 .category-manga .links-grid,
 .category-livetv .links-grid,
+.category-tools .links-grid,
 .category-favorites .links-grid {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 16px;
@@ -1490,6 +1491,7 @@ html, body {
     .category-animes .links-grid,
     .category-manga .links-grid,
     .category-livetv .links-grid,
+    .category-tools .links-grid,
     .category-favorites .links-grid {
         grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
         gap: 10px;
@@ -1523,6 +1525,7 @@ html, body {
     .category-animes .links-grid,
     .category-manga .links-grid,
     .category-livetv .links-grid,
+    .category-tools .links-grid,
     .category-favorites .links-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
@@ -1980,55 +1983,4 @@ html, body {
     }
 }
 
-/* --- Advertisement Banner Container --- */
-.ad-container-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 16px auto 24px auto;
-    padding: 14px;
-    background: var(--panel-bg);
-    border: 1px solid var(--panel-border);
-    border-radius: 16px;
-    box-shadow: var(--panel-shadow);
-    max-width: 100%;
-    overflow: hidden;
-    transition: border-color var(--transition-fast);
-}
-
-.ad-container-wrapper:hover {
-    border-color: var(--panel-border-hover);
-}
-
-.ad-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--text-dim);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.ad-box-group {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    width: 100%;
-}
-
-.ad-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 250px;
-    min-width: 160px;
-    max-width: 100%;
-    overflow: hidden;
-}
 

@@ -21,7 +21,7 @@ const categories = {
     animes: { name: 'Animes', icon: 'fa-dragon', colorClass: 'text-purple' },
     manga: { name: 'Manga', icon: 'fa-book-open', colorClass: 'text-emerald' },
     livetv: { name: 'Live TV & Sports', icon: 'fa-tv', colorClass: 'text-sky' },
-    comics: { name: 'Comic Books', icon: 'fa-mask-snake', colorClass: 'text-orange' }
+    tools: { name: 'Tools', icon: 'fa-screwdriver-wrench', colorClass: 'text-orange' }
 };
 
 // Initial Default Hand-Picked Curated Links
@@ -35,6 +35,8 @@ const defaultLinks = [
         desc: 'Online Education & Exam Preparation',
         clicks: 10,
         sublinks: [
+            { title: 'Akki Study PW', url: 'https://akkistudy.netlify.app/' },
+            { title: 'Glory Fuel PW', url: 'https://pw.gloryfuel.fun/' },
             { title: 'Study Stark', url: 'https://studystark.in/' },
             { title: 'PW Thor', url: 'https://pwthor.live/' },
             { title: 'Delta Study Batches', url: 'https://deltastudy.site/study-v2/batches' },
@@ -65,6 +67,7 @@ const defaultLinks = [
         desc: 'Learning & Test Prep Resources',
         clicks: 6,
         sublinks: [
+            { title: 'Glory Fuel Next Topper', url: 'https://gloryfuel.fun/nextopperr/nexttopperr.html' },
             { title: 'Spidy Topper', url: 'https://spidytopper.vercel.app/' }
         ]
     },
@@ -109,6 +112,7 @@ const defaultLinks = [
         desc: 'Exam Guidance & Practice Channel',
         clicks: 7,
         sublinks: [
+            { title: 'Glory Fuel Selection Way', url: 'https://selectionway.gloryfuel.fun/' },
             { title: 'Spidy Universe Way', url: 'https://spidyuniverseway.vercel.app/' }
         ]
     },
@@ -237,18 +241,14 @@ const defaultLinks = [
     { id: 'tv16', title: 'BuffStreams', url: 'https://buffstreams.app/', category: 'livetv', desc: 'Free sports live streams directory', noDropdown: true },
     { id: 'tv17', title: 'LiveTV.sx', url: 'https://livetv.sx/', category: 'livetv', desc: 'Live sports scores & video broadcasts', noDropdown: true },
 
-    // Comic Books Section
-    { id: '30', title: 'Marvel Unlimited', url: 'https://www.marvel.com/unlimited', category: 'comics', desc: 'Read 30,000+ Marvel digital comics', clicks: 19, noDropdown: true },
-    { id: '31', title: 'DC Universe Infinite', url: 'https://www.dcuniverseinfinite.com', category: 'comics', desc: 'Premium DC digital comic service', clicks: 17, noDropdown: true },
-    { id: '32', title: 'Read Comics Online', url: 'https://readcomiconline.li', category: 'comics', desc: 'High quality comic book reader', clicks: 25, noDropdown: true },
-    { id: '33', title: 'League of Comic Geeks', url: 'https://leagueofcomicgeeks.com', category: 'comics', desc: 'Comic book collection tracker & pull list', clicks: 8, noDropdown: true }
+    // Tools Section
+    { id: 't1', title: 'Paster.sh', url: 'https://paster.sh/', category: 'tools', desc: 'Fast & Anonymous Code / Text Pasting Tool', noDropdown: true },
+    { id: 't2', title: 'Leaked.at', url: 'https://leaked.at/', category: 'tools', desc: 'Leaks, Security & Database Community', noDropdown: true }
 ];
 
 // DOM Element References
 const elements = {
     html: document.documentElement,
-    videoSplashScreen: document.getElementById('videoSplashScreen'),
-    introVideo: document.getElementById('introVideo'),
     contentContainer: document.getElementById('contentContainer'),
     categoryNav: document.getElementById('categoryNav'),
     scrollLeftBtn: document.getElementById('scrollLeftBtn'),
@@ -261,11 +261,9 @@ const elements = {
     themeLabel: document.getElementById('themeLabel'),
     layoutToggleBtn: document.getElementById('layoutToggleBtn'),
     layoutIcon: document.getElementById('layoutIcon'),
-    headerTelegramBtn: document.getElementById('headerTelegramBtn'),
     telegramModal: document.getElementById('telegramModal'),
     closeTelegramModalBtn: document.getElementById('closeTelegramModalBtn'),
     skipTelegramBtn: document.getElementById('skipTelegramBtn'),
-    exportImportBtn: document.getElementById('exportImportBtn'),
     dataModal: document.getElementById('dataModal'),
     closeDataModalBtn: document.getElementById('closeDataModalBtn'),
     closeDataModalBtn2: document.getElementById('closeDataModalBtn2'),
@@ -306,14 +304,6 @@ function initLiveClock() {
     update();
 }
 
-function initBgVideoManager() {
-    // Background video removed
-}
-
-function initVideoIntro() {
-    // Intro video splash removed for maximum performance
-}
-
 function loadState() {
     const savedLinks = localStorage.getItem('redrmy_aio_links_v5');
     if (savedLinks) {
@@ -328,10 +318,26 @@ function loadState() {
         saveState();
     }
 
-    // Ensure PW (id: '1') contains Study Stark in sublinks
+    // Ensure PW (id: '1') contains Akki Study PW, Glory Fuel PW and Study Stark in sublinks
     const pwLink = state.links.find(l => l.id === '1' || (l.title && l.title.toLowerCase().includes('pw')));
     if (pwLink) {
         if (!pwLink.sublinks) pwLink.sublinks = [];
+        const hasAkkiStudy = pwLink.sublinks.some(s => s.url && s.url.includes('akkistudy.netlify.app'));
+        if (!hasAkkiStudy) {
+            pwLink.sublinks.unshift({
+                title: 'Akki Study PW',
+                url: 'https://akkistudy.netlify.app/'
+            });
+            saveState();
+        }
+        const hasGloryFuelPW = pwLink.sublinks.some(s => s.url && s.url.includes('pw.gloryfuel.fun'));
+        if (!hasGloryFuelPW) {
+            pwLink.sublinks.unshift({
+                title: 'Glory Fuel PW',
+                url: 'https://pw.gloryfuel.fun/'
+            });
+            saveState();
+        }
         const hasStudyStark = pwLink.sublinks.some(s => s.url && s.url.includes('studystark.in'));
         if (!hasStudyStark) {
             pwLink.sublinks.unshift({
@@ -369,9 +375,17 @@ function loadState() {
     const link4 = state.links.find(l => l.id === '4' || (l.title && l.title.toLowerCase().includes('next topper')));
     if (link4) {
         if (!link4.sublinks) link4.sublinks = [];
+        const hasGloryFuelNextTopper = link4.sublinks.some(s => s.url && s.url.includes('gloryfuel.fun/nextopperr'));
+        if (!hasGloryFuelNextTopper) {
+            link4.sublinks.unshift({
+                title: 'Glory Fuel Next Topper',
+                url: 'https://gloryfuel.fun/nextopperr/nexttopperr.html'
+            });
+            saveState();
+        }
         const hasSpidyTopper = link4.sublinks.some(s => s.url && s.url.includes('spidytopper.vercel.app'));
         if (!hasSpidyTopper) {
-            link4.sublinks.unshift({
+            link4.sublinks.push({
                 title: 'Spidy Topper',
                 url: 'https://spidytopper.vercel.app/'
             });
@@ -403,9 +417,17 @@ function loadState() {
             link8.url = 'https://www.selectionway.com/';
         }
         if (!link8.sublinks) link8.sublinks = [];
+        const hasGloryFuelWay = link8.sublinks.some(s => s.url && s.url.includes('selectionway.gloryfuel.fun'));
+        if (!hasGloryFuelWay) {
+            link8.sublinks.unshift({
+                title: 'Glory Fuel Selection Way',
+                url: 'https://selectionway.gloryfuel.fun/'
+            });
+            saveState();
+        }
         const hasSpidyWay = link8.sublinks.some(s => s.url && s.url.includes('spidyuniverseway.vercel.app'));
         if (!hasSpidyWay) {
-            link8.sublinks.unshift({
+            link8.sublinks.push({
                 title: 'Spidy Universe Way',
                 url: 'https://spidyuniverseway.vercel.app/'
             });
@@ -584,6 +606,42 @@ function loadState() {
         saveState();
     }
 
+    // Remove the 4 old comic book links (IDs 30, 31, 32, 33)
+    const oldComicIds = ['30', '31', '32', '33'];
+    const countBeforeFilter = state.links.length;
+    state.links = state.links.filter(l => !oldComicIds.includes(l.id) && l.category !== 'comics');
+    if (state.links.length !== countBeforeFilter) {
+        saveState();
+    }
+
+    // Sync Paster.sh in Tools section
+    const hasPaster = state.links.some(l => l.id === 't1' || (l.url && l.url.includes('paster.sh')));
+    if (!hasPaster) {
+        state.links.push({
+            id: 't1',
+            title: 'Paster.sh',
+            url: 'https://paster.sh/',
+            category: 'tools',
+            desc: 'Fast & Anonymous Code / Text Pasting Tool',
+            noDropdown: true
+        });
+        saveState();
+    }
+
+    // Sync Leaked.at in Tools section
+    const hasLeaked = state.links.some(l => l.id === 't2' || (l.url && l.url.includes('leaked.at')));
+    if (!hasLeaked) {
+        state.links.push({
+            id: 't2',
+            title: 'Leaked.at',
+            url: 'https://leaked.at/',
+            category: 'tools',
+            desc: 'Leaks, Security & Database Community',
+            noDropdown: true
+        });
+        saveState();
+    }
+
     const savedTheme = localStorage.getItem('redrmy_aio_theme');
     if (savedTheme) {
         state.theme = savedTheme;
@@ -641,10 +699,6 @@ function renderLayoutView() {
     }
 }
 
-function renderSoundState(showNotification = false) {
-    // Background sound removed
-}
-
 function renderNavBadges() {
     const totalCount = state.links.length;
     document.getElementById('badge-all').textContent = totalCount;
@@ -677,10 +731,10 @@ function getFilteredLinks() {
         let matchesSearch = true;
         if (state.searchQuery.trim() !== '') {
             const query = state.searchQuery.toLowerCase();
-            const titleMatch = link.title.toLowerCase().includes(query);
-            const urlMatch = link.url.toLowerCase().includes(query);
+            const titleMatch = (link.title || '').toLowerCase().includes(query);
+            const urlMatch = (link.url || '').toLowerCase().includes(query);
             const descMatch = (link.desc || '').toLowerCase().includes(query);
-            const sublinkMatch = (link.sublinks || []).some(s => s.title.toLowerCase().includes(query) || s.url.toLowerCase().includes(query));
+            const sublinkMatch = (link.sublinks || []).some(s => (s.title || '').toLowerCase().includes(query) || (s.url || '').toLowerCase().includes(query));
             matchesSearch = titleMatch || urlMatch || descMatch || sublinkMatch;
         }
 
@@ -724,27 +778,6 @@ function renderContent() {
         const categoryData = categories[catKey];
         const sectionEl = document.createElement('div');
         sectionEl.className = `category-section category-${catKey}`;
-
-        if (catKey === 'comics') {
-            sectionEl.innerHTML = `
-                <div class="section-header">
-                    <div class="section-title-wrapper">
-                        <div class="section-icon-badge ${categoryData.colorClass}">
-                            <i class="fa-solid ${categoryData.icon}"></i>
-                        </div>
-                        <h2 class="section-title">${categoryData.name}</h2>
-                        <span class="section-count">(Soon)</span>
-                    </div>
-                </div>
-                <div class="coming-soon-card">
-                    <div class="coming-soon-badge"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                    <h3>Coming Soon</h3>
-                    <p>Comic books section is currently being curated. Stay tuned!</p>
-                </div>
-            `;
-            elements.contentContainer.appendChild(sectionEl);
-            return;
-        }
 
         sectionEl.innerHTML = `
             <div class="section-header">
@@ -1077,15 +1110,6 @@ function setupEventListeners() {
         });
     }
 
-    // Sound Toggle (Mute / Unmute Background Video)
-    if (elements.soundToggleBtn) {
-        elements.soundToggleBtn.addEventListener('click', () => {
-            state.soundMuted = !state.soundMuted;
-            saveState();
-            renderSoundState(true);
-        });
-    }
-
     // Theme Toggle (Cycle through 5 Color Palettes: Ember, Cyber, Matrix, Space, Day)
     const themeSequence = ['night', 'cyber', 'emerald', 'midnight', 'day'];
     elements.themeToggleBtn.addEventListener('click', () => {
@@ -1106,9 +1130,6 @@ function setupEventListeners() {
     });
 
     // Data Modal Triggers
-    if (elements.exportImportBtn) {
-        elements.exportImportBtn.addEventListener('click', () => openModal(elements.dataModal));
-    }
     if (elements.closeDataModalBtn) {
         elements.closeDataModalBtn.addEventListener('click', () => closeModal(elements.dataModal));
     }
@@ -1116,13 +1137,15 @@ function setupEventListeners() {
         elements.closeDataModalBtn2.addEventListener('click', () => closeModal(elements.dataModal));
     }
 
-    elements.dataModal.addEventListener('click', (e) => {
-        if (e.target === elements.dataModal) closeModal(elements.dataModal);
-    });
+    if (elements.dataModal) {
+        elements.dataModal.addEventListener('click', (e) => {
+            if (e.target === elements.dataModal) closeModal(elements.dataModal);
+        });
+    }
 
-    elements.exportDataBtn.addEventListener('click', exportJSON);
-    elements.importFileInput.addEventListener('change', importJSON);
-    elements.resetDefaultsBtn.addEventListener('click', resetToDefaults);
+    if (elements.exportDataBtn) elements.exportDataBtn.addEventListener('click', exportJSON);
+    if (elements.importFileInput) elements.importFileInput.addEventListener('change', importJSON);
+    if (elements.resetDefaultsBtn) elements.resetDefaultsBtn.addEventListener('click', resetToDefaults);
 
     // About Modal Triggers
     if (elements.aboutBtn) {
