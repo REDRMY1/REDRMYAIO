@@ -2,8 +2,6 @@
    REDRMY AIO — CLEAN DARK GLASS ECOSYSTEM
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Exo+2:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
-
 :root {
   --bg0: #050505;
   --bg1: #0d0d0d;
@@ -1943,7 +1941,7 @@ body.zen-mode #zen-exit-pill {
   align-items: center;
   text-align: center;
   gap: 6px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
   position: relative;
   overflow: hidden;
   min-height: 114px;
@@ -3112,5 +3110,93 @@ button, a, input, select, textarea, .bnav-tab, .plat-card, .filter-pill, .badge-
 #filter-bar.movie-filter-scroll::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.45);
 }
+
+/* ========================================================
+   🚀 MOBILE ACCELERATION ENGINE (SMOOTH 60/120 FPS SCROLLING)
+   ======================================================== */
+@media (max-width: 768px), (hover: none) {
+  /* 1. Eliminate heavy GPU filters and continuous morphing animations */
+  #aurora-layer,
+  .aurora-orb,
+  #cursor-glow {
+    display: none !important;
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  /* 2. Remove costly backdrop-filter on repeated scroll items */
+  .prov-block,
+  .plat-card,
+  .qa-compact-card,
+  .d-card,
+  .filter-pill,
+  .badge-fav,
+  .pbadge,
+  .prof-goals,
+  .cmd-results,
+  .stat-box,
+  .prof-time-card,
+  .qa-row,
+  .chats-wrap,
+  .sec-pill,
+  .res-badge,
+  .qac-tag {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .prov-block {
+    background: #0d0f17 !important;
+  }
+
+  /* 3. Fast solid backgrounds & hardware compositing for cards */
+  .plat-card {
+    background: #11141c !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
+    transform: translateZ(0);
+    transition: transform 0.12s ease, opacity 0.12s ease !important;
+  }
+
+  .plat-card::before {
+    display: none !important; /* Shimmer gradient hover animation not needed on touch */
+  }
+
+  /* 4. Instant touch feedback without sticky hover transforms */
+  .plat-card:hover {
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+  }
+  .plat-card:active {
+    transform: scale(0.97) !important;
+  }
+
+  /* 5. Native fluid kinetic momentum scrolling on mobile */
+  html {
+    scroll-behavior: auto !important;
+  }
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 6. Clean, fast fixed navigation without extreme blur costs */
+  #nav,
+  #bottom-nav {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    background: rgba(10, 12, 18, 0.94) !important;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 
 

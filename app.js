@@ -1179,12 +1179,12 @@ function buildPlat(pl,apk,provId){
   const badgeText=pl.t==='p'?'P':(pl.t?pl.t.toUpperCase():'WEB');
   const btn=a?`<a href="${a}" class="btn-dl"><svg viewBox="0 0 24 24" width="9" height="9" fill="currentColor"><path d="M5 20h14v-2H5m14-9h-4V3H9v6H5l7 7 7-7z"/></svg>DOWNLOAD</a>`:(pl.gate?`<button class="btn-study" onclick="event.stopPropagation();openPortalGate('${pl.gate}')" type="button">LET'S STUDY</button>`:(pl.url?`<a href="${pl.url}" target="_blank" class="btn-study">LET'S STUDY</a>`:''));
   const cardClick=pl.gate?` onclick="openPortalGate('${pl.gate}')"`:(pl.url&&!a?` onclick="window.open('${pl.url}','_blank')"`:'');
-  return `<div class="plat-card"${cardClick} data-plat-id="${platId}"><span class="pbadge ${bc}">${badgeText}</span><button class="badge-fav${isFav?' act':''}" onclick="event.stopPropagation();toggleFav('${platId}',this)" type="button" title="Favorite platform" aria-label="Favorite"><svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button><img src="${pl.l}" class="plat-logo" alt="${pl.n}" loading="lazy" onerror="this.src='logo.png'"><div class="plat-name">${pl.n}</div>${btn}</div>`;
+  return `<div class="plat-card"${cardClick} data-plat-id="${platId}"><span class="pbadge ${bc}">${badgeText}</span><button class="badge-fav${isFav?' act':''}" onclick="event.stopPropagation();toggleFav('${platId}',this)" type="button" title="Favorite platform" aria-label="Favorite"><svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button><img src="${pl.l}" class="plat-logo" alt="${pl.n}" width="44" height="44" loading="lazy" decoding="async" onerror="this.src='logo.png'"><div class="plat-name">${pl.n}</div>${btn}</div>`;
 }
 
 function renderProv(p,container){
   const block=document.createElement('div');block.className='prov-block rv';block.dataset.id=p.id;
-  block.innerHTML=`<div class="prov-head"><img src="${p.logo}" class="prov-logo" alt="${p.name}" loading="lazy" onerror="this.src='logo.png'"><div class="prov-info"><div class="prov-name">${p.name}</div><div class="prov-cnt">${p.plats.length} Platform${p.plats.length>1?'s':''}${p.apk?' • APK':''}</div></div>${p.best?'<span class="badge-star">★ BEST</span>':''}</div>${p.note?`<div class="prov-note">${p.note}</div>`:''}<div class="plats-grid">${p.plats.map(pl=>buildPlat(pl,p.apk||null,p.id)).join('')}</div>`;
+  block.innerHTML=`<div class="prov-head"><img src="${p.logo}" class="prov-logo" alt="${p.name}" width="32" height="32" loading="lazy" decoding="async" onerror="this.src='logo.png'"><div class="prov-info"><div class="prov-name">${p.name}</div><div class="prov-cnt">${p.plats.length} Platform${p.plats.length>1?'s':''}${p.apk?' • APK':''}</div></div>${p.best?'<span class="badge-star">★ BEST</span>':''}</div>${p.note?`<div class="prov-note">${p.note}</div>`:''}<div class="plats-grid">${p.plats.map(pl=>buildPlat(pl,p.apk||null,p.id)).join('')}</div>`;
   container.appendChild(block);
 }
 
@@ -1199,7 +1199,7 @@ function buildHubPlat(pl,hubId){
   const isFav=favs.includes(platId);
   const btn=pl.gate?`<button class="btn-study" onclick="event.stopPropagation();openPortalGate('${pl.gate}')" type="button">LET'S STUDY</button>`:(pl.url?`<a href="${pl.url}" target="_blank" class="btn-study">LET'S STUDY</a>`:'');
   const cardClick=pl.gate?` onclick="openPortalGate('${pl.gate}')"`:(pl.url?` onclick="window.open('${pl.url}','_blank')"`:'');
-  return `<div class="plat-card hub-plat-card"${cardClick} data-plat-id="${platId}"><span class="pbadge pbw">WEB</span><button class="badge-fav${isFav?' act':''}" onclick="event.stopPropagation();toggleFav('${platId}',this)" type="button" title="Favorite platform" aria-label="Favorite"><svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button><img src="${pl.l}" class="plat-logo" alt="${pl.n}" loading="lazy" onerror="this.src='logo.png'"><div class="plat-name">${pl.n}</div>${btn}</div>`;
+  return `<div class="plat-card hub-plat-card"${cardClick} data-plat-id="${platId}"><span class="pbadge pbw">WEB</span><button class="badge-fav${isFav?' act':''}" onclick="event.stopPropagation();toggleFav('${platId}',this)" type="button" title="Favorite platform" aria-label="Favorite"><svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button><img src="${pl.l}" class="plat-logo" alt="${pl.n}" width="44" height="44" loading="lazy" decoding="async" onerror="this.src='logo.png'"><div class="plat-name">${pl.n}</div>${btn}</div>`;
 }
 
 function renderStudyHubs(){
@@ -1207,7 +1207,7 @@ function renderStudyHubs(){
   STUDY_HUBS.forEach(h=>{
     const block=document.createElement('div');block.className='prov-block rv'+(h.featured?' hub-featured':'');
     const gridStyle=h.singleCol?'style="grid-template-columns:1fr"':'';
-    block.innerHTML=`<div class="prov-head"><img src="${h.logo}" class="prov-logo" alt="${h.name}" loading="lazy" onerror="this.src='logo.png'"><div class="prov-info"><div class="prov-name">${h.name}</div><div class="prov-cnt">${h.plats.length} Platform${h.plats.length>1?'s':''}</div></div><span class="badge-star${h.featured?' badge-hot':''}">${h.featured?'🔥 ':'★ '}${h.badge}</span></div>${h.featured?'<div class="hub-feat-tag"><span class="hft-icon">✨</span><span class="hft-text"><strong>100,000+ Free Study Books &amp; Notes</strong> • Direct Library Access</span><span class="hft-badge">EXPLORE →</span></div>':''}${h.note?`<div class="prov-note">${h.note}</div>`:''}<div class="plats-grid" ${gridStyle}>${h.plats.map(pl=>buildHubPlat(pl,h.id)).join('')}</div>`;
+    block.innerHTML=`<div class="prov-head"><img src="${h.logo}" class="prov-logo" alt="${h.name}" width="32" height="32" loading="lazy" decoding="async" onerror="this.src='logo.png'"><div class="prov-info"><div class="prov-name">${h.name}</div><div class="prov-cnt">${h.plats.length} Platform${h.plats.length>1?'s':''}</div></div><span class="badge-star${h.featured?' badge-hot':''}">${h.featured?'🔥 ':'★ '}${h.badge}</span></div>${h.featured?'<div class="hub-feat-tag"><span class="hft-icon">✨</span><span class="hft-text"><strong>100,000+ Free Study Books &amp; Notes</strong> • Direct Library Access</span><span class="hft-badge">EXPLORE →</span></div>':''}${h.note?`<div class="prov-note">${h.note}</div>`:''}<div class="plats-grid" ${gridStyle}>${h.plats.map(pl=>buildHubPlat(pl,h.id)).join('')}</div>`;
     g.appendChild(block);
   });observe();
 }
@@ -1593,30 +1593,50 @@ document.addEventListener('keydown', (e) => {
 
 /* Scroll Progress & Visibility Handler */
 let scrollTicking = false;
+let cachedDocH = 0;
+let lastDocHCheck = 0;
+let lastPct = -1;
+let isSc = false;
+let isVis = false;
+
 function onPageScroll() {
-  const h = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollY = window.scrollY;
-  
-  if (h > 0) {
-    const prog = document.getElementById('progress');
-    const pct = Math.min(100, Math.max(0, Math.round((scrollY / h) * 100)));
-    if (prog) prog.style.width = pct + '%';
-    
-    // Circular SVG Progress Ring (circumference = 2 * PI * 20 = 125.66)
-    const spBar = document.getElementById('sp-bar');
-    if (spBar) {
-      const offset = 125.66 - (pct / 100 * 125.66);
-      spBar.style.strokeDashoffset = offset;
-    }
-    const stPct = document.getElementById('st-pct');
-    if (stPct) stPct.textContent = pct + '%';
+  const scrollY = window.scrollY || window.pageYOffset || 0;
+  const now = Date.now();
+  if (now - lastDocHCheck > 1000 || cachedDocH <= 0) {
+    cachedDocH = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
+    lastDocHCheck = now;
   }
   
-  const nav = document.getElementById('nav');
-  if (nav) nav.classList.toggle('sc', scrollY > 40);
+  if (cachedDocH > 0) {
+    const pct = Math.min(100, Math.max(0, Math.round((scrollY / cachedDocH) * 100)));
+    if (pct !== lastPct) {
+      lastPct = pct;
+      const prog = document.getElementById('progress');
+      if (prog) prog.style.width = pct + '%';
+      
+      // Circular SVG Progress Ring (circumference = 2 * PI * 20 = 125.66)
+      const spBar = document.getElementById('sp-bar');
+      if (spBar) {
+        spBar.style.strokeDashoffset = 125.66 - (pct / 100 * 125.66);
+      }
+      const stPct = document.getElementById('st-pct');
+      if (stPct) stPct.textContent = pct + '%';
+    }
+  }
   
-  const widget = document.getElementById('scroll-widget') || document.getElementById('scroll-top');
-  if (widget) widget.classList.toggle('vis', scrollY > 120);
+  const sc = scrollY > 40;
+  if (sc !== isSc) {
+    isSc = sc;
+    const nav = document.getElementById('nav');
+    if (nav) nav.classList.toggle('sc', sc);
+  }
+  
+  const vis = scrollY > 120;
+  if (vis !== isVis) {
+    isVis = vis;
+    const widget = document.getElementById('scroll-widget') || document.getElementById('scroll-top');
+    if (widget) widget.classList.toggle('vis', vis);
+  }
   
   scrollTicking = false;
 }
@@ -1641,7 +1661,10 @@ let lv=247;
 setInterval(()=>{lv=Math.max(190,Math.min(370,lv+Math.floor(Math.random()*5)-2));const el=document.getElementById('dv1');if(el)el.textContent=lv;},3800);
 
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});},{threshold:.04,rootMargin:'0px 0px -12px 0px'});
-function observe(){document.querySelectorAll('.rv:not(.on)').forEach(el=>obs.observe(el));}
+function observe(){
+  if(window.innerWidth <= 768) return;
+  document.querySelectorAll('.rv:not(.on)').forEach(el=>obs.observe(el));
+}
 
 /* ── EXAM COUNTDOWN ── */
 function calcCountdown(){
@@ -1673,26 +1696,6 @@ function typeWriter(){
 }
 setTimeout(typeWriter,800);
 
-/* ── CANVAS BACKGROUND PARTICLES ── */
-(function(){
-  const canvas=document.getElementById('canvas-bg');if(!canvas)return;
-  const ctx=canvas.getContext('2d');
-  let W,H,particles=[];
-  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
-  resize();window.addEventListener('resize',resize);
-  for(let i=0;i<55;i++)particles.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:.4+Math.random()*1.2,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,o:.1+Math.random()*.3});
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    particles.forEach(p=>{
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(0,200,255,'+p.o+')';ctx.fill();
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
 
 /* ── AI CHATBOT PERMANENTLY REMOVED ── */
 
@@ -2161,6 +2164,9 @@ async function loadNetFull(){
 
 /* ── LIQUID BACKGROUND CANVAS ENGINE ── */
 function initLiquidBackground(){
+  // Skip heavy canvas rendering on mobile & touch devices for silky smooth 60/120fps scrolling
+  if (window.innerWidth <= 768 || ('ontouchstart' in window && window.innerWidth <= 1024)) return;
+
   const canvas = document.getElementById('canvas-bg');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
