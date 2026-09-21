@@ -3145,14 +3145,32 @@ button, a, input, select, textarea, .bnav-tab, .plat-card, .filter-pill, .badge-
     -webkit-backdrop-filter: none !important;
   }
 
-  .prov-block {
-    background: #0d0f17 !important;
+  /* Mobile Background: Rich, visible cinematic contrast across full screen */
+  #canvas-bg {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    background: url('bw_bg.jpg') center center / cover no-repeat !important;
+    opacity: 0.42 !important;
+    z-index: 0 !important;
+    display: block !important;
   }
 
-  /* 3. Fast solid backgrounds & hardware compositing for cards */
+  /* Translucent glass containers so the background smoke is visible with 0% blur overhead */
+  .prov-block {
+    background: rgba(10, 13, 20, 0.78) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+
+  /* 3. Fast glass cards & hardware compositing */
   .plat-card {
-    background: #11141c !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
+    background: rgba(18, 22, 32, 0.72) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
     transform: translateZ(0);
     transition: transform 0.12s ease, opacity 0.12s ease !important;
   }

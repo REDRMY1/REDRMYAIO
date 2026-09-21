@@ -2164,11 +2164,16 @@ async function loadNetFull(){
 
 /* ── LIQUID BACKGROUND CANVAS ENGINE ── */
 function initLiquidBackground(){
-  // Skip heavy canvas rendering on mobile & touch devices for silky smooth 60/120fps scrolling
-  if (window.innerWidth <= 768 || ('ontouchstart' in window && window.innerWidth <= 1024)) return;
-
   const canvas = document.getElementById('canvas-bg');
   if(!canvas) return;
+
+  // On mobile, size the canvas once and leave it static so bw_bg.jpg renders properly without GPU loop
+  if (window.innerWidth <= 768 || ('ontouchstart' in window && window.innerWidth <= 1024)) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    return;
+  }
+
   const ctx = canvas.getContext('2d');
   if(!ctx) return;
 
