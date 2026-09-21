@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JFGESLYGJX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JFGESLYGJX');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>REDRMY — Movies, Anime, Manga &amp; Live TV Directory</title>
+  <meta name="description" content="REDRMY — Free directory with 94+ verified platforms for Movies, Web Series, Anime streaming, Manga reading, and Live Sports.">
+  <meta name="theme-color" content="#080b14">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="logo.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="REDRMY AIO">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Exo+2:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- BACKGROUND CANVAS & FX -->
+  <canvas id="canvas-bg"></canvas>
+  <div id="aurora-layer">
+    <div class="aurora-orb"></div>
+    <div class="aurora-orb"></div>
+    <div class="aurora-orb"></div>
+  </div>
+  <div id="cursor-glow"></div>
+  <div id="progress"></div>
+  <div id="toast"></div>
+  <!-- FLOATING SMART SCROLL & UTILITY DOCK -->
+  <div id="scroll-widget" class="scroll-widget" role="region" aria-label="Quick Actions and Scroll to Top">
+    <!-- EXPANDABLE SPEED DIAL MENU -->
+    <div id="quick-tools-menu" class="quick-tools-menu" aria-hidden="true">
+      <div class="qt-header">QUICK TOOLS</div>
+      <a href="https://t.me/REDRMYCOURSESS" target="_blank" class="qt-item" style="text-decoration:none" title="Join REDRMY Telegram Channel">
+        <span class="qt-ic">📱</span>
+        <span class="qt-text">Join Telegram</span>
+      </a>
+      <a href="index.html" class="qt-item" style="text-decoration:none" title="Return to Study Portal">
+        <span class="qt-ic">📚</span>
+        <span class="qt-text">Study Portal</span>
+      </a>
+      <button class="qt-item" onclick="scrollToBottomSmooth()" type="button" title="Jump to bottom of page">
+        <span class="qt-ic">⇣</span>
+        <span class="qt-text">Scroll Bottom</span>
+      </button>
+      <button class="qt-item" onclick="copyPageLink()" type="button" title="Copy current page link">
+        <span class="qt-ic">🔗</span>
+        <span class="qt-text">Copy Link</span>
+      </button>
+    </div>
+
+    <!-- MAIN CONTROLS ROW -->
+    <div class="scroll-widget-row">
+      <button id="quick-tools-toggle" class="quick-tools-toggle" onclick="toggleQuickTools()" title="Quick Tools" aria-label="Toggle Quick Tools" type="button">
+        <svg class="qt-toggle-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+      </button>
+
+      <button id="scroll-top" class="scroll-top-btn" onclick="scrollToTopSmooth()" title="Scroll to Top" aria-label="Scroll to top" type="button">
+        <svg class="scroll-progress-svg" viewBox="0 0 48 48" width="48" height="48">
+          <circle class="sp-track" cx="24" cy="24" r="20"></circle>
+          <circle class="sp-bar" id="sp-bar" cx="24" cy="24" r="20"></circle>
+        </svg>
+        <span class="st-inner">
+          <svg class="st-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+          </svg>
+          <span class="st-pct" id="st-pct">0%</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ZEN FOCUS MODE EXIT PILL -->
+  <div id="zen-exit-pill" onclick="toggleZenMode()" role="button" tabindex="0" title="Exit Focus Mode (ESC)">
+    <span>🎯 CINEMA MODE</span>
+    <span class="zen-exit-tag">EXIT [ESC]</span>
+  </div>
+
+  <!-- TOP NAV -->
+  <nav id="nav">
+    <a href="index.html" class="nav-brand">
+      <img src="logo.png" alt="REDRMY" class="nav-logo" loading="eager" fetchpriority="high" width="30" height="30" onerror="this.src='logo.png'">
+      <span class="nav-name">REDRMY</span>
+    </a>
+    <div class="nav-right">
+      <a href="index.html" class="nav-ic" title="Study Directory" style="padding:0 12px;width:auto;font-family:var(--fd);font-size:.64rem;font-weight:700;text-decoration:none;color:var(--t1)">
+        📚 STUDY PORTAL
+      </a>
+      <a href="https://t.me/Redrmy_bot?text=I%20WANT%20HELP%20REGARDING%20BATCH" target="_blank" class="btn-red-sm">💬 HELP</a>
+    </div>
+  </nav>
+
+  <!-- BOTTOM NAV -->
+  <div id="bottom-nav">
+    <a href="index.html" class="bnav-tab" style="text-decoration:none">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>STUDY</span>
+    </a>
+    <div class="bnav-tab active">
+      <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+      <span>ENJOY</span>
+    </div>
+  </div>
+
+  <!-- ══ MOVIES & ENTERTAINMENT PAGE ══ -->
+  <div class="page active" id="page-movies" style="padding-top:calc(var(--nh) + 20px)">
+    
+    <!-- HERO SECTION -->
+    <div class="hero-wrap" style="padding-bottom:14px !important">
+      <div class="hero-badge-glass" style="background:rgba(236,72,153,0.1);border-color:rgba(236,72,153,0.3);color:#ec4899">
+        <span class="hero-dot" style="background:#ec4899;box-shadow:0 0 8px #ec4899"></span> 🍿 100% FREE ENTERTAINMENT DIRECTORY
+      </div>
+      <h1 class="hero-h1">Stream Movies, Anime, Manga &amp; Live TV</h1>
+      <p class="hero-p">Direct ad-free access to 94+ verified platforms from REDRMY: AethoFlix, 1Shows, VegaMovies, AnimePahe, MangaDex, Asura Scans, DaddyLive &amp; more.</p>
+
+      <!-- HERO ACTION CLUSTER -->
+      <div class="hero-actions-cluster" style="margin-top:12px">
+        <a href="index.html" class="btn-hero-glass-link">
+          <span>📚 STUDY PORTAL</span>
+        </a>
+        <a href="https://t.me/REDRMYCOURSESS" target="_blank" class="btn-hero-glass-link" style="border-color:rgba(59,130,246,0.3);color:#60a5fa">
+          <span>⚡ TELEGRAM</span>
+        </a>
+      </div>
+
+      <!-- HERO LIVE STATS TICKER -->
+      <div class="hero-stats-glass">
+        <span class="hsg-item"><span class="hsg-dot-live"></span> <strong>94</strong> Curated Platforms</span>
+        <span class="hsg-item">🛡️ <strong>100% Free</strong> Direct Access</span>
+        <span class="hsg-item">⭐ <strong>Favorites</strong> Saved</span>
+      </div>
+    </div>
+
+    <!-- MAIN WRAPPER -->
+    <div class="wrap" style="padding-top:0">
+      
+      <!-- HORIZONTAL SCROLLING FILTER BAR -->
+      <div id="filter-bar" class="movie-filter-scroll">
+        <button class="filter-pill act" data-cat="all" onclick="setCategory('all',this)" type="button">🔥 All (<span id="cnt-all">94</span>)</button>
+        <button class="filter-pill" data-cat="movies" onclick="setCategory('movies',this)" type="button">🎬 Movies &amp; Series (<span id="cnt-movies">27</span>)</button>
+        <button class="filter-pill" data-cat="anime" onclick="setCategory('anime',this)" type="button">🐉 Anime Streaming (<span id="cnt-anime">20</span>)</button>
+        <button class="filter-pill" data-cat="manga" onclick="setCategory('manga',this)" type="button">📖 Manga &amp; Manhwa (<span id="cnt-manga">25</span>)</button>
+        <button class="filter-pill" data-cat="livetv" onclick="setCategory('livetv',this)" type="button">📺 Live TV &amp; Sports (<span id="cnt-livetv">22</span>)</button>
+        <button class="filter-pill" data-cat="favorites" onclick="setCategory('favorites',this)" type="button">⭐ Favorites (<span id="cnt-fav">0</span>)</button>
+      </div>
+
+      <!-- IN-PAGE SEARCH BAR -->
+      <div id="prov-search-wrap">
+        <div id="prov-search-icon"><svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
+        <input id="prov-search" type="text" placeholder="Search 90+ Movies, Anime, Manga &amp; TV platforms..." oninput="handleSearch(this.value)" autocomplete="off">
+        <button id="prov-search-clear" onclick="clearSearch()" type="button" style="display:none;background:none;border:none;color:var(--t2);cursor:pointer;padding:0 8px;font-size:16px">✕</button>
+      </div>
+
+      <!-- DYNAMIC ENTERTAINMENT CONTAINER -->
+      <div id="media-container" style="min-height:300px"></div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="divider"></div>
+    <div class="wrap" style="padding-top:24px;padding-bottom:24px">
+      <div class="footer-in">
+        <div class="footer-brand">
+          <img src="logo.png" style="width:24px;height:24px;border-radius:6px" alt="R" onerror="this.src='logo.png'">
+          <span style="font-family:var(--fd);font-size:.82rem;font-weight:800">REDRMY</span>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;margin:6px 0">
+          <a href="https://t.me/REDRMYCOURSESS" target="_blank" class="footer-tg-btn">📱 REDRMY COURSES</a>
+          <a href="https://t.me/Redrmy_bot" target="_blank" class="footer-tg-btn">🤖 REQUEST BOT</a>
+        </div>
+        <div class="footer-copy">REDRMY Ecosystem — Handcrafted for Students worldwide</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT ENGINE -->
+  <script>
+    /* ══════════════════════════════════════════════════════════════════════
+       REDRMY — COMPLETE MEDIA DATASET
+       ══════════════════════════════════════════════════════════════════════ */
+    const MEDIA_DATA = [
+      /* ── MOVIES SECTION (27 PLATFORMS) ── */
+      { id: 'm0', title: 'AethoFlix', url: 'https://aethoflix.vercel.app/', category: 'movies', desc: 'Free Movies, TV Shows & Web Series Streaming', badge: 'FEATURED' },
+      { id: 'm1', title: '1Shows', url: 'https://www.1shows.org/', category: 'movies', desc: 'Free Movies & TV Shows Streaming', badge: 'MOVIES' },
+      { id: 'm2', title: '1Flex', url: 'https://www.1flex.org/', category: 'movies', desc: 'Free Movies & Series Streaming', badge: 'SERIES' },
+      { id: 'm3', title: '1Tube', url: 'https://www.1tube.org/', category: 'movies', desc: 'Watch Online Movies & Videos', badge: 'HD VIDEO' },
+      { id: 'm4', title: 'ShuttleTV', url: 'https://shuttletv.su/', category: 'movies', desc: 'Movies, TV Shows & Series Portal', badge: 'PORTAL' },
+      { id: 'm5', title: 'FlickyStream', url: 'https://flickystream.dad/', category: 'movies', desc: 'Watch Free Movies & TV Series', badge: 'FREE' },
+      { id: 'm6', title: 'MeowTV', url: 'https://meowtv.ru/', category: 'movies', desc: 'Free Movies, TV Series & Cartoons', badge: 'CARTOONS' },
+      { id: 'm7', title: 'RiveStream', url: 'https://rivestream.ru/', category: 'movies', desc: 'Free Online Movie Streaming', badge: 'STREAM' },
+      { id: 'm8', title: 'Cinema', url: 'https://cinema.bz/', category: 'movies', desc: 'Popular Movies & Cinema Portal', badge: 'CINEMA' },
+      { id: 'm9', title: 'FilmCave', url: 'https://filmcave.ru/', category: 'movies', desc: 'High Quality Movie Streaming', badge: 'HQ' },
+      { id: 'm10', title: 'PopcornMovies', url: 'https://popcornmovies.io/', category: 'movies', desc: 'Stream New Movies & TV Shows', badge: 'POPCORN' },
+      { id: 'm11', title: 'Cineby', url: 'https://www.cineby.at/', category: 'movies', desc: 'Free Movie Streaming Online', badge: 'FAST' },
+      { id: 'm12', title: 'Nepu', url: 'https://nepu.to/', category: 'movies', desc: 'Popular HD Movie Directory', badge: 'DIRECTORY' },
+      { id: 'm13', title: 'FlixGaze', url: 'https://www.flixgaze.com/', category: 'movies', desc: 'Watch Latest Movies Online', badge: 'LATEST' },
+      { id: 'm14', title: 'NetPlayz', url: 'https://netplayz.top/', category: 'movies', desc: 'Free HD Movies & Web Series', badge: 'WEB SERIES' },
+      { id: 'm15', title: 'HollyMovieHD', url: 'https://hollymoviehd.cc/', category: 'movies', desc: 'Hollywood HD Movie Streams', badge: 'HOLLYWOOD' },
+      { id: 'm16', title: 'CinemaCity', url: 'https://cinemacity.cc/', category: 'movies', desc: 'Latest Movies & Shows Streaming', badge: 'CITY' },
+      { id: 'm17', title: 'InMovieBox', url: 'https://h5.inmoviebox.com/', category: 'movies', desc: 'Mobile-Optimized Movie Player', badge: 'MOBILE' },
+      { id: 'm18', title: 'OnlyFlix', url: 'https://onlyflix.to/', category: 'movies', desc: 'Watch TV Shows & Movies Online', badge: 'HD FLIX' },
+      { id: 'm19', title: 'HDTodayz', url: 'https://hdtodayz.net/', category: 'movies', desc: 'Free Streaming in High Definition', badge: 'HD 1080P' },
+      { id: 'm20', title: 'Willow', url: 'https://willow.arlen.icu/', category: 'movies', desc: 'Alternative Media & Streaming Server', badge: 'SERVER' },
+      { id: 'm21', title: 'FMovies HD', url: 'https://fmovies-hd.to/home/', category: 'movies', desc: 'Watch FMovies Online Free in HD', badge: 'FMOVIES' },
+      { id: 'm22', title: 'WatchOTT', url: 'https://watchott.org/', category: 'movies', desc: 'OTT Platform & Movies Hub', badge: 'OTT HUB' },
+      { id: 'm23', title: 'FlixWay', url: 'https://flixway.ru/', category: 'movies', desc: 'Free Series & Film Portal', badge: 'SERIES' },
+      { id: 'm24', title: 'StreamingUnity', url: 'https://streamingunity.cc/', category: 'movies', desc: 'Unified Movie & Video Streaming', badge: 'UNIFIED' },
+      { id: 'm25', title: 'HDHub4U', url: 'https://hdhub4u.ec/', category: 'movies', desc: 'Free HD Movies & Web Series Download', badge: '4K DUAL' },
+      { id: 'm26', title: 'VegaMovies', url: 'https://vegamoviess.fun/', category: 'movies', desc: 'Dual Audio & 4K Movies Download', badge: '4K ULTRA' },
+
+      /* ── ANIME SECTION (20 PLATFORMS) ── */
+      { id: 'a1', title: 'ReAnime', url: 'https://reanime.to/home', category: 'anime', desc: 'Free HD Anime Streaming Portal', badge: 'SUB/DUB' },
+      { id: 'a2', title: 'AnimePahe', url: 'https://animepahe.pw/', category: 'anime', desc: 'Stream Anime online in high quality', badge: 'COMPACT' },
+      { id: 'a3', title: 'AniKotoTV', url: 'https://anikototv.to/', category: 'anime', desc: 'Watch Anime online free', badge: 'FREE HD' },
+      { id: 'a4', title: 'Enma', url: 'https://www.enma.lol/', category: 'anime', desc: 'Latest Anime episodes streaming', badge: 'AIRING' },
+      { id: 'a5', title: 'Miruro', url: 'https://www.miruro.to/', category: 'anime', desc: 'Modern & Clean Anime stream site', badge: 'AD FREE' },
+      { id: 'a6', title: 'AnimeNexus', url: 'https://anime.nexus/', category: 'anime', desc: 'Anime media hub & stream database', badge: 'NEXUS' },
+      { id: 'a7', title: 'AniDB', url: 'https://anidb.app/home', category: 'anime', desc: 'Anime Database & community forum', badge: 'DB' },
+      { id: 'a8', title: 'Senshi', url: 'https://senshi.live/', category: 'anime', desc: 'Free Anime streaming online', badge: 'SENSHI' },
+      { id: 'a9', title: 'AniKage', url: 'https://anikage.cc/home', category: 'anime', desc: 'Watch free anime episodes', badge: 'EPISODES' },
+      { id: 'a10', title: 'AniDap', url: 'https://anidap.lol/', category: 'anime', desc: 'Anime streams & direct downloads', badge: 'DOWNLOAD' },
+      { id: 'a11', title: 'SenpaiFlix', url: 'https://senpaiflix.fun/', category: 'anime', desc: 'Premium Anime series directory', badge: 'PREMIUM' },
+      { id: 'a12', title: 'AnimeX', url: 'https://animex.one/home', category: 'anime', desc: 'Latest sub & dub anime', badge: 'SUB/DUB' },
+      { id: 'a13', title: '1Anime', url: 'https://1anime.app/discover', category: 'anime', desc: 'Discover & watch anime episodes', badge: 'DISCOVER' },
+      { id: 'a14', title: 'AniStream', url: 'https://anistream.one/', category: 'anime', desc: 'Free online anime streaming', badge: 'STREAM' },
+      { id: 'a15', title: 'Kaa', url: 'https://kaa.lt/', category: 'anime', desc: 'Fast online anime streaming site', badge: 'FAST' },
+      { id: 'a16', title: 'JustAnime', url: 'https://justanime.to/', category: 'anime', desc: 'Free Anime episodes online', badge: 'HD' },
+      { id: 'a17', title: 'AniWaves', url: 'https://aniwaves.ru/', category: 'anime', desc: 'Watch anime online free in Russian/Sub', badge: 'WAVES' },
+      { id: 'a18', title: 'AnimeHeaven', url: 'https://animeheaven.me/', category: 'anime', desc: 'Watch anime episodes and movies free', badge: 'MOVIES' },
+      { id: 'a19', title: 'AniTaku', url: 'https://anitaku.io/', category: 'anime', desc: 'Free Anime streaming index', badge: 'INDEX' },
+      { id: 'a20', title: 'LunarAnime', url: 'https://lunaranime.ru/anime', category: 'anime', desc: 'Free Anime series tracker', badge: 'TRACKER' },
+
+      /* ── MANGA & MANHWA SECTION (25 PLATFORMS) ── */
+      { id: 'mg1', title: 'MangaDex', url: 'https://mangadex.org', category: 'manga', desc: 'High quality online manga reader', badge: 'TOP RATED' },
+      { id: 'mg2', title: 'MANGA Plus', url: 'https://mangaplus.shueisha.co.jp', category: 'manga', desc: 'Official Shueisha manga release platform', badge: 'OFFICIAL' },
+      { id: 'mg3', title: 'Webtoon', url: 'https://www.webtoons.com', category: 'manga', desc: 'Digital comics and webtoons', badge: 'WEBTOON' },
+      { id: 'mg4', title: 'ComicWalker', url: 'https://comic-walker.com', category: 'manga', desc: 'Free Japanese web manga', badge: 'JAPANESE' },
+      { id: 'mg5', title: 'MangaBall', url: 'https://mangaball.net/', category: 'manga', desc: 'Read free manga online in high quality', badge: 'HQ READER' },
+      { id: 'mg6', title: 'Atsu', url: 'https://atsu.moe/', category: 'manga', desc: 'Clean online manga reader', badge: 'CLEAN UI' },
+      { id: 'mg7', title: 'OniSaga', url: 'https://onisaga.com/', category: 'manga', desc: 'Read latest manga & manhwa chapters', badge: 'MANHWA' },
+      { id: 'mg8', title: 'Kagane', url: 'https://kagane.to/', category: 'manga', desc: 'Popular manga & webtoon reader', badge: 'POPULAR' },
+      { id: 'mg9', title: 'AquaReader', url: 'https://aquareader.org/', category: 'manga', desc: 'Free high quality manga reader', badge: 'READER' },
+      { id: 'mg10', title: 'ComicK', url: 'https://comick.dev/', category: 'manga', desc: 'Comprehensive manga database & reader', badge: 'DATABASE' },
+      { id: 'mg11', title: 'Comix', url: 'https://comix.to/', category: 'manga', desc: 'Read digital comics & manga online', badge: 'COMICS' },
+      { id: 'mg12', title: 'MangaDot', url: 'https://mangadot.net/', category: 'manga', desc: 'Online manga reading directory', badge: 'DIRECTORY' },
+      { id: 'mg13', title: 'MangaBuddy', url: 'https://mangabuddy1.co.uk/', category: 'manga', desc: 'Read free manga & manhwa online', badge: 'FREE' },
+      { id: 'mg14', title: 'QToon', url: 'https://qtoon.org/', category: 'manga', desc: 'Free Webtoon & Manhwa reader', badge: 'QTOON' },
+      { id: 'mg15', title: 'MangaGo', url: 'https://mangago.me/', category: 'manga', desc: 'Huge library of free manga', badge: 'LIBRARY' },
+      { id: 'mg16', title: 'MangaFire', url: 'https://mangafire.to/home', category: 'manga', desc: 'Free HD Manga reading platform', badge: 'HD MANGA' },
+      { id: 'mg17', title: 'AllManga', url: 'https://allmanga.to/manga?cty=ALL', category: 'manga', desc: 'Read all manga & manhwa online', badge: 'ALL SCAN' },
+      { id: 'mg18', title: 'Mangakakalot', url: 'https://www.mangakakalot.gg/', category: 'manga', desc: 'Popular online manga reading portal', badge: 'POPULAR' },
+      { id: 'mg19', title: 'Asura Scans', url: 'https://asurascans.com/', category: 'manga', desc: 'Popular Manhwa & Manga scanlations', badge: 'MANHWA' },
+      { id: 'mg20', title: 'MangaHub', url: 'https://mangahub.io/', category: 'manga', desc: 'Read free manga online directory', badge: 'HUB' },
+      { id: 'mg21', title: 'WeebCentral', url: 'https://weebcentral.com/', category: 'manga', desc: 'Weeb manga reading platform', badge: 'CENTRAL' },
+      { id: 'mg22', title: 'MangaKatana', url: 'https://mangakatana.com/', category: 'manga', desc: 'Fast online manga reader', badge: 'FAST' },
+      { id: 'mg23', title: 'LikeManga', url: 'https://likemanga.ink/', category: 'manga', desc: 'Read latest manga & manhwa online', badge: 'LATEST' },
+      { id: 'mg24', title: 'MangaXO', url: 'https://mangaxo.com/home', category: 'manga', desc: 'Online manga reading catalog', badge: 'CATALOG' },
+      { id: 'mg25', title: 'King of Shojo', url: 'https://kingofshojo.com/', category: 'manga', desc: 'Shojo & romance manga reader', badge: 'SHOJO' },
+
+      /* ── LIVE TV & SPORTS SECTION (22 PLATFORMS) ── */
+      { id: 'tv1', title: 'DLHD (DaddyLive)', url: 'https://dlhd.st/', category: 'livetv', desc: 'Live sports channels & TV streams', badge: 'LIVE HD' },
+      { id: 'tv2', title: 'OnDemand HD', url: 'https://ondemand.st/', category: 'livetv', desc: 'On demand sports & live channels', badge: 'ON DEMAND' },
+      { id: 'tv3', title: 'Streamed.pk', url: 'https://streamed.pk/', category: 'livetv', desc: 'Free live sports streaming portal', badge: 'CRICKET/FB' },
+      { id: 'tv4', title: 'SportPlus Watch', url: 'https://en97.sportplus.watch/', category: 'livetv', desc: 'Global live sports streams', badge: 'GLOBAL' },
+      { id: 'tv5', title: 'VenueVault', url: 'https://venuevault.live/', category: 'livetv', desc: 'Live sports & events portal', badge: 'EVENTS' },
+      { id: 'tv6', title: 'TheTVApp', url: 'https://thetvapptv.com/', category: 'livetv', desc: 'Free live cable channels & sports', badge: 'CABLE TV' },
+      { id: 'tv7', title: 'NTV', url: 'https://ntv.cx/', category: 'livetv', desc: 'Live TV channels & sports directory', badge: 'NTV LIVE' },
+      { id: 'tv8', title: 'Public IPTV', url: 'https://publiciptv.com/', category: 'livetv', desc: 'Free IPTV playlist & live channels', badge: 'IPTV' },
+      { id: 'tv9', title: 'StreamEast Now', url: 'https://streameastnow.net/', category: 'livetv', desc: 'Popular live sports streaming index', badge: 'TOP STREAMS' },
+      { id: 'tv10', title: 'The StreamEast', url: 'https://thestreameast.top/', category: 'livetv', desc: 'Live HD sports streaming hub', badge: 'STREAMEAST' },
+      { id: 'tv11', title: 'SportSurge V2', url: 'https://v2.sportsurge.net/', category: 'livetv', desc: 'Sports streams aggregator', badge: 'AGGREGATOR' },
+      { id: 'tv12', title: 'FameLack', url: 'https://famelack.com/', category: 'livetv', desc: 'Live sports & entertainment streams', badge: 'ENTERTAIN' },
+      { id: 'tv13', title: 'TVPass', url: 'https://tvpass.org/', category: 'livetv', desc: 'Free live TV channel streams', badge: 'FREE TV' },
+      { id: 'tv14', title: 'MethStreams', url: 'https://methstreams.me/', category: 'livetv', desc: 'HD live sports streaming streams', badge: 'SPORTS HD' },
+      { id: 'tv15', title: 'CrackStreams', url: 'https://crackstreams.app/', category: 'livetv', desc: 'Live MMA, Boxing, NBA & NFL streams', badge: 'MMA/NBA' },
+      { id: 'tv16', title: 'BuffStreams', url: 'https://buffstreams.app/', category: 'livetv', desc: 'Free sports live streams directory', badge: 'DIRECTORY' },
+      { id: 'tv17', title: 'LiveTV.sx', url: 'https://livetv.sx/', category: 'livetv', desc: 'Live sports scores & video broadcasts', badge: 'SCORES' },
+      { id: 'tv18', title: 'ESPN', url: 'https://www.espn.com', category: 'livetv', desc: 'Sports scores, news & live streams', badge: 'ESPN' },
+      { id: 'tv19', title: 'BBC Sport', url: 'https://www.bbc.com/sport', category: 'livetv', desc: 'Sports news, results & live commentary', badge: 'BBC' },
+      { id: 'tv20', title: 'Pluto TV', url: 'https://pluto.tv', category: 'livetv', desc: 'Free live TV channels & movies', badge: 'PLUTO TV' },
+      { id: 'tv21', title: 'Twitch', url: 'https://www.twitch.tv', category: 'livetv', desc: 'Live gaming & esports streaming', badge: 'GAMING' },
+      { id: 'tv22', title: 'Eurosport', url: 'https://www.eurosport.com', category: 'livetv', desc: 'European sports news & highlights', badge: 'EUROSPORT' }
+    ];
+
+    /* Category Definitions */
+    const CATEGORY_META = {
+      movies: { title: 'Movies & Web Series', icon: '🎬', sub: 'Full HD Movies, 4K Dual Audio & OTT Series', badgeClass: 'pbw', action: 'WATCH NOW' },
+      anime:  { title: 'Anime Streaming', icon: '🐉', sub: 'Full HD Sub & Dub Airing Episodes', badgeClass: 'pba', action: 'STREAM HD' },
+      manga:  { title: 'Manga, Manhwa & Webtoons', icon: '📖', sub: 'Free Online Reader for Manga & Action Scans', badgeClass: 'pbb', action: 'READ NOW' },
+      livetv: { title: 'Live TV & Sports', icon: '📺', sub: 'Live Sports, Global Cable & PPV Streams', badgeClass: 'pbw', action: 'WATCH LIVE' }
+    };
+
+    /* App State */
+    let currentCategory = 'all';
+    let searchQuery = '';
+    let favoriteIds = [];
+
+    /* Load Favorites from LocalStorage */
+    try {
+      const saved = localStorage.getItem('redrmy_enjoy_favs');
+      if (saved) favoriteIds = JSON.parse(saved);
+    } catch(e) {
+      favoriteIds = [];
+    }
+
+    /* Helper: Extract Domain for Favicon */
+    function getDomain(url) {
+      try {
+        const u = new URL(url);
+        return u.hostname;
+      } catch(e) {
+        return 'google.com';
+      }
+    }
+
+    /* Update Count Badges */
+    function updateCounts() {
+      const counts = { all: MEDIA_DATA.length, movies: 0, anime: 0, manga: 0, livetv: 0, favorites: favoriteIds.length };
+      MEDIA_DATA.forEach(item => {
+        if (counts[item.category] !== undefined) counts[item.category]++;
+      });
+      document.getElementById('cnt-all').textContent = counts.all;
+      document.getElementById('cnt-movies').textContent = counts.movies;
+      document.getElementById('cnt-anime').textContent = counts.anime;
+      document.getElementById('cnt-manga').textContent = counts.manga;
+      document.getElementById('cnt-livetv').textContent = counts.livetv;
+      document.getElementById('cnt-fav').textContent = counts.favorites;
+    }
+
+    /* Build Single Platform Card */
+    function buildCard(item) {
+      const meta = CATEGORY_META[item.category] || { badgeClass: 'pbw', action: 'OPEN' };
+      const isFav = favoriteIds.includes(item.id);
+      const domain = getDomain(item.url);
+      const faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+
+      return `
+        <div class="plat-card" onclick="window.open('${item.url}','_blank')">
+          <span class="pbadge ${meta.badgeClass}">${item.badge || 'HD'}</span>
+          <button class="badge-fav${isFav ? ' act' : ''}" onclick="event.stopPropagation();toggleMediaFav('${item.id}',this)" type="button" title="Favorite platform" aria-label="Favorite">
+            <svg class="fav-icon" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </button>
+          <img src="${faviconUrl}" class="plat-logo" alt="${item.title}" loading="lazy" onerror="this.src='logo.png'">
+          <div class="plat-name">${item.title}</div>
+          <div class="plat-desc">${item.desc}</div>
+          <a href="${item.url}" target="_blank" onclick="event.stopPropagation()" class="btn-study">${meta.action}</a>
+        </div>
+      `;
+    }
+
+    /* Render Media Hub */
+    function renderMedia() {
+      const container = document.getElementById('media-container');
+      if (!container) return;
+
+      const q = searchQuery.toLowerCase().trim();
+
+      // Filter dataset
+      let filtered = MEDIA_DATA.filter(item => {
+        const matchesCategory = 
+          currentCategory === 'all' ? true :
+          currentCategory === 'favorites' ? favoriteIds.includes(item.id) :
+          item.category === currentCategory;
+
+        if (!matchesCategory) return false;
+
+        if (!q) return true;
+        const text = `${item.title} ${item.desc} ${item.badge} ${item.url}`.toLowerCase();
+        return text.includes(q);
+      });
+
+      // Empty State
+      if (filtered.length === 0) {
+        if (currentCategory === 'favorites' && !q) {
+          container.innerHTML = `
+            <div style="text-align:center;padding:50px 20px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:20px;margin-top:20px">
+              <div style="font-size:3rem;margin-bottom:12px">⭐</div>
+              <div style="font-family:var(--fd);font-size:1.1rem;font-weight:800;color:var(--t1);margin-bottom:6px">No Favorites Added Yet</div>
+              <div style="color:var(--t2);font-size:.8rem;max-width:380px;margin:0 auto 16px">Click the star icon (★) in the top-right corner of any movie, anime, or manga card to add it here.</div>
+              <button class="filter-pill act" onclick="setCategory('all',document.querySelector('[data-cat=all]'))" type="button">Explore All 90+ Platforms</button>
+            </div>
+          `;
+        } else {
+          container.innerHTML = `
+            <div style="text-align:center;padding:50px 20px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:20px;margin-top:20px">
+              <div style="font-size:3rem;margin-bottom:12px">🔍</div>
+              <div style="font-family:var(--fd);font-size:1.1rem;font-weight:800;color:var(--t1);margin-bottom:6px">No platforms found</div>
+              <div style="color:var(--t2);font-size:.8rem;margin-bottom:16px">We couldn't find anything matching "<strong>${escapeHtml(q)}</strong>"</div>
+              <button class="filter-pill act" onclick="clearSearch()" type="button">Clear Search Query</button>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      // Group by category if viewing 'all' and not searching
+      if (currentCategory === 'all' && !q) {
+        const catKeys = ['movies', 'anime', 'manga', 'livetv'];
+        let html = '';
+
+        catKeys.forEach(catKey => {
+          const catItems = filtered.filter(item => item.category === catKey);
+          if (catItems.length === 0) return;
+          const meta = CATEGORY_META[catKey];
+
+          html += `
+            <div class="prov-block rv" data-category="${catKey}" style="margin-bottom:28px">
+              <div class="prov-head">
+                <span style="font-size:1.35rem">${meta.icon}</span>
+                <div class="prov-info">
+                  <div class="prov-name">${meta.title}</div>
+                  <div class="prov-cnt">${catItems.length} Platforms • ${meta.sub}</div>
+                </div>
+                <button class="badge-star" onclick="setCategory('${catKey}',document.querySelector('[data-cat=${catKey}]'))" style="cursor:pointer;background:rgba(255,255,255,0.06);color:var(--t1);border:1px solid rgba(255,255,255,0.12)">VIEW ALL →</button>
+              </div>
+              <div class="plats-grid">
+                ${catItems.map(item => buildCard(item)).join('')}
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      } else {
+        // Flat list for specific category, search, or favorites
+        const catTitle = currentCategory === 'favorites' ? '⭐ My Favorite Platforms' : 
+                         (CATEGORY_META[currentCategory] ? `${CATEGORY_META[currentCategory].icon} ${CATEGORY_META[currentCategory].title}` : 'Search Results');
+        
+        container.innerHTML = `
+          <div class="prov-block rv">
+            <div class="prov-head">
+              <span style="font-size:1.35rem">${currentCategory === 'favorites' ? '⭐' : (CATEGORY_META[currentCategory]?.icon || '🔍')}</span>
+              <div class="prov-info">
+                <div class="prov-name">${catTitle}</div>
+                <div class="prov-cnt">${filtered.length} Platform${filtered.length > 1 ? 's' : ''} available ${q ? `matching "${escapeHtml(q)}"` : ''}</div>
+              </div>
+            </div>
+            <div class="plats-grid">
+              ${filtered.map(item => buildCard(item)).join('')}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    /* Category Switching */
+    function setCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('#filter-bar .filter-pill').forEach(b => b.classList.remove('act'));
+      if (btn) {
+        btn.classList.add('act');
+        btn.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+      }
+      renderMedia();
+    }
+
+    /* Real-Time Search */
+    function handleSearch(val) {
+      searchQuery = val;
+      const clearBtn = document.getElementById('prov-search-clear');
+      if (clearBtn) clearBtn.style.display = val ? 'block' : 'none';
+      renderMedia();
+    }
+
+    /* Clear Search */
+    function clearSearch() {
+      const inp = document.getElementById('prov-search');
+      if (inp) { inp.value = ''; inp.focus(); }
+      searchQuery = '';
+      const clearBtn = document.getElementById('prov-search-clear');
+      if (clearBtn) clearBtn.style.display = 'none';
+      renderMedia();
+    }
+
+    /* Toggle Favorite Status */
+    function toggleMediaFav(id, btn) {
+      const idx = favoriteIds.indexOf(id);
+      if (idx > -1) {
+        favoriteIds.splice(idx, 1);
+        if (btn) btn.classList.remove('act');
+        showToast('Removed from favorites');
+      } else {
+        favoriteIds.push(id);
+        if (btn) btn.classList.add('act');
+        showToast('Saved to favorites! ⭐');
+      }
+      try {
+        localStorage.setItem('redrmy_enjoy_favs', JSON.stringify(favoriteIds));
+      } catch(e){}
+      updateCounts();
+      if (currentCategory === 'favorites') {
+        renderMedia();
+      }
+    }
+
+    /* HTML Sanitizer */
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[m]));
+    }
+
+    /* Toast Notification */
+    let toastTimer = null;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      if (!t) return;
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { t.classList.remove('show'); }, 2200);
+    }
+
+    /* ── LIQUID CANVAS ANIMATION ── */
+    function initLiquidBg() {
+      const canvas = document.getElementById('canvas-bg');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      let width = 0, height = 0;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+      
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        if (mouse.x === 0 && mouse.y === 0) {
+          mouse.x = mouse.targetX = width / 2;
+          mouse.y = mouse.targetY = height / 2;
+        }
+      }
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+      window.addEventListener('mousemove', e => { mouse.targetX = e.clientX; mouse.targetY = e.clientY; }, { passive: true });
+      window.addEventListener('touchmove', e => { 
+        if (e.touches && e.touches[0]) { 
+          mouse.targetX = e.touches[0].clientX; 
+          mouse.targetY = e.touches[0].clientY; 
+        } 
+      }, { passive: true });
+
+      const blobs = [
+        { x: 0.22, y: 0.28, r: 260, color: [236, 72, 153], phase: 0 },
+        { x: 0.78, y: 0.22, r: 300, color: [99, 102, 241], phase: 1.5 },
+        { x: 0.5, y: 0.65, r: 270, color: [59, 130, 246], phase: 3.1 },
+        { x: 0.88, y: 0.78, r: 240, color: [239, 68, 68], phase: 4.5 },
+        { x: 0.12, y: 0.82, r: 250, color: [16, 185, 129], phase: 2.2 }
+      ];
+
+      let t = 0;
+      function draw() {
+        if (document.hidden) { requestAnimationFrame(draw); return; }
+        t += 0.015;
+        mouse.x += (mouse.targetX - mouse.x) * 0.04;
+        mouse.y += (mouse.targetY - mouse.y) * 0.04;
+        ctx.clearRect(0, 0, width, height);
+
+        blobs.forEach((b, i) => {
+          const cx = (b.x + Math.sin(t * 0.7 + b.phase) * 0.1) * width + (mouse.x - width/2) * 0.04 * (i % 2 === 0 ? 1 : -1);
+          const cy = (b.y + Math.cos(t * 0.6 + b.phase) * 0.1) * height + (mouse.y - height/2) * 0.04 * (i % 2 === 0 ? -1 : 1);
+          const cr = b.r * (1 + Math.sin(t * 1.1 + b.phase) * 0.12);
+          const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, cr);
+          const [r, g, bl] = b.color;
+          grad.addColorStop(0, `rgba(${r}, ${g}, ${bl}, 0.24)`);
+          grad.addColorStop(0.55, `rgba(${r}, ${g}, ${bl}, 0.08)`);
+          grad.addColorStop(1, `rgba(${r}, ${g}, ${bl}, 0)`);
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(cx, cy, cr, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    /* ── SMART SCROLL, PROGRESS & QUICK UTILITIES ── */
+    let quickToolsOpen = false;
+
+    function scrollToTopSmooth() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function scrollToBottomSmooth() {
+      closeQuickTools();
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+    }
+
+    function toggleQuickTools() {
+      quickToolsOpen = !quickToolsOpen;
+      const menu = document.getElementById('quick-tools-menu');
+      const btn = document.getElementById('quick-tools-toggle');
+      if (menu) {
+        menu.classList.toggle('open', quickToolsOpen);
+        menu.setAttribute('aria-hidden', String(!quickToolsOpen));
+      }
+      if (btn) btn.classList.toggle('active', quickToolsOpen);
+    }
+
+    function closeQuickTools() {
+      if (!quickToolsOpen) return;
+      quickToolsOpen = false;
+      const menu = document.getElementById('quick-tools-menu');
+      const btn = document.getElementById('quick-tools-toggle');
+      if (menu) {
+        menu.classList.remove('open');
+        menu.setAttribute('aria-hidden', 'true');
+      }
+      if (btn) btn.classList.remove('active');
+    }
+
+    function toggleZenMode() {
+      closeQuickTools();
+      const isZen = document.body.classList.toggle('zen-mode');
+      if (isZen) {
+        showToast('🎯 Cinema Mode Activated • Press ESC to exit');
+      } else {
+        showToast('Exited Cinema Mode');
+      }
+    }
+
+    function copyPageLink() {
+      closeQuickTools();
+      const url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url)
+          .then(() => showToast('🔗 Page link copied to clipboard!'))
+          .catch(() => showToast('🔗 ' + url));
+      } else {
+        showToast('🔗 ' + url);
+      }
+    }
+
+    /* Ambient Rain / White Noise (Pure Web Audio API) */
+    let ambientAudioCtx = null;
+    let ambientSource = null;
+    let ambientGain = null;
+    let isAmbientPlaying = false;
+
+    function toggleAmbientSound() {
+      if (isAmbientPlaying) {
+        stopAmbientSound();
+      } else {
+        startAmbientSound();
+      }
+    }
+
+    function startAmbientSound() {
+      try {
+        if (!ambientAudioCtx) {
+          ambientAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (ambientAudioCtx.state === 'suspended') {
+          ambientAudioCtx.resume();
+        }
+        const sampleRate = ambientAudioCtx.sampleRate;
+        const bufferSize = sampleRate * 4;
+        const buffer = ambientAudioCtx.createBuffer(1, bufferSize, sampleRate);
+        const data = buffer.getChannelData(0);
+        let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.96900 * b2 + white * 0.1538520;
+          b3 = 0.86650 * b3 + white * 0.3104856;
+          b4 = 0.55000 * b4 + white * 0.5329522;
+          b5 = -0.7616 * b5 - white * 0.0168980;
+          data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.04;
+          b6 = white * 0.115926;
+        }
+        const filter = ambientAudioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 900;
+        ambientGain = ambientAudioCtx.createGain();
+        ambientGain.gain.setValueAtTime(0.01, ambientAudioCtx.currentTime);
+        ambientGain.gain.exponentialRampToValueAtTime(0.4, ambientAudioCtx.currentTime + 1.2);
+        ambientSource = ambientAudioCtx.createBufferSource();
+        ambientSource.buffer = buffer;
+        ambientSource.loop = true;
+        ambientSource.connect(filter);
+        filter.connect(ambientGain);
+        ambientGain.connect(ambientAudioCtx.destination);
+        ambientSource.start(0);
+        isAmbientPlaying = true;
+        updateAmbientUI(true);
+        showToast('🌧️ Relaxing Rain Ambience On');
+      } catch(e) {
+        showToast('Audio not supported');
+      }
+    }
+
+    function stopAmbientSound() {
+      if (ambientGain && ambientAudioCtx) {
+        try { ambientGain.gain.linearRampToValueAtTime(0.01, ambientAudioCtx.currentTime + 0.35); } catch(e){}
+        setTimeout(() => {
+          try {
+            if (ambientSource) { ambientSource.stop(); ambientSource.disconnect(); }
+          } catch(e){}
+          isAmbientPlaying = false;
+          updateAmbientUI(false);
+          showToast('🔇 Ambience Paused');
+        }, 360);
+      } else {
+        isAmbientPlaying = false;
+        updateAmbientUI(false);
+      }
+    }
+
+    function updateAmbientUI(playing) {
+      const wave = document.getElementById('qt-sound-wave');
+      const txt = document.getElementById('qt-ambient-text');
+      if (wave) wave.classList.toggle('active', playing);
+      if (txt) txt.textContent = playing ? 'Pause Rain' : 'Rain Ambience';
+    }
+
+    document.addEventListener('click', (e) => {
+      const widget = document.getElementById('scroll-widget');
+      if (widget && !widget.contains(e.target)) {
+        closeQuickTools();
+      }
+    }, { passive: true });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeQuickTools();
+        if (document.body.classList.contains('zen-mode')) {
+          toggleZenMode();
+        }
+      }
+    });
+
+    let scrollTicking = false;
+    function onPageScroll() {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollY = window.scrollY;
+      if (h > 0) {
+        const prog = document.getElementById('progress');
+        const pct = Math.min(100, Math.max(0, Math.round((scrollY / h) * 100)));
+        if (prog) prog.style.width = pct + '%';
+        const spBar = document.getElementById('sp-bar');
+        if (spBar) {
+          const offset = 125.66 - (pct / 100 * 125.66);
+          spBar.style.strokeDashoffset = offset;
+        }
+        const stPct = document.getElementById('st-pct');
+        if (stPct) stPct.textContent = pct + '%';
+      }
+      const nav = document.getElementById('nav');
+      if (nav) nav.classList.toggle('sc', scrollY > 40);
+      const widget = document.getElementById('scroll-widget') || document.getElementById('scroll-top');
+      if (widget) widget.classList.toggle('vis', scrollY > 120);
+      scrollTicking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        requestAnimationFrame(onPageScroll);
+        scrollTicking = true;
+      }
+    }, { passive: true });
+
+    /* Init on page load */
+    document.addEventListener('DOMContentLoaded', () => {
+      initLiquidBg();
+      updateCounts();
+      renderMedia();
+    });
+  </script>
+</body>
+</html>

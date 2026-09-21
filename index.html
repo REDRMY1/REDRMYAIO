@@ -1,327 +1,849 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="night">
+<html lang="en" data-theme="dark">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C0ZW6PGV38"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-C0ZW6PGV38');
-    </script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>REDRMY AIO - Personal Hub & Media Directory</title>
-    <meta name="description" content="REDRMY AIO - Handcrafted all-in-one bookmark launcher for Study, Movies, Anime, Manga, Live TV & Sports, and Comic Books.">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JFGESLYGJX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JFGESLYGJX');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>REDRMY AIO — All Study Platforms & Personal Ecosystem</title>
+  <meta name="description" content="REDRMY AIO — Premium ecosystem for every student. Access all study platforms, batches, notes, PYQs, and tests in one place.">
+  <meta name="theme-color" content="#050505">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="logo.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="REDRMY AIO">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Exo+2:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Main Container -->
-    <div class="app-wrapper">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="header-brand">
-                <div class="logo-wrapper">
-                    <img src="logo.png" alt="REDRMY AIO Logo" class="app-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="logo-fallback" style="display:none;"><i class="fa-solid fa-shapes"></i></div>
-                </div>
-                <div class="brand-text">
-                    <h1 class="app-title">REDRMY <span>AIO</span></h1>
-                    <p class="app-subtitle">Handcrafted All-In-One Directory</p>
-                </div>
-                <div class="header-clock" id="headerClock" title="Live Local Time">
-                    <i class="fa-regular fa-clock"></i>
-                    <span id="clockTime">--:--:--</span>
-                </div>
-            </div>
-
-            <!-- Controls (Search, Telegram Add Link, Theme, Layout, Settings) -->
-            <div class="header-actions">
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="searchInput" placeholder="Search links or domain..." accesskey="/">
-                    <button class="clear-search-btn" id="clearSearchBtn" title="Clear Search" style="display: none;">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                    <span class="search-shortcut">/</span>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn btn-secondary icon-btn" id="aboutBtn" title="About Developer">
-                        <i class="fa-solid fa-user-astronaut text-sky"></i>
-                        <span class="btn-text">About</span>
-                    </button>
-
-                    <!-- User Requested Add Link Button via Telegram Bot -->
-                    <a href="https://t.me/Redrmy_bot?text=Here%20link%20-%20YOUR_LINK_HERE" target="_blank" rel="noopener noreferrer" class="telegram-btn" title="Add Link via Telegram">
-                        <i class="fa-brands fa-telegram"></i> Add Link
-                    </a>
-
-                    <button class="btn btn-secondary icon-btn" id="themeToggleBtn" title="Toggle Day/Night Mode">
-                        <i class="fa-solid fa-moon" id="themeIcon"></i>
-                        <span class="btn-text" id="themeLabel">Night</span>
-                    </button>
-
-                    <button class="btn btn-secondary icon-btn" id="layoutToggleBtn" title="Toggle Layout View">
-                        <i class="fa-solid fa-border-all" id="layoutIcon"></i>
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <div style="display: flex; justify-content: center; align-items: center; margin: 10px 0;">
-            <script>
-              atOptions = {
-                'key' : '7bdd1316bc2bbf5a8f14ea0cb70fa9f5',
-                'format' : 'iframe',
-                'height' : 300,
-                'width' : 160,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highperformanceformat.com/7bdd1316bc2bbf5a8f14ea0cb70fa9f5/invoke.js"></script>
-        </div>
-
-        <!-- Category Nav Filter Tabs with Scroll Buttons -->
-        <div class="category-wrapper">
-            <button class="category-scroll-btn scroll-left" id="scrollLeftBtn" title="Scroll Left" aria-label="Scroll Left">
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            
-            <nav class="category-nav" id="categoryNav">
-                <button class="nav-tab active" data-category="all">
-                    <i class="fa-solid fa-compass"></i>
-                    <span>All Links</span>
-                    <span class="badge" id="badge-all">0</span>
-                </button>
-                <button class="nav-tab" data-category="favorites">
-                    <i class="fa-solid fa-star text-amber"></i>
-                    <span>Favorites</span>
-                    <span class="badge" id="badge-favorites">0</span>
-                </button>
-                <button class="nav-tab" data-category="study">
-                    <i class="fa-solid fa-graduation-cap text-indigo"></i>
-                    <span>Study</span>
-                    <span class="badge" id="badge-study">0</span>
-                </button>
-                <button class="nav-tab" data-category="movies">
-                    <i class="fa-solid fa-film text-rose"></i>
-                    <span>Movies</span>
-                    <span class="badge" id="badge-movies">0</span>
-                </button>
-                <button class="nav-tab" data-category="animes">
-                    <i class="fa-solid fa-dragon text-purple"></i>
-                    <span>Animes</span>
-                    <span class="badge" id="badge-animes">0</span>
-                </button>
-                <button class="nav-tab" data-category="manga">
-                    <i class="fa-solid fa-book-open text-emerald"></i>
-                    <span>Manga</span>
-                    <span class="badge" id="badge-manga">0</span>
-                </button>
-                <button class="nav-tab" data-category="livetv">
-                    <i class="fa-solid fa-tv text-sky"></i>
-                    <span>Live TV & Sports</span>
-                    <span class="badge" id="badge-livetv">0</span>
-                </button>
-                <button class="nav-tab" data-category="tools">
-                    <i class="fa-solid fa-screwdriver-wrench text-orange"></i>
-                    <span>Tools</span>
-                    <span class="badge" id="badge-tools">0</span>
-                </button>
-            </nav>
-
-            <button class="category-scroll-btn scroll-right" id="scrollRightBtn" title="Scroll Right" aria-label="Scroll Right">
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
-        </div>
-
-        <!-- Main Content Area -->
-        <main class="content-container" id="contentContainer">
-            <!-- Dynamic Sections populated by JS -->
-        </main>
-
-        <!-- Empty Search Result View -->
-        <div class="empty-state" id="emptyState" style="display: none;">
-            <div class="empty-icon"><i class="fa-solid fa-ghost"></i></div>
-            <h3>No links found</h3>
-            <p>Try adjusting your search query.</p>
-        </div>
-
-
-        <!-- Community Education & Feedback Note -->
-        <div class="community-note-card">
-            <div class="note-icon-badge">
-                <i class="fa-solid fa-hand-holding-heart"></i>
-            </div>
-            <div class="note-content">
-                <h4><i class="fa-solid fa-graduation-cap text-amber"></i> Support Free Education for Everyone</h4>
-                <p>If you know any free educational websites, apps, or study portals that can help underprivileged students access quality education, or if you have suggestions to improve this website, please share them with us!</p>
-            </div>
-            <a href="https://t.me/Redrmy4" target="_blank" rel="noopener noreferrer" class="btn btn-telegram note-contact-btn">
-                <i class="fa-brands fa-telegram"></i> Contact on Telegram
-            </a>
-        </div>
-
-        <!-- Footer -->
-        <footer class="app-footer">
-            <div class="footer-creator-badge" id="footerAboutTrigger" style="cursor: pointer;" title="Click to view About Developer">
-                <i class="fa-solid fa-code text-indigo"></i> Created by <strong>REDRMY</strong> (Age 18)
-            </div>
-            <p class="footer-text">Crafted with warmth for <strong>REDRMY AIO</strong> &bull; Organised for focus & leisure</p>
-            <div class="footer-stats">
-                <span id="totalLinksCount">0 Links Saved</span>
-            </div>
-        </footer>
+  <!-- BACKGROUND CANVAS & FX -->
+  <canvas id="canvas-bg"></canvas>
+  <div id="aurora-layer">
+    <div class="aurora-orb"></div>
+    <div class="aurora-orb"></div>
+  </div>
+  <div id="cursor-glow"></div>
+  <div id="progress"></div>
+  <div id="toast"></div>
+  <!-- FLOATING SMART SCROLL & UTILITY DOCK -->
+  <div id="scroll-widget" class="scroll-widget" role="region" aria-label="Quick Actions and Scroll to Top">
+    <!-- EXPANDABLE SPEED DIAL MENU -->
+    <div id="quick-tools-menu" class="quick-tools-menu" aria-hidden="true">
+      <div class="qt-header">QUICK TOOLS</div>
+      <button class="qt-item" onclick="openModal('todo-modal'); closeQuickTools()" type="button" title="Create and manage your study to-do list">
+        <span class="qt-ic">📋</span>
+        <span class="qt-text">To-Do List</span>
+      </button>
+      <a href="https://t.me/REDRMYCOURSESS" target="_blank" class="qt-item" style="text-decoration:none" title="Join REDRMY Telegram Channel for courses & updates">
+        <span class="qt-ic">📱</span>
+        <span class="qt-text">Join Telegram</span>
+      </a>
+      <button class="qt-item" onclick="quickLaunchTimer()" type="button" title="Pomodoro study timer">
+        <span class="qt-ic">⏱️</span>
+        <span class="qt-text">Study Timer</span>
+      </button>
+      <button class="qt-item" onclick="quickLaunchNotes()" type="button" title="Quick scratch notes">
+        <span class="qt-ic">📝</span>
+        <span class="qt-text">Quick Notes</span>
+      </button>
+      <button class="qt-item" onclick="scrollToBottomSmooth()" type="button" title="Jump to bottom of page">
+        <span class="qt-ic">⇣</span>
+        <span class="qt-text">Scroll Bottom</span>
+      </button>
+      <button class="qt-item" onclick="copyPageLink()" type="button" title="Copy current page link">
+        <span class="qt-ic">🔗</span>
+        <span class="qt-text">Copy Link</span>
+      </button>
     </div>
 
-    <!-- ABOUT CREATOR MODAL -->
-    <div class="modal-backdrop" id="aboutModal">
-        <div class="modal-content about-modal-content">
-            <button class="close-modal-btn" id="closeAboutModalBtn" style="position: absolute; top: 16px; right: 20px;">&times;</button>
-            
-            <div class="about-card-header">
-                <div class="about-avatar-wrapper">
-                    <div class="about-avatar-icon"><i class="fa-solid fa-user-astronaut"></i></div>
-                    <span class="about-verified-badge" title="Verified Creator"><i class="fa-solid fa-check"></i></span>
-                </div>
-                <h2 class="about-dev-name">REDRMY</h2>
-                <div class="about-meta-pills">
-                    <span class="about-pill"><i class="fa-solid fa-cake-candles text-amber"></i> Age 18</span>
-                    <span class="about-pill"><i class="fa-solid fa-laptop-code text-sky"></i> Developer & Creator</span>
-                </div>
-                <p class="about-dev-bio">Passionate 18-year-old developer creating modern web experiences, AI tools, and all-in-one directory hubs.</p>
-            </div>
+    <!-- MAIN CONTROLS ROW -->
+    <div class="scroll-widget-row">
+      <button id="quick-tools-toggle" class="quick-tools-toggle" onclick="toggleQuickTools()" title="Quick Study Tools" aria-label="Toggle Quick Tools" type="button">
+        <svg class="qt-toggle-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+      </button>
 
-            <div class="about-projects-wrapper">
-                <h4 class="about-section-heading"><i class="fa-solid fa-rocket text-amber"></i> Other Projects by REDRMY</h4>
-                <div class="about-projects-list">
-                    <a href="https://aimlredrmy.netlify.app/" target="_blank" rel="noopener noreferrer" class="about-project-item">
-                        <div class="project-icon text-purple"><i class="fa-solid fa-brain"></i></div>
-                        <div class="project-details">
-                            <div class="project-title">AI ML REDRMY</div>
-                            <div class="project-link">aimlredrmy.netlify.app</div>
-                            <div class="project-subtext">AI & Machine Learning Resources Hub</div>
-                        </div>
-                        <i class="fa-solid fa-arrow-up-right-from-square project-external-icon"></i>
-                    </a>
+      <button id="scroll-top" class="scroll-top-btn" onclick="scrollToTopSmooth()" title="Scroll to Top" aria-label="Scroll to top" type="button">
+        <svg class="scroll-progress-svg" viewBox="0 0 48 48" width="48" height="48">
+          <circle class="sp-track" cx="24" cy="24" r="20"></circle>
+          <circle class="sp-bar" id="sp-bar" cx="24" cy="24" r="20"></circle>
+        </svg>
+        <span class="st-inner">
+          <svg class="st-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+          </svg>
+          <span class="st-pct" id="st-pct">0%</span>
+        </span>
+      </button>
+    </div>
+  </div>
 
-                    <a href="https://redrmy41.netlify.app/" target="_blank" rel="noopener noreferrer" class="about-project-item">
-                        <div class="project-icon text-sky"><i class="fa-solid fa-globe"></i></div>
-                        <div class="project-details">
-                            <div class="project-title">REDRMY 41</div>
-                            <div class="project-link">redrmy41.netlify.app</div>
-                            <div class="project-subtext">Official REDRMY Platform & Web Portal</div>
-                        </div>
-                        <i class="fa-solid fa-arrow-up-right-from-square project-external-icon"></i>
-                    </a>
-                </div>
-            </div>
+  <!-- ZEN FOCUS MODE EXIT PILL -->
+  <div id="zen-exit-pill" onclick="toggleZenMode()" role="button" tabindex="0" title="Exit Focus Mode (ESC)">
+    <span>🎯 FOCUS MODE</span>
+    <span class="zen-exit-tag">EXIT [ESC]</span>
+  </div>
 
-            <div class="modal-footer" style="margin-top: 20px;">
-                <button type="button" class="btn btn-secondary" id="closeAboutModalBtn2" style="width: 100%;">Close</button>
-            </div>
+
+  <!-- 10-SECOND TELEGRAM PROMPT POPUP -->
+  <div id="tg-pop-10s" style="position:fixed;inset:0;background:rgba(8,11,20,0.85);backdrop-filter:blur(20px);z-index:300000;display:none;align-items:center;justify-content:center;padding:20px">
+    <div style="background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:32px 24px;max-width:360px;width:100%;text-align:center;position:relative;box-shadow:0 25px 60px var(--shadow)">
+      <button onclick="closeTg10sPop()" style="position:absolute;top:12px;right:12px;background:none;border:none;color:var(--t2);font-size:16px;cursor:pointer;padding:4px" type="button">✕</button>
+      <img src="logo.png" style="width:60px;height:60px;margin:0 auto 12px;display:block;border-radius:14px" alt="REDRMY" onerror="this.src='logo.png'">
+      <div style="font-family:var(--fd);font-size:1.05rem;font-weight:800;color:var(--t1);margin-bottom:6px">Join REDRMY Official</div>
+      <div style="font-family:var(--fb);font-size:.88rem;font-weight:700;color:var(--b);margin-bottom:12px">"Everything available online is free."</div>
+      <div style="color:var(--t2);font-size:.78rem;margin-bottom:20px;line-height:1.5">Get instant course updates, free notes, and 24/7 request bot support on Telegram.</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <a href="https://t.me/REDRMYCOURSESS" target="_blank" onclick="closeTg10sPop()" style="padding:12px;background:linear-gradient(135deg,#0088cc,#005599);border-radius:10px;color:#fff;font-family:var(--fd);font-size:.7rem;font-weight:700;text-decoration:none">📱 JOIN COURSES (TELEGRAM)</a>
+        <a href="https://t.me/Redrmy_bot" target="_blank" onclick="closeTg10sPop()" style="padding:10px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:10px;color:var(--b);font-family:var(--fd);font-size:.65rem;font-weight:700;text-decoration:none">🤖 REQUEST / ADD BOT</a>
+      </div>
+      <button onclick="closeTg10sPop()" style="margin-top:12px;background:none;border:none;color:var(--t3);font-family:var(--fm);font-size:.6rem;cursor:pointer" type="button">Continue to Site →</button>
+    </div>
+  </div>
+
+  <!-- ADD TO HOMESCREEN POPUP (SLIDES FROM UPSIDE ON PROFILE) -->
+  <div id="a2hs-top-banner" class="a2hs-top-banner" role="dialog" aria-label="Add website to Home Screen">
+    <div class="a2hs-banner-card">
+      <div class="a2hs-banner-left">
+        <img src="logo.png" alt="REDRMY" class="a2hs-banner-logo" onerror="this.src='logo.png'">
+        <div class="a2hs-banner-info">
+          <div class="a2hs-banner-badge">WEB APP</div>
+          <div class="a2hs-banner-title">Add REDRMY to Home Screen</div>
+          <div class="a2hs-banner-desc">Instant 1-tap launch &amp; full-screen study access</div>
         </div>
+      </div>
+      <div class="a2hs-banner-actions">
+        <button type="button" class="btn-a2hs-install" onclick="installAppPrompt()">📲 ADD</button>
+        <button type="button" class="btn-a2hs-close" onclick="closeA2HSPopup()" aria-label="Close">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- A2HS INSTRUCTIONS MODAL (FALLBACK / MANUAL GUIDE) -->
+  <div class="modal-ov" id="a2hs-guide-modal" onclick="if(event.target===this)closeModal('a2hs-guide-modal')">
+    <div class="modal-box" style="max-width:390px;text-align:left;position:relative">
+      <button class="modal-x" onclick="closeModal('a2hs-guide-modal')" type="button">✕</button>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <img src="logo.png" style="width:44px;height:44px;border-radius:10px;border:1px solid rgba(255,255,255,0.18)" alt="REDRMY" onerror="this.src='logo.png'">
+        <div>
+          <div class="modal-ttl" style="margin-bottom:2px;font-size:.95rem">Add to Home Screen</div>
+          <div style="font-family:var(--fm);font-size:.62rem;color:var(--t3)">Install REDRMY as a web app on your device</div>
+        </div>
+      </div>
+
+      <div id="a2hs-steps-container" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;margin-bottom:16px;font-size:.78rem;line-height:1.6;color:var(--t2)">
+        <!-- Injected based on iOS / Android / Desktop -->
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:8px">
+        <button class="btn-msave" onclick="closeModal('a2hs-guide-modal')" style="padding:8px 18px;font-size:.7rem" type="button">GOT IT 👍</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMAND PALETTE (CTRL+K / CMD+K) -->
+  <div id="cmd-overlay" onclick="if(event.target===this)closeCmd()">
+    <div class="cmd-box">
+      <div class="cmd-head">
+        <div class="cmd-search-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
+        </div>
+        <input type="text" id="cmd-input" placeholder="Type a command or search providers..." oninput="cmdSearch(this.value)" onkeydown="cmdKey(event)">
+        <span class="cmd-esc" onclick="closeCmd()">ESC</span>
+      </div>
+      <div class="cmd-results" id="cmd-results"></div>
+      <div class="cmd-footer">
+        <div class="cmd-foot-left">
+          <span><span class="cmd-key">↑</span> <span class="cmd-key">↓</span> Navigate</span>
+          <span><span class="cmd-key">↵</span> Select</span>
+          <span><span class="cmd-key">ESC</span> Close</span>
+        </div>
+        <div style="font-family:var(--fd);font-size:.5rem;color:var(--t3);font-weight:700">REDRMY AIO</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTAL GATE INTERSTITIAL -->
+  <div id="portal-gate">
+    <button class="pg-close-all" onclick="closePortalGate()" type="button">✕</button>
+    <div class="pg-page">
+      <img src="logo.png" class="pg-logo" alt="REDRMY" onerror="this.src='logo.png'">
+      <div class="pg-brand">REDRMY AIO</div>
+      <button class="pg-open-btn" onclick="openGatePlatform()" type="button">OPEN PLATFORM ⚡</button>
+    </div>
+    <div id="pg-popup">
+      <div class="pg-popup-card">
+        <button class="pg-popup-close" onclick="closePgPopup()" type="button">✕</button>
+        <img src="logo.png" class="pg-popup-logo" alt="REDRMY" onerror="this.src='logo.png'">
+        <div class="pg-popup-title">Join REDRMY Telegram!</div>
+        <div class="pg-popup-sub">Everything available online is free. Join our official channel & bot for updates.</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a href="https://t.me/REDRMYCOURSESS" target="_blank" class="pg-popup-join"><span>📱 JOIN COURSES</span></a>
+          <a href="https://t.me/Redrmy_bot" target="_blank" class="pg-popup-join" style="background:linear-gradient(135deg,#6366f1,#3b82f6)"><span>🤖 REQUEST BOT</span></a>
+        </div>
+        <button class="pg-popup-joined" onclick="finishPortalGate()" type="button">Already joined? Continue to Study →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALS -->
+  <!-- EDIT PROFILE & PHOTO MODAL -->
+  <div class="modal-ov" id="name-modal" onclick="if(event.target===this)closeModal('name-modal')">
+    <div class="modal-box" style="max-width:350px;text-align:center">
+      <button class="modal-x" onclick="closeModal('name-modal')" type="button">✕</button>
+      <div class="modal-ttl">✏️ Edit Profile &amp; Photo</div>
+      
+      <div style="margin:16px auto 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+        <div style="position:relative;width:80px;height:80px">
+          <div style="width:100%;height:100%;border-radius:50%;padding:3px;background:linear-gradient(135deg,rgba(255,255,255,0.35),rgba(255,255,255,0.06));border:1px solid rgba(255,255,255,0.22);box-shadow:0 8px 24px rgba(0,0,0,0.6);overflow:hidden">
+            <img id="modal-av-preview" src="" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;background:#0d1b2a">
+          </div>
+          <button type="button" onclick="triggerAv()" style="position:absolute;bottom:0;right:0;width:28px;height:28px;border-radius:50%;background:#ffffff;border:2px solid #000000;color:#000000;display:flex;align-items:center;justify-content:center;font-size:.72rem;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.5)" title="Upload Image">📷</button>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:center">
+          <button type="button" onclick="triggerAv()" class="btn-p-edit" style="padding:7px 12px;font-size:.65rem;flex:none">📷 Change Photo</button>
+          <button type="button" onclick="resetAvatar()" class="btn-p-share" style="padding:7px 12px;font-size:.65rem;flex:none" title="Reset to default generated avatar">↺ Default</button>
+        </div>
+      </div>
+
+      <div style="text-align:left;font-size:.68rem;font-weight:800;color:var(--t2);margin-bottom:6px;font-family:var(--fd);letter-spacing:0.04em">YOUR DISPLAY NAME</div>
+      <input class="modal-inp" id="name-inp" placeholder="Enter your name..." maxlength="24">
+      
+      <div class="modal-btns" style="margin-top:16px">
+        <button class="btn-mcancel" onclick="closeModal('name-modal')" type="button">Cancel</button>
+        <button class="btn-msave" onclick="saveName()" type="button">SAVE ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WELCOME NAME POPUP (STARTING DASHBOARD SETUP - ASKED ONLY ONCE) -->
+  <div id="welcome-overlay" style="display:none;position:fixed;inset:0;background:rgba(8,11,20,0.85);backdrop-filter:blur(28px) saturate(190%);-webkit-backdrop-filter:blur(28px) saturate(190%);z-index:200000;align-items:center;justify-content:center;padding:20px">
+    <div style="background:rgba(15,23,42,0.85);border:1px solid rgba(255,255,255,0.16);border-radius:24px;padding:32px 24px;max-width:350px;width:100%;text-align:center;position:relative;box-shadow:0 25px 60px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.2)">
+      <button onclick="closeWelcome()" style="position:absolute;top:12px;right:12px;background:none;border:none;color:var(--t2);font-size:16px;cursor:pointer;padding:4px" type="button" title="Skip">✕</button>
+      <img src="logo.png" style="width:64px;height:64px;margin:0 auto 12px;display:block;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.4)" alt="REDRMY" onerror="this.src='logo.png'">
+      <div style="font-family:var(--fd);font-size:1.05rem;font-weight:900;color:var(--t1);margin-bottom:4px;letter-spacing:-0.2px">Personalize Your Dashboard</div>
+      <div style="color:var(--t2);font-size:.76rem;margin-bottom:20px;line-height:1.45">Enter your name to set up your study goals, timer streaks, and profile.</div>
+      <input class="modal-inp" id="welcome-name-inp" placeholder="Enter your name..." maxlength="24" style="margin-bottom:14px;text-align:center;font-size:1rem;font-weight:700;background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15);border-radius:12px;height:44px" onkeydown="if(event.key==='Enter')saveWelcomeName()">
+      <button onclick="saveWelcomeName()" style="width:100%;padding:12px;background:linear-gradient(135deg,#3b82f6,#6366f1);border:none;border-radius:12px;color:#fff;font-family:var(--fd);font-size:.72rem;font-weight:800;letter-spacing:0.5px;cursor:pointer;box-shadow:0 4px 18px rgba(59,130,246,0.4)" type="button">CONTINUE TO DASHBOARD ⚡</button>
+      <div style="margin-top:12px"><button onclick="closeWelcome()" style="background:none;border:none;color:var(--t3);font-family:var(--fm);font-size:.56rem;cursor:pointer" type="button">Skip for now →</button></div>
+    </div>
+  </div>
+
+
+
+  <!-- SEARCH MODAL -->
+  <div class="modal-ov" id="search-modal" onclick="if(event.target===this)closeModal('search-modal')">
+    <div class="modal-box">
+      <button class="modal-x" onclick="closeModal('search-modal')" type="button">✕</button>
+      <div class="modal-ttl">🔍 Search Platforms</div>
+      <div class="search-wrap">
+        <input type="text" id="search-inp" placeholder="Search provider or platform..." oninput="doSearch()">
+        <svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      </div>
+      <div id="search-results"><div class="sr-none">Type to search platforms...</div></div>
+    </div>
+  </div>
+
+  <!-- CALCULATOR MODAL -->
+  <div class="modal-ov" id="calc-modal" onclick="if(event.target===this)closeModal('calc-modal')">
+    <div class="modal-box" style="max-width:310px">
+      <button class="modal-x" onclick="closeModal('calc-modal')" type="button">✕</button>
+      <div class="modal-ttl">🧮 Calculator</div>
+      <div class="calc-display">
+        <div class="calc-expr" id="calc-expr"></div>
+        <div class="calc-val" id="calc-val">0</div>
+      </div>
+      <div class="calc-grid">
+        <button class="calc-btn fn" onclick="calcFn('C')" type="button">C</button>
+        <button class="calc-btn fn" onclick="calcFn('±')" type="button">±</button>
+        <button class="calc-btn fn" onclick="calcFn('%')" type="button">%</button>
+        <button class="calc-btn op" onclick="calcOp('/')" type="button">÷</button>
+        <button class="calc-btn" onclick="calcNum('7')" type="button">7</button>
+        <button class="calc-btn" onclick="calcNum('8')" type="button">8</button>
+        <button class="calc-btn" onclick="calcNum('9')" type="button">9</button>
+        <button class="calc-btn op" onclick="calcOp('*')" type="button">×</button>
+        <button class="calc-btn" onclick="calcNum('4')" type="button">4</button>
+        <button class="calc-btn" onclick="calcNum('5')" type="button">5</button>
+        <button class="calc-btn" onclick="calcNum('6')" type="button">6</button>
+        <button class="calc-btn op" onclick="calcOp('-')" type="button">−</button>
+        <button class="calc-btn" onclick="calcNum('1')" type="button">1</button>
+        <button class="calc-btn" onclick="calcNum('2')" type="button">2</button>
+        <button class="calc-btn" onclick="calcNum('3')" type="button">3</button>
+        <button class="calc-btn op" onclick="calcOp('+')" type="button">+</button>
+        <button class="calc-btn span2" onclick="calcNum('0')" type="button">0</button>
+        <button class="calc-btn" onclick="calcNum('.')" type="button">.</button>
+        <button class="calc-btn eq" onclick="calcEq()" type="button">=</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMER MODAL -->
+  <div class="modal-ov" id="timer-modal" onclick="if(event.target===this)closeModal('timer-modal')">
+    <div class="modal-box" id="timer-modal-box" style="max-width:300px;text-align:center">
+      <button class="modal-x" onclick="closeModal('timer-modal')" type="button">✕</button>
+      <div class="modal-ttl">⏱️ Study Timer</div>
+      <div class="timer-modes">
+        <button class="timer-mode-btn act" id="tm-25" onclick="setTimerMode(25)" type="button">Pomodoro 25m</button>
+        <button class="timer-mode-btn" id="tm-45" onclick="setTimerMode(45)" type="button">Deep 45m</button>
+        <button class="timer-mode-btn" id="tm-60" onclick="setTimerMode(60)" type="button">Power 60m</button>
+        <button class="timer-mode-btn" id="tm-5" onclick="setTimerMode(5)" type="button">Break 5m</button>
+      </div>
+      <div class="timer-ring">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <defs><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#6366f1"/></linearGradient></defs>
+          <circle class="bg-ring" cx="60" cy="60" r="54"/>
+          <circle class="fg-ring" id="timer-ring-fg" cx="60" cy="60" r="54"/>
+        </svg>
+        <div class="timer-ring-label" id="timer-ring-lbl">25:00</div>
+      </div>
+      <div class="timer-btns" style="margin-bottom:10px">
+        <button class="btn-tstart" id="timer-start-btn" onclick="toggleTimer()" type="button">▶ START</button>
+        <button class="btn-treset" onclick="resetTimer()" type="button">↺ RESET</button>
+      </div>
+      <button class="btn-tfull" onclick="toggleTimerFullscreen()" type="button" title="Full Screen Timer">⛶ Fullscreen Focus</button>
+    </div>
+  </div>
+
+  <!-- NOTES MODAL (EXPANDED ROOMY SIZE) -->
+  <div class="modal-ov" id="notes-modal" onclick="if(event.target===this)closeModal('notes-modal')">
+    <div class="modal-box notes-modal-box">
+      <button class="modal-x" onclick="closeModal('notes-modal')" type="button">✕</button>
+      <div class="modal-ttl" style="display:flex;align-items:center;justify-content:space-between;padding-right:24px">
+        <span>📝 My Study Notes</span>
+        <span style="font-family:var(--fm);font-size:.65rem;color:var(--t3);font-weight:normal">Auto-saved to device</span>
+      </div>
+      <div class="notes-tabs" id="notes-tabs"></div>
+      <textarea class="notes-area" id="notes-area" placeholder="Write your formulas, chapter topics, or study notes here..." oninput="notesAutoSave()"></textarea>
+      <div class="notes-footer">
+        <span class="notes-count" id="notes-count">0 chars</span>
+        <div style="display:flex;gap:8px">
+          <button class="btn-note-clear" onclick="clearNote()" type="button">Clear Tab</button>
+          <button class="btn-note-save" onclick="saveNote()" type="button">Save ✓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TO-DO & STUDY GOALS MODAL -->
+  <div class="modal-ov" id="todo-modal" onclick="if(event.target===this)closeModal('todo-modal')">
+    <div class="modal-box" style="max-width:460px;width:92vw">
+      <button class="modal-x" onclick="closeModal('todo-modal')" type="button">✕</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-right:24px">
+        <div class="modal-ttl" style="margin-bottom:0">📋 Study To-Do List</div>
+        <span id="todo-stats-badge" style="font-family:var(--fm);font-size:.65rem;color:var(--t2);background:rgba(255,255,255,0.08);padding:3px 8px;border-radius:6px">0 / 0 Done</span>
+      </div>
+      
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <input id="todo-inp" class="modal-inp" style="margin-bottom:0;flex:1" placeholder="What do you want to study / complete?" maxlength="70" onkeydown="if(event.key==='Enter')addTodoItem()">
+        <button onclick="addTodoItem()" class="btn-msave" style="flex:none;padding:9px 16px" type="button">+ ADD</button>
+      </div>
+
+      <div id="todo-items-list" style="max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding-right:4px"></div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08)">
+        <button onclick="clearCompletedTodos()" style="background:none;border:none;color:var(--t3);font-family:var(--fm);font-size:.65rem;cursor:pointer" type="button">Clear Completed</button>
+        <button class="btn-mcancel" onclick="closeModal('todo-modal')" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOAL MODAL (COMPATIBILITY FALLBACK) -->
+  <div class="modal-ov" id="goal-modal" onclick="if(event.target===this)closeModal('goal-modal')">
+    <div class="modal-box" style="max-width:320px">
+      <button class="modal-x" onclick="closeModal('goal-modal')" type="button">✕</button>
+      <div class="modal-ttl">🎯 Add New Task</div>
+      <input class="goal-modal-inp" id="goal-inp" placeholder="e.g. Complete Physics Chapter 5..." maxlength="60" onkeydown="if(event.key==='Enter')saveGoalModal()">
+      <div class="modal-btns">
+        <button class="btn-mcancel" onclick="closeModal('goal-modal')" type="button">Cancel</button>
+        <button class="btn-msave" onclick="saveGoalModal()" type="button">ADD ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-brand" onclick="switchPage('home');return false">
+      <img src="logo.png" alt="REDRMY" class="nav-logo" loading="eager" fetchpriority="high" width="30" height="30" onerror="this.src='logo.png'">
+      <span class="nav-name">REDRMY AIO</span>
+    </a>
+    <div class="nav-right">
+      <span id="time-top">--:--:--</span>
+      <button class="nav-ic" onclick="openModal('calc-modal')" title="Calculator" type="button">
+        <svg viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v4h10V4H7zm0 6v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zm-8 4v2h2v-2H7zm4 0v2h2v-2H7zm4 0v2h2v-2H7zm-8 4v2h2v-2H7zm4 0v2h2v-2H7zm4 0v2h2v-2H7z"/></svg>
+      </button>
+      <button class="nav-ic" onclick="openModal('timer-modal')" title="Focus Timer" type="button">
+        <svg viewBox="0 0 24 24"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0 2C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10h4v2h-6V7h2v5z" fill="currentColor"/></svg>
+      </button>
+      <a href="https://t.me/Redrmy_bot?text=I%20WANT%20HELP%20REGARDING%20BATCH" target="_blank" class="btn-red-sm">💬 HELP</a>
+    </div>
+  </nav>
+
+  <!-- ENJOY MOVIES / ANIME / MANGA MODAL -->
+  <div class="modal-ov" id="enjoy-modal" onclick="if(event.target===this)closeModal('enjoy-modal')">
+    <div class="modal-box" style="max-width:440px">
+      <button class="modal-x" onclick="closeModal('enjoy-modal')" type="button">✕</button>
+      <div class="modal-ttl">🍿 REDRMY — Free Movies, Anime &amp; Manga</div>
+      <div style="font-size:.76rem;color:var(--t2);margin-bottom:14px">Direct free access to all your favorite entertainment platforms:</div>
+      
+      <!-- MOVIES & WEB SERIES -->
+      <div style="margin-bottom:12px">
+        <div style="font-family:var(--fd);font-size:.72rem;font-weight:800;color:var(--t2);margin-bottom:6px">🎬 MOVIES &amp; WEB SERIES</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <a href="https://aethoflix.vercel.app/" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">⚡ AethoFlix</a>
+          <a href="https://hianime.to" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">🎥 HiAnime Movies</a>
+          <a href="https://moviesdrive.me" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">🍿 MoviesDrive</a>
+          <a href="https://vegamovies.im" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">⚡ VegaMovies</a>
+          <a href="https://9xmovies.ngo" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">🎬 9xMovies</a>
+        </div>
+      </div>
+
+      <!-- ANIME -->
+      <div style="margin-bottom:12px">
+        <div style="font-family:var(--fd);font-size:.72rem;font-weight:800;color:var(--t2);margin-bottom:6px">🐉 ANIME STREAMING</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <a href="https://hianime.to" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">🔥 HiAnime (Zoro)</a>
+          <a href="https://animepahe.ru" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">⚡ AnimePahe</a>
+          <a href="https://gogoanime3.co" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">🍥 GogoAnime</a>
+          <a href="https://aniwatchtv.to" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">📱 AniWatch</a>
+        </div>
+      </div>
+
+      <!-- MANGA & COMICS -->
+      <div>
+        <div style="font-family:var(--fd);font-size:.72rem;font-weight:800;color:var(--t2);margin-bottom:6px">📖 MANGA &amp; MANHWA</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <a href="https://mangadex.org" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">📚 MangaDex</a>
+          <a href="https://asura.gg" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">⚔️ Asura Scans</a>
+          <a href="https://reaperscans.com" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">☠️ Reaper Scans</a>
+          <a href="https://mangaplus.shueisha.co.jp" target="_blank" class="btn-p-edit" style="text-decoration:none;text-align:center;padding:8px">🔥 MangaPlus</a>
+        </div>
+      </div>
+
+      <!-- FULL HUB BUTTON -->
+      <a href="movies.html" style="display:block;margin-top:14px;padding:11px 14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.16);border-radius:12px;color:var(--t1);text-align:center;text-decoration:none;font-family:var(--fd);font-size:.74rem;font-weight:800;transition:all .2s;box-shadow:0 4px 16px rgba(0,0,0,0.3);backdrop-filter:blur(16px)">
+        🍿 OPEN FULL ENTERTAINMENT HUB (94+ PLATFORMS) →
+      </a>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div id="bottom-nav">
+    <button class="bnav-tab active" id="tab-home" onclick="switchPage('home')" type="button">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>HOME</span>
+    </button>
+    <button class="bnav-tab" id="tab-resources" onclick="switchPage('resources')" type="button">
+      <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18V17h2v-4.82L9 13.5V17c0 1.66 1.79 3 4 3s4-1.34 4-3v-3.5l4-2.18V17h2V11.18L12 3z"/></svg>
+      <span>STUDY HUB</span>
+    </button>
+    <a href="movies.html" class="bnav-tab" style="text-decoration:none">
+      <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z" fill="currentColor"/></svg>
+      <span>ENJOY</span>
+    </a>
+    <button class="bnav-tab" id="tab-profile" onclick="switchPage('profile')" type="button">
+      <img class="prof-av-mini" id="nav-av-mini" src="" alt="P">
+      <span>PROFILE</span>
+    </button>
+  </div>
+
+  <!-- ══ HOME PAGE ══ -->
+  <div class="page active" id="page-home">
+    
+    <!-- HERO SECTION -->
+    <div class="hero-wrap">
+
+      <!-- TOP EYEBROW BADGE -->
+      <div class="hero-eyebrow">
+        <span class="hero-dot"></span>
+        <span>FREE · OPEN · ALWAYS UPDATED</span>
+      </div>
+
+      <!-- MAIN TITLE BLOCK -->
+      <div class="hero-title-block">
+        <div class="hero-title-line1">REDRMY</div>
+        <div class="hero-title-line2">
+          <span class="hero-title-aio">AIO</span>
+          <span class="hero-title-divider">|</span>
+          <span class="hero-title-tag">STUDY HUB</span>
+        </div>
+        <div class="hero-title-glow-bg"></div>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <p class="hero-p">Your all-in-one gateway to <strong>PW, Allen, Unacademy, Kota Tests,</strong> Rankbaaz Notes, PYQs &amp; 120+ free platforms — zero paywalls, always free.</p>
+
+      <!-- CTA BUTTONS -->
+      <div class="hero-cta-row">
+        <button class="hero-cta-primary" onclick="document.getElementById('providers').scrollIntoView({behavior:'smooth'})" type="button">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M13 10h7l-9 12V14H4l9-12z"/></svg>
+          Explore Portals
+        </button>
+        <a href="movies.html" class="hero-cta-secondary">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+          REDRMY Enjoy
+        </a>
+      </div>
+
+      <!-- FLOATING STAT PILLS -->
+      <div class="hero-pill-row">
+        <div class="hero-pill">
+          <span class="hero-pill-val">120+</span>
+          <span class="hero-pill-lbl">Portals</span>
+        </div>
+        <div class="hero-pill-sep"></div>
+        <div class="hero-pill">
+          <span class="hero-pill-val">Zero</span>
+          <span class="hero-pill-lbl">Paywalls</span>
+        </div>
+        <div class="hero-pill-sep"></div>
+        <div class="hero-pill">
+          <span class="hsg-dot-live"></span>
+          <span class="hero-pill-val">Live</span>
+          <span class="hero-pill-lbl">Directory</span>
+        </div>
+        <div class="hero-pill-sep"></div>
+        <div class="hero-pill">
+          <span class="hero-pill-val">12K+</span>
+          <span class="hero-pill-lbl">Students</span>
+        </div>
+      </div>
+
     </div>
 
-    <!-- TELEGRAM POPUP MODAL -->
-    <div class="modal-backdrop telegram-modal-backdrop" id="telegramModal">
-        <div class="modal-content telegram-modal-content">
-            <button class="close-modal-btn telegram-close-btn" id="closeTelegramModalBtn">&times;</button>
-            <div class="telegram-popup-header">
-                <div class="telegram-icon-badge">
-                    <i class="fa-brands fa-telegram"></i>
-                </div>
-                <h3>Join REDRMY Courses!</h3>
-                <p>Get instant course updates, free study materials, live streams & premium links.</p>
-            </div>
-            <div class="telegram-channel-card">
-                <i class="fa-brands fa-telegram"></i>
-                <div class="channel-info">
-                    <span class="channel-name">REDRMY COURSES</span>
-                    <span class="channel-handle">t.me/REDRMYCOURSESS</span>
-                </div>
-            </div>
-            <div class="telegram-modal-actions">
-                <button class="btn btn-secondary" id="skipTelegramBtn">Maybe Later</button>
-                <a href="https://t.me/REDRMYCOURSESS" target="_blank" rel="noopener noreferrer" class="btn btn-telegram telegram-join-btn" id="joinTelegramBtn">
-                    <i class="fa-brands fa-telegram"></i> Join Channel
-                </a>
-            </div>
-            <div style="margin-top: 14px;">
-                <a href="https://t.me/Redrmy_bot?text=Here%20link%20-%20YOUR_LINK_HERE" target="_blank" rel="noopener noreferrer" class="telegram-btn" style="width: 100%; justify-content: center;">
-                    <i class="fa-brands fa-telegram"></i> Add Link
-                </a>
-            </div>
+
+
+    <!-- COMPACT QUICK ACCESS -->
+    <div class="wrap" style="padding-top:0;padding-bottom:6px">
+      <div class="qa-compact-header">
+        <span class="s-eye" style="margin-bottom:0">⚡ QUICK ACCESS</span>
+        <span class="qa-compact-hint">Fast Shortcuts</span>
+      </div>
+      <div class="qa-compact-grid">
+        <div class="qa-compact-card" onclick="document.getElementById('providers').scrollIntoView({behavior:'smooth'})">
+          <div class="qac-icon">🎓</div>
+          <div class="qac-info">
+            <div class="qac-ttl">Coaching Batches</div>
+            <div class="qac-sub">PW, Allen, Unacademy</div>
+          </div>
+          <div class="qac-arrow">→</div>
         </div>
+        <div class="qa-compact-card" onclick="switchPage('resources');setTimeout(()=>document.getElementById('hub-tests').scrollIntoView({behavior:'smooth'}),150)">
+          <div class="qac-icon">📝</div>
+          <div class="qac-info">
+            <div class="qac-ttl">Test Series</div>
+            <div class="qac-sub">Kota Test, PYQs</div>
+          </div>
+          <div class="qac-arrow">→</div>
+        </div>
+        <div class="qa-compact-card" onclick="switchPage('resources');setTimeout(()=>document.getElementById('hub-notes').scrollIntoView({behavior:'smooth'}),150)">
+          <div class="qac-icon">📚</div>
+          <div class="qac-info">
+            <div class="qac-ttl">Notes &amp; Books</div>
+            <div class="qac-sub">Rankbaaz, 100K+ Books</div>
+          </div>
+          <div class="qac-arrow">→</div>
+        </div>
+        <div class="qa-compact-card" onclick="switchPage('profile')">
+          <div class="qac-icon">⏱️</div>
+          <div class="qac-info">
+            <div class="qac-ttl">Focus &amp; Goals</div>
+            <div class="qac-sub">Timer, Tools, Notes</div>
+          </div>
+          <div class="qac-arrow">→</div>
+        </div>
+      </div>
     </div>
 
-    <!-- BACKUP / DATA MODAL -->
-    <div class="modal-backdrop" id="dataModal">
-        <div class="modal-content">
-            <button class="close-modal-btn" id="closeDataModalBtn" style="position: absolute; top: 16px; right: 20px;">&times;</button>
-            <div class="data-settings-body">
-                <p>Manage your REDRMY AIO bookmarks. Export a JSON backup or restore default links anytime.</p>
+    <div class="divider"></div>
 
-                <div class="data-action-card">
-                    <div class="action-info">
-                        <h4><i class="fa-brands fa-telegram text-sky"></i> Telegram Community</h4>
-                        <p>Join official channel for courses & updates.</p>
-                    </div>
-                    <a href="https://t.me/REDRMYCOURSESS" target="_blank" rel="noopener noreferrer" class="btn btn-telegram">Join Channel</a>
-                </div>
 
-                <div class="data-action-card">
-                    <div class="action-info">
-                        <h4><i class="fa-solid fa-download"></i> Export Data</h4>
-                        <p>Download a backup JSON file of all saved links.</p>
-                    </div>
-                    <button class="btn btn-secondary" id="exportDataBtn">Export JSON</button>
-                </div>
-
-                <div class="data-action-card">
-                    <div class="action-info">
-                        <h4><i class="fa-solid fa-upload"></i> Import Data</h4>
-                        <p>Upload a saved JSON file to restore your links.</p>
-                    </div>
-                    <label class="btn btn-secondary file-upload-btn">
-                        Import JSON
-                        <input type="file" id="importFileInput" accept=".json" style="display:none;">
-                    </label>
-                </div>
-
-                <div class="data-action-card danger">
-                    <div class="action-info">
-                        <h4><i class="fa-solid fa-rotate-left"></i> Restore Defaults</h4>
-                        <p>Reset to original curated default links.</p>
-                    </div>
-                    <button class="btn btn-danger" id="resetDefaultsBtn">Reset All</button>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="closeDataModalBtn2">Close</button>
-            </div>
+    <section id="providers" class="wrap">
+      <div class="s-head">
+        <div class="s-eye">⚡ STUDY NETWORK</div>
+        <h2 class="s-ttl">All Study Providers</h2>
+        <p class="s-desc">Every major educational platform — individually mapped with exact direct links.</p>
+      </div>
+      
+      <!-- IN-PAGE SEARCH & FAVORITES BUTTON -->
+      <div style="display:flex;gap:8px;max-width:580px;margin:0 auto 14px;align-items:center">
+        <div id="prov-search-wrap" style="flex:1;margin:0">
+          <div id="prov-search-icon"><svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
+          <input id="prov-search" type="text" placeholder="Search providers or platforms..." oninput="filterProviders(this.value)" autocomplete="off">
         </div>
+        <button class="btn-fav-search" onclick="setFilter('fav',this)" type="button" id="btn-fav-filter" title="Toggle Favorites">
+          <svg class="fav-icon" viewBox="0 0 24 24" width="13" height="13"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span>Favorites</span> (<span id="fav-cnt">0</span>)
+        </button>
+      </div>
+
+      <!-- FILTER PILLS IN A SINGLE LINE -->
+      <div id="filter-bar">
+        <button class="filter-pill act" data-filter="all" onclick="setFilter('all',this)" type="button">🔥 All</button>
+        <button class="filter-pill" data-filter="web" onclick="setFilter('web',this)" type="button">🌐 Web</button>
+        <button class="filter-pill" data-filter="app" onclick="setFilter('app',this)" type="button">📱 App / APK</button>
+      </div>
+
+      <div id="prov-grid"></div>
+      <div id="prov-empty"><div class="pe-icon">🔍</div>No providers match your search.</div>
+    </section>
+
+    <div class="divider"></div>
+
+    <div class="wrap" style="padding-top:24px;padding-bottom:24px">
+      <div class="footer-in">
+        <div class="footer-brand">
+          <img src="logo.png" alt="REDRMY" style="width:28px;height:28px;object-fit:contain;border-radius:6px" onerror="this.src='logo.png'">
+          <span style="font-family:var(--fd);font-size:.85rem;font-weight:800;color:var(--t1)">REDRMY AIO</span>
+        </div>
+        <div class="footer-soc">
+          <a href="https://t.me/REDRMYCOURSESS" target="_blank" class="footer-tg-btn">📱 REDRMY COURSES</a>
+          <a href="https://t.me/Redrmy_bot" target="_blank" class="footer-tg-btn">🤖 REQUEST / ADD BOT</a>
+        </div>
+        <div class="footer-copy">Built with ❤️ in India 🇮🇳 | REDRMY AIO © 2026</div>
+        <button class="back-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" type="button">↑ Back to Top</button>
+      </div>
     </div>
+  </div>
 
-    <!-- Toast Notification Container -->
-    <div class="toast-container" id="toastContainer"></div>
+  <!-- ══ RESOURCES PAGE (STUDY HUB) ══ -->
+  <div class="page" id="page-resources">
+    <div class="wrap">
+      <div class="s-head">
+        <div class="s-eye">📚 STUDY HUB</div>
+        <h2 class="s-ttl">Study Hub</h2>
+        <p class="s-desc">Tests, Notes, Resources — Sab kuch ek jagah. 100% Free.</p>
+      </div>
 
-    <!-- Custom JavaScript -->
-    <script src="app.js"></script>
-    <script async="async" data-cfasync="false" src="https://pl30785488.effectivecpmnetwork.com/758258f6638b0271cdb815086c9c8d32/invoke.js"></script>
-    <div id="container-758258f6638b0271cdb815086c9c8d32"></div>
+      <!-- BANNERS -->
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+        <div onclick="document.getElementById('hub-tests').scrollIntoView({behavior:'smooth'})" style="position:relative;overflow:hidden;border-radius:14px;padding:20px 16px;background:var(--card);border:1px solid var(--border2);cursor:pointer;transition:all .2s">
+          <div style="font-family:var(--fm);font-size:.52rem;color:var(--b);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px">⚡ LIVE NOW</div>
+          <div style="font-family:var(--fd);font-size:1.1rem;font-weight:800;color:var(--t1);margin-bottom:4px">🎯 Test Series</div>
+          <div style="font-family:var(--fb);font-size:.78rem;color:var(--t2);margin-bottom:12px;line-height:1.45">Kota Test 2026, Biology Test, CUET Mock — Allen, Akash, Unacademy ke tests free!</div>
+          <div style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--gm);border-radius:8px;color:#fff;font-family:var(--fd);font-size:.6rem;font-weight:700">START TEST →</div>
+        </div>
+        <div onclick="document.getElementById('hub-notes').scrollIntoView({behavior:'smooth'})" style="position:relative;overflow:hidden;border-radius:14px;padding:20px 16px;background:var(--card);border:1px solid var(--border2);cursor:pointer;transition:all .2s">
+          <div style="font-family:var(--fm);font-size:.52rem;color:var(--p);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px">📚 STUDY MATERIAL</div>
+          <div style="font-family:var(--fd);font-size:1.1rem;font-weight:800;color:var(--t1);margin-bottom:4px">📝 Notes &amp; Material</div>
+          <div style="font-family:var(--fb);font-size:.78rem;color:var(--t2);margin-bottom:12px;line-height:1.45">Rankbaaz Notes — NEET, JEE, UPSC, MBBS, Boards ke liye best notes.</div>
+          <div style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:linear-gradient(135deg,#6366f1,#06b6d4);border-radius:8px;color:#fff;font-family:var(--fd);font-size:.6rem;font-weight:700">GET NOTES →</div>
+        </div>
+      </div>
+
+      <!-- TESTS SECTION -->
+      <div id="hub-tests">
+        <div class="s-head" style="margin-bottom:14px;text-align:left">
+          <div class="s-eye" style="justify-content:flex-start">🎯 TEST SERIES &amp; HUBS</div>
+        </div>
+        <div id="hub-grid"></div>
+      </div>
+
+      <div class="divider" style="margin:24px 0"></div>
+
+      <!-- Channel -->
+      <div id="hub-notes">
+        <div class="s-head" style="margin-bottom:16px">
+          <div class="s-eye">📢 CHANNEL</div>
+          <h2 class="s-ttl" style="font-size:1.3rem">REDRMY AIO Channel</h2>
+        </div>
+        <div class="prov-block">
+          <div class="prov-head">
+            <img src="logo.png" class="prov-logo" alt="REDRMY AIO" loading="lazy" onerror="this.src='https://files.catbox.moe/1phadr.png'">
+            <div class="prov-info"><div class="prov-name">REDRMY AIO</div><div class="prov-cnt">2 Channels</div></div>
+            <span class="badge-star">★ OFFICIAL</span>
+          </div>
+          <div class="plats-grid">
+            <div class="plat-card" onclick="window.open('https://t.me/REDRMYCOURSESS','_blank')">
+              <img src="logo.png" class="plat-logo" alt="Courses Channel" loading="lazy" onerror="this.src='https://files.catbox.moe/1phadr.png'">
+              <div class="plat-name">Courses Channel</div>
+              <span class="pbadge pbw">WEB</span>
+              <a href="https://t.me/REDRMYCOURSESS" target="_blank" class="btn-study">JOIN NOW</a>
+            </div>
+            <div class="plat-card" onclick="window.open('https://t.me/Redrmy_bot','_blank')">
+              <img src="logo.png" class="plat-logo" alt="Request Bot" loading="lazy" onerror="this.src='https://files.catbox.moe/1phadr.png'">
+              <div class="plat-name">Request Bot</div>
+              <span class="pbadge pbw">BOT</span>
+              <a href="https://t.me/Redrmy_bot" target="_blank" class="btn-study">OPEN BOT</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PROFILE PAGE ══ -->
+  <div class="page" id="page-profile">
+    <div class="profile-page">
+      <div id="prof-subnav" style="position:sticky;top:var(--nh);z-index:800;background:var(--nb);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;gap:0;overflow-x:auto;scrollbar-width:none;padding:0 4px">
+        <button class="prof-tab-btn active" id="ptab-overview" onclick="switchProfTab('overview')" type="button">👤 Profile</button>
+        <button class="prof-tab-btn" id="ptab-stats" onclick="switchProfTab('stats')" type="button">📊 Stats</button>
+        <button class="prof-tab-btn" id="ptab-tools" onclick="switchProfTab('tools')" type="button">🛠️ Tools</button>
+      </div>
+
+      <div id="ptab-panel-overview">
+        <div class="prof-hero">
+          <div class="prof-hero-inner">
+            <div class="prof-status-bar">
+              <div class="prof-status-live">LIVE SESSION</div>
+              <div class="prof-level">⚡ LVL 16</div>
+            </div>
+            <div class="prof-av-section">
+              <div class="prof-av-container">
+                <div class="prof-av-ring"><div class="prof-av-inner">
+                  <img class="pav" id="profile-av" src="" alt="P" onclick="triggerAv()">
+                </div></div>
+                <div class="pav-cam-btn" onclick="triggerAv()">📷</div>
+                <input type="file" id="av-file" accept="image/*" style="display:none" onchange="handleAv(event)">
+              </div>
+              <div class="prof-av-info">
+                <div class="pname" id="profile-nm">REDRMY Student</div>
+                <div class="pname-handle" id="profile-handle">@redrmystudent</div>
+                <div class="prof-badges-row">
+                  <span class="pbadge-hero pb-cyan">STUDENT</span>
+                  <span class="pbadge-hero pb-gold">2026</span>
+                  <span class="pbadge-hero pb-purple">INDIA</span>
+                </div>
+              </div>
+            </div>
+            <div class="prof-xp-section">
+              <div class="prof-xp-row"><span class="prof-xp-label">Study XP</span><span class="prof-xp-val">6,200 / 10,000 XP</span></div>
+              <div class="prof-xp-bar"><div class="prof-xp-fill"></div></div>
+            </div>
+            <div class="prof-edit-row" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn-p-edit" onclick="openModal('name-modal')" type="button">✏️ EDIT PROFILE</button>
+              <button class="btn-p-edit" id="btn-a2hs-hero" onclick="installAppPrompt()" type="button">📲 ADD TO HOMESCREEN</button>
+              <button class="btn-p-edit" onclick="openModal('notes-modal')" type="button">📝 MY NOTES</button>
+              <button class="btn-p-share" onclick="shareProfile()" type="button">🔗 SHARE</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="platform-stats-row">
+          <div class="pstat-mini"><div class="pstat-mini-val">33+</div><div class="pstat-mini-lbl">Providers</div></div>
+          <div class="pstat-mini"><div class="pstat-mini-val">100+</div><div class="pstat-mini-lbl">Platforms</div></div>
+          <div class="pstat-mini"><div class="pstat-mini-val">12K+</div><div class="pstat-mini-lbl">Students</div></div>
+          <div class="pstat-mini"><div class="pstat-mini-val" id="pstat-session">0m</div><div class="pstat-mini-lbl">Today</div></div>
+        </div>
+
+        <div class="prof-community-grid">
+          <a
+            href="https://t.me/Redrmy_bot?text=Thank%20you%20for%20providing%20all%20the%20batches%20in%20one%20place!%20%E2%9D%A4%EF%B8%8F%0AI%20Would%20like%20to%20support%20you%20to%20bring%20bring%20more%20batches%20for%20students%2C%20Send%20me%20you%20qr%20to%20help%20you."
+            target="_blank"
+            class="btn-donate-profile"
+            title="Support REDRMY with a donation"
+          >
+            <span class="bdp-icon">💖</span>
+            <span class="bdp-text">
+              <span class="bdp-title">Support REDRMY</span>
+              <span class="bdp-sub">Tap to send support &amp; request QR</span>
+            </span>
+            <span class="bdp-arrow">→</span>
+          </a>
+
+          <a
+            href="https://t.me/Redrmy_bot?text=I%20have%20an%20idea%F0%9F%92%A1.%20I%20want%20to%20work%20with%20you.%F0%9F%A4%9D"
+            target="_blank"
+            class="btn-collab-profile"
+            title="Pitch an idea or collaborate with us"
+          >
+            <span class="bdp-icon">💡</span>
+            <span class="bdp-text">
+              <span class="bdp-title">Build With Us</span>
+              <span class="bdp-sub">Pitch idea &amp; collaborate 🤝</span>
+            </span>
+            <span class="bdp-arrow">→</span>
+          </a>
+        </div>
+
+        <div class="prof-tools-grid">
+          <div class="prof-study-timer" onclick="openModal('timer-modal')">
+            <div class="prof-timer-icon">⏱️</div>
+            <div class="prof-timer-info">
+              <div class="prof-timer-lbl">Study Timer</div>
+              <div class="prof-timer-disp" id="prof-timer-disp">Pomodoro Ready</div>
+              <div class="prof-timer-sub">Focus Timer</div>
+            </div>
+            <button class="btn-p-timer" type="button">OPEN →</button>
+          </div>
+
+          <div class="prof-study-timer" onclick="openModal('notes-modal')">
+            <div class="prof-timer-icon">📝</div>
+            <div class="prof-timer-info">
+              <div class="prof-timer-lbl">Notebook</div>
+              <div class="prof-timer-disp">Study Notes</div>
+              <div class="prof-timer-sub">Auto-saved</div>
+            </div>
+            <button class="btn-p-timer" type="button">OPEN →</button>
+          </div>
+        </div>
+
+        <div class="prof-goals" id="prof-todo-card">
+          <div class="prof-goals-header">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:1.1rem">📋</span>
+              <div>
+                <div class="prof-goals-title">Study To-Do &amp; Tasks</div>
+                <div id="prof-todo-count" style="font-size:.62rem;color:var(--t3);font-family:var(--fm)">0 tasks</div>
+              </div>
+            </div>
+            <button class="btn-add-goal" onclick="openModal('todo-modal')" type="button">+ MANAGE</button>
+          </div>
+          
+          <!-- Quick inline add right inside profile -->
+          <div style="display:flex;gap:6px;margin:10px 0 12px">
+            <input id="prof-todo-inp" class="modal-inp" style="margin-bottom:0;padding:8px 12px;font-size:.78rem;flex:1" placeholder="What do you want to study / complete?" maxlength="70" onkeydown="if(event.key==='Enter')addTodoFromProfile()">
+            <button onclick="addTodoFromProfile()" class="btn-msave" style="flex:none;padding:8px 14px;font-size:.65rem" type="button">+ ADD</button>
+          </div>
+
+          <div id="goals-list"></div>
+        </div>
+      </div>
+
+      <div id="ptab-panel-stats" style="display:none">
+        <div class="visit-banner">
+          <div class="visit-icon">📊</div>
+          <div class="visit-info">
+            <div class="visit-lbl">YOUR TOTAL VISITS</div>
+            <div class="visit-val" id="total-visits-big">1</div>
+            <div class="visit-sub">Days Active: <span id="days-alive">1</span> days</div>
+          </div>
+        </div>
+        <div class="prof-goals">
+          <div class="prof-goals-title" style="margin-bottom:10px">🔥 Most Visited Platforms</div>
+          <div id="platform-visits-list"></div>
+        </div>
+      </div>
+
+      <div id="ptab-panel-tools" style="display:none">
+        <div class="prof-goals">
+          <div class="prof-goals-title" style="margin-bottom:12px">🛠️ Quick Study Tools &amp; Community</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(135px, 1fr));gap:8px">
+            <button onclick="openModal('calc-modal')" class="btn-p-edit" style="padding:12px;text-align:center" type="button">🧮 Calculator</button>
+            <button onclick="openModal('timer-modal')" class="btn-p-edit" style="padding:12px;text-align:center" type="button">⏱️ Focus Timer</button>
+            <button onclick="openModal('notes-modal')" class="btn-p-edit" style="padding:12px;text-align:center" type="button">📝 My Notes</button>
+            <button onclick="openModal('todo-modal')" class="btn-p-edit" style="padding:12px;text-align:center" type="button">📋 Study To-Do</button>
+            <a href="https://t.me/Redrmy_bot?text=I%20have%20an%20idea%F0%9F%92%A1.%20I%20want%20to%20work%20with%20you.%F0%9F%A4%9D" target="_blank" class="btn-p-edit" style="padding:12px;text-align:center;text-decoration:none">💡 Build With Us</a>
+            <a href="https://t.me/Redrmy_bot" target="_blank" class="btn-p-edit" style="padding:12px;text-align:center;text-decoration:none">🤖 Request Bot</a>
+            <a href="https://t.me/REDRMYCOURSESS" target="_blank" class="btn-p-edit" style="padding:12px;text-align:center;text-decoration:none">📢 Telegram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
