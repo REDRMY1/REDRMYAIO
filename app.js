@@ -40,6 +40,12 @@ function closePopup(){
 /* ── PORTAL GATE INTERSTITIAL ── */
 let portalGateDest=null;
 function openPortalGate(dest){
+  if(localStorage.getItem('red_tg_joined') === 'true'){
+    if(dest && dest.startsWith('http')){
+      window.open(dest,'_blank');
+      return;
+    }
+  }
   portalGateDest=dest;
   const pg=document.getElementById('portal-gate');
   const popup=document.getElementById('pg-popup');
@@ -53,13 +59,60 @@ function closePortalGate(){
   if(popup)popup.classList.remove('show');
   portalGateDest=null;
 }
+let pgCrossInterval = null;
 function openGatePlatform(){
-  const popup=document.getElementById('pg-popup');
-  if(popup)popup.classList.add('show');
+  const popup = document.getElementById('pg-popup');
+  if(!popup) return;
+
+  popup.classList.add('show');
+  const cross = document.getElementById('pg-pop-cross');
+  const cdHint = document.getElementById('pg-countdown-hint');
+  const cdSec = document.getElementById('pg-cd-sec');
+
+  let remaining = 5;
+  if (cross) {
+    cross.style.display = 'flex';
+    cross.disabled = true;
+    cross.style.cursor = 'default';
+    cross.style.color = 'var(--t3)';
+    cross.style.fontSize = '11px';
+    cross.textContent = remaining + 's';
+    cross.setAttribute('aria-label', `Close available in ${remaining} seconds`);
+  }
+  if (cdHint) cdHint.style.display = 'block';
+  if (cdSec) cdSec.textContent = remaining;
+
+  if (pgCrossInterval) clearInterval(pgCrossInterval);
+  pgCrossInterval = setInterval(() => {
+    remaining--;
+    if (remaining > 0) {
+      if (cross) {
+        cross.textContent = remaining + 's';
+        cross.setAttribute('aria-label', `Close available in ${remaining} seconds`);
+      }
+      if (cdSec) cdSec.textContent = remaining;
+    } else {
+      clearInterval(pgCrossInterval);
+      pgCrossInterval = null;
+      if (cross) {
+        cross.disabled = false;
+        cross.style.cursor = 'pointer';
+        cross.style.color = 'var(--t2)';
+        cross.style.fontSize = '13px';
+        cross.textContent = '✕';
+        cross.setAttribute('aria-label', 'Close');
+      }
+      if (cdHint) cdHint.style.display = 'none';
+    }
+  }, 1000);
 }
 function closePgPopup(){
-  const popup=document.getElementById('pg-popup');
-  if(popup)popup.classList.remove('show');
+  const popup = document.getElementById('pg-popup');
+  if(popup) popup.classList.remove('show');
+  if (pgCrossInterval) {
+    clearInterval(pgCrossInterval);
+    pgCrossInterval = null;
+  }
 }
 function finishPortalGate(){
   if(portalGateDest){
@@ -2276,17 +2329,144 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(typeof updateAlarmPreview === 'function') updateAlarmPreview();
   if(!localStorage.getItem('red_join_date'))localStorage.setItem('red_join_date',Date.now());
   
-  // 10-Second Telegram Popup Trigger
+  // 8-Second Telegram Popup Trigger (shows on refresh & new visits)
   setTimeout(() => {
-    const pop = document.getElementById('tg-pop-10s');
-    if(pop) pop.style.display = 'flex';
-  }, 10000);
+    showTgPopup();
+  }, 8000);
 });
+
+let tgCrossInterval = null;
+
+function showTgPopup() {
+  const pop = document.getElementById('tg-pop-10s');
+  if (!pop) return;
+
+  const cross = document.getElementById('tg-pop-cross');
+  const cdHint = document.getElementById('tg-countdown-hint');
+  const cdSec = document.getElementById('tg-cd-sec');
+
+  let remaining = 5;
+
+  if (cross) {
+    cross.style.display = 'flex';
+    cross.disabled = true;
+    cross.style.cursor = 'default';
+    cross.style.color = 'var(--t3)';
+    cross.style.fontSize = '12px';
+    cross.textContent = remaining + 's';
+    cross.setAttribute('aria-label', `Close available in ${remaining} seconds`);
+  }
+
+  if (cdHint) cdHint.style.display = 'block';
+  if (cdSec) cdSec.textContent = remaining;
+
+  pop.style.display = 'flex';
+
+  if (tgCrossInterval) clearInterval(tgCrossInterval);
+
+  tgCrossInterval = setInterval(() => {
+    remaining--;
+    if (remaining > 0) {
+      if (cross) {
+        cross.textContent = remaining + 's';
+        cross.setAttribute('aria-label', `Close available in ${remaining} seconds`);
+      }
+      if (cdSec) cdSec.textContent = remaining;
+    } else {
+      clearInterval(tgCrossInterval);
+      tgCrossInterval = null;
+      if (cross) {
+        cross.disabled = false;
+        cross.style.cursor = 'pointer';
+        cross.style.color = 'var(--t2)';
+        cross.style.fontSize = '15px';
+        cross.textContent = '✕';
+        cross.setAttribute('aria-label', 'Close');
+      }
+      if (cdHint) cdHint.style.display = 'none';
+    }
+  }, 1000);
+}
 
 function closeTg10sPop() {
   const pop = document.getElementById('tg-pop-10s');
-  if(pop) pop.style.display = 'none';
+  if (pop) pop.style.display = 'none';
+  if (tgCrossInterval) {
+    clearInterval(tgCrossInterval);
+    tgCrossInterval = null;
+  }
 }
+
+function onTgCrossClick() {
+  const tgCross = document.getElementById('tg-pop-cross');
+  if (tgCross && tgCross.disabled) return;
+  const pgCross = document.getElementById('pg-pop-cross');
+  const pgPop = document.getElementById('pg-popup');
+  if (pgCross && pgCross.disabled && pgPop && pgPop.classList.contains('show')) return;
+
+  closeTg10sPop();
+  closePgPopup();
+}
+
+/* ── TELEGRAM JOIN VERIFICATION (LOCK UNTIL JOINED & RETURNED) ── */
+let isPendingTgJoin = false;
+
+function startTgJoin(url) {
+  isPendingTgJoin = true;
+  try {
+    sessionStorage.setItem('red_pending_tg', '1');
+  } catch(e) {}
+
+  // Update status and show verification button on 10s popup
+  const status10s = document.getElementById('tg-join-status');
+  const verify10s = document.getElementById('tg-verify-btn');
+  if (status10s) status10s.style.display = 'block';
+  if (verify10s) verify10s.style.display = 'inline-flex';
+
+  // Update status and show verification button on portal gate popup
+  const pgStatus = document.getElementById('pg-popup-status');
+  const pgVerify = document.getElementById('pg-verify-btn');
+  if (pgStatus) pgStatus.style.display = 'block';
+  if (pgVerify) pgVerify.style.display = 'inline-flex';
+}
+
+function checkAndCompleteTgJoin(force = false) {
+  let pending = isPendingTgJoin;
+  try {
+    if (sessionStorage.getItem('red_pending_tg') === '1') {
+      pending = true;
+    }
+  } catch(e) {}
+
+  if (!force && !pending) return;
+
+  isPendingTgJoin = false;
+  try {
+    sessionStorage.removeItem('red_pending_tg');
+    localStorage.setItem('red_tg_joined', 'true');
+  } catch(e) {}
+
+  closeTg10sPop();
+
+  if (typeof finishPortalGate === 'function' && portalGateDest) {
+    finishPortalGate();
+  }
+
+  if (typeof showToast === 'function') {
+    showToast('🎉 Welcome! Telegram joined — Access granted');
+  }
+}
+
+// When user returns to this tab/window after joining Telegram
+window.addEventListener('focus', () => {
+  checkAndCompleteTgJoin(false);
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    checkAndCompleteTgJoin(false);
+  }
+});
 
 /* ── ADD TO HOMESCREEN (A2HS) & PWA SUPPORT ── */
 let deferredInstallPrompt = null;

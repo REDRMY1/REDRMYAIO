@@ -2709,6 +2709,7 @@ body.zen-mode #zen-exit-pill {
 .pg-popup-sub { font-size: 0.76rem; color: var(--t2); margin-bottom: 16px; line-height: 1.45; }
 .pg-popup-join { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; background: linear-gradient(135deg, #0088cc, #005599); color: #fff; border-radius: 8px; font-weight: 700; font-size: 0.78rem; text-decoration: none; width: 100%; justify-content: center; }
 .pg-popup-joined { margin-top: 10px; background: none; border: none; color: var(--t3); font-size: 0.72rem; cursor: pointer; text-decoration: underline; }
+#tg-pop-cross:hover, #pg-pop-cross:hover { background: rgba(255, 255, 255, 0.18) !important; color: var(--t1) !important; transform: scale(1.1); }
 
 /* ── PROFILE SUBNAV TABS ── */
 #prof-subnav {
