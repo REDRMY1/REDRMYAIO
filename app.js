@@ -2127,47 +2127,160 @@ function switchProfTab(tab){
   if(tab==='tools')loadNetFull();
 }
 
-/* ── WELCOME POPUP FOR DASHBOARD ONBOARDING (ASKED ONLY ONCE) ── */
-function checkWelcome(){
-  const el=document.getElementById('welcome-overlay');if(!el)return;
-  // If user has already visited or completed/skipped onboarding, never ask again
-  if(localStorage.getItem('red_onboarded')==='true'){
-    el.style.display='none';
+/* ── COMMUNITY GATE & WELCOME ONBOARDING (ONE-TIME VERIFICATION BEFORE ENTERING NAME) ── */
+let gateTgVisited = false;
+let gateWaVisited = false;
+
+function showCommunityGate() {
+  const gate = document.getElementById('community-gate-modal');
+  if (!gate) return;
+  // If user has already joined channels, never show this again
+  if (localStorage.getItem('red_channels_joined') === 'true') {
+    gate.style.display = 'none';
     return;
   }
-  el.style.display='flex';
-  setTimeout(()=>{
-    const inp=document.getElementById('welcome-name-inp');
-    if(inp){
-      const saved=localStorage.getItem('red_name');
-      if(saved && saved!=='REDRMY Student') inp.value=saved;
-      inp.focus();
-    }
-  },300);
+  gate.style.display = 'flex';
+  updateGateState();
 }
-function closeWelcome(){
-  localStorage.setItem('red_onboarded','true');
-  const el=document.getElementById('welcome-overlay');
-  if(el){
-    el.style.transition='opacity 0.25s ease';
-    el.style.opacity='0';
-    setTimeout(()=>{el.style.display='none';el.style.opacity='1';},250);
+
+function handleGateClick(channel) {
+  if (channel === 'tg') {
+    gateTgVisited = true;
+    try { sessionStorage.setItem('red_gate_tg', '1'); } catch(e) {}
+  }
+  if (channel === 'wa') {
+    gateWaVisited = true;
+    try { sessionStorage.setItem('red_gate_wa', '1'); } catch(e) {}
+  }
+  updateGateState();
+}
+
+function updateGateState() {
+  try {
+    if (sessionStorage.getItem('red_gate_tg') === '1') gateTgVisited = true;
+    if (sessionStorage.getItem('red_gate_wa') === '1') gateWaVisited = true;
+  } catch(e) {}
+
+  const stTg = document.getElementById('gate-status-tg');
+  const stWa = document.getElementById('gate-status-wa');
+  const btnTg = document.getElementById('gate-btn-tg');
+  const btnWa = document.getElementById('gate-btn-wa');
+  const btnUnlock = document.getElementById('gate-unlock-btn');
+  const msg = document.getElementById('gate-action-msg');
+
+  if (stTg && gateTgVisited) {
+    stTg.textContent = 'JOINED ✓';
+    stTg.className = 'gate-pill-status gate-pill-joined';
+    if (btnTg) btnTg.classList.add('joined');
+  }
+  if (stWa && gateWaVisited) {
+    stWa.textContent = 'JOINED ✓';
+    stWa.className = 'gate-pill-status gate-pill-joined';
+    if (btnWa) btnWa.classList.add('joined');
+  }
+
+  // ONLY ONE IS NEEDED: Telegram OR WhatsApp
+  const isJoinedEither = (gateTgVisited || gateWaVisited);
+
+  if (isJoinedEither) {
+    if (btnUnlock) {
+      btnUnlock.disabled = false;
+      btnUnlock.classList.add('ready');
+      btnUnlock.textContent = '⚡ UNLOCK & ENTER YOUR NAME ➔';
+    }
+    if (msg) {
+      const channelName = (gateTgVisited && gateWaVisited) ? 'Both channels' : (gateTgVisited ? 'Telegram' : 'WhatsApp');
+      msg.innerHTML = `<span style="color:#4ade80;font-weight:700">🎉 ${channelName} joined! Click unlock below to set up your name.</span>`;
+    }
+  } else {
+    if (btnUnlock) {
+      btnUnlock.disabled = true;
+      btnUnlock.classList.remove('ready');
+      btnUnlock.textContent = '🔒 JOIN EITHER CHANNEL TO CONTINUE';
+    }
+    if (msg) {
+      msg.innerHTML = '👉 Join <b>Telegram</b> or <b>WhatsApp</b> above to unlock access.';
+    }
   }
 }
-function saveWelcomeName(){
-  const inp=document.getElementById('welcome-name-inp');
-  const v=inp?inp.value.trim():'';
-  const finalName=v||'REDRMY Student';
-  profileName=finalName;
-  localStorage.setItem('red_name',finalName);
-  localStorage.setItem('red_custom_name','true');
-  localStorage.setItem('red_onboarded','true');
-  const nm=document.getElementById('profile-nm');if(nm)nm.textContent=finalName;
-  const h=document.getElementById('profile-handle');if(h)h.textContent='@'+finalName.toLowerCase().replace(/\s+/g,'');
-  if(!profileAvData)updateAllAvatars(getAvatarSrc(finalName));
-  showToast(v?'Welcome to your Dashboard, '+v+'! 🚀':'Welcome to REDRMY AIO! 🚀');
+
+function submitCommunityGate() {
+  if (!gateTgVisited && !gateWaVisited) {
+    showToast('⚠️ Please click Telegram or WhatsApp above to join first!');
+    return;
+  }
+  localStorage.setItem('red_channels_joined', 'true');
+  localStorage.setItem('red_tg_joined', 'true');
+
+  const gate = document.getElementById('community-gate-modal');
+  if (gate) {
+    gate.style.transition = 'opacity 0.25s ease';
+    gate.style.opacity = '0';
+    setTimeout(() => {
+      gate.style.display = 'none';
+      gate.style.opacity = '1';
+      openWelcomeNamePopup();
+    }, 250);
+  } else {
+    openWelcomeNamePopup();
+  }
+}
+
+function openWelcomeNamePopup() {
+  const el = document.getElementById('welcome-overlay');
+  if (!el) return;
+  el.style.display = 'flex';
+  setTimeout(() => {
+    const inp = document.getElementById('welcome-name-inp');
+    if (inp) {
+      const saved = localStorage.getItem('red_name');
+      if (saved && saved !== 'REDRMY Student') inp.value = saved;
+      inp.focus();
+    }
+  }, 200);
+}
+
+function checkWelcome() {
+  // If community channels are not joined, show the mandatory community gate first!
+  if (localStorage.getItem('red_channels_joined') !== 'true') {
+    showCommunityGate();
+    return;
+  }
+
+  // If already joined channels, check if name onboarding is done
+  const el = document.getElementById('welcome-overlay');
+  if (!el) return;
+  if (localStorage.getItem('red_onboarded') === 'true') {
+    el.style.display = 'none';
+    return;
+  }
+  openWelcomeNamePopup();
+}
+
+function closeWelcome() {
+  localStorage.setItem('red_onboarded', 'true');
+  const el = document.getElementById('welcome-overlay');
+  if (el) {
+    el.style.transition = 'opacity 0.25s ease';
+    el.style.opacity = '0';
+    setTimeout(() => { el.style.display = 'none'; el.style.opacity = '1'; }, 250);
+  }
+}
+
+function saveWelcomeName() {
+  const inp = document.getElementById('welcome-name-inp');
+  const v = inp ? inp.value.trim() : '';
+  const finalName = v || 'REDRMY Student';
+  profileName = finalName;
+  localStorage.setItem('red_name', finalName);
+  localStorage.setItem('red_custom_name', 'true');
+  localStorage.setItem('red_onboarded', 'true');
+  const nm = document.getElementById('profile-nm'); if (nm) nm.textContent = finalName;
+  const h = document.getElementById('profile-handle'); if (h) h.textContent = '@' + finalName.toLowerCase().replace(/\s+/g, '');
+  if (!profileAvData) updateAllAvatars(getAvatarSrc(finalName));
+  showToast(v ? 'Welcome to your Dashboard, ' + v + '! 🚀' : 'Welcome to REDRMY AIO! 🚀');
   closeWelcome();
-  if(!localStorage.getItem('red_join_date'))localStorage.setItem('red_join_date',Date.now());
+  if (!localStorage.getItem('red_join_date')) localStorage.setItem('red_join_date', Date.now());
 }
 
 
@@ -2220,8 +2333,9 @@ function initLiquidBackground(){
   const canvas = document.getElementById('canvas-bg');
   if(!canvas) return;
 
-  // On mobile, size the canvas once and leave it static so bw_bg.jpg renders properly without GPU loop
-  if (window.innerWidth <= 768 || ('ontouchstart' in window && window.innerWidth <= 1024)) {
+  // On mobile/Android devices, leave canvas static to eliminate GPU overhead
+  const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 1024);
+  if (isMobile) {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     return;
@@ -2231,7 +2345,6 @@ function initLiquidBackground(){
   if(!ctx) return;
 
   let width = 0, height = 0;
-  const isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
   const dpr = isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.5);
   const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
 
@@ -2329,82 +2442,30 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(typeof updateAlarmPreview === 'function') updateAlarmPreview();
   if(!localStorage.getItem('red_join_date'))localStorage.setItem('red_join_date',Date.now());
   
-  // 8-Second Telegram Popup Trigger (shows on refresh & new visits)
-  setTimeout(() => {
-    showTgPopup();
-  }, 8000);
+  // Community Gate: checks one-time gate before name onboarding
+  if (localStorage.getItem('red_channels_joined') !== 'true') {
+    showCommunityGate();
+  }
 });
 
 let tgCrossInterval = null;
 
 function showTgPopup() {
-  const pop = document.getElementById('tg-pop-10s');
-  if (!pop) return;
-
-  const cross = document.getElementById('tg-pop-cross');
-  const cdHint = document.getElementById('tg-countdown-hint');
-  const cdSec = document.getElementById('tg-cd-sec');
-
-  let remaining = 5;
-
-  if (cross) {
-    cross.style.display = 'flex';
-    cross.disabled = true;
-    cross.style.cursor = 'default';
-    cross.style.color = 'var(--t3)';
-    cross.style.fontSize = '12px';
-    cross.textContent = remaining + 's';
-    cross.setAttribute('aria-label', `Close available in ${remaining} seconds`);
-  }
-
-  if (cdHint) cdHint.style.display = 'block';
-  if (cdSec) cdSec.textContent = remaining;
-
-  pop.style.display = 'flex';
-
-  if (tgCrossInterval) clearInterval(tgCrossInterval);
-
-  tgCrossInterval = setInterval(() => {
-    remaining--;
-    if (remaining > 0) {
-      if (cross) {
-        cross.textContent = remaining + 's';
-        cross.setAttribute('aria-label', `Close available in ${remaining} seconds`);
-      }
-      if (cdSec) cdSec.textContent = remaining;
-    } else {
-      clearInterval(tgCrossInterval);
-      tgCrossInterval = null;
-      if (cross) {
-        cross.disabled = false;
-        cross.style.cursor = 'pointer';
-        cross.style.color = 'var(--t2)';
-        cross.style.fontSize = '15px';
-        cross.textContent = '✕';
-        cross.setAttribute('aria-label', 'Close');
-      }
-      if (cdHint) cdHint.style.display = 'none';
-    }
-  }, 1000);
+  if (localStorage.getItem('red_channels_joined') === 'true') return;
+  showCommunityGate();
 }
 
 function closeTg10sPop() {
-  const pop = document.getElementById('tg-pop-10s');
-  if (pop) pop.style.display = 'none';
-  if (tgCrossInterval) {
-    clearInterval(tgCrossInterval);
-    tgCrossInterval = null;
+  const gate = document.getElementById('community-gate-modal');
+  if (gate && localStorage.getItem('red_channels_joined') === 'true') {
+    gate.style.display = 'none';
   }
 }
 
 function onTgCrossClick() {
-  const tgCross = document.getElementById('tg-pop-cross');
-  if (tgCross && tgCross.disabled) return;
   const pgCross = document.getElementById('pg-pop-cross');
   const pgPop = document.getElementById('pg-popup');
   if (pgCross && pgCross.disabled && pgPop && pgPop.classList.contains('show')) return;
-
-  closeTg10sPop();
   closePgPopup();
 }
 
@@ -2457,14 +2518,16 @@ function checkAndCompleteTgJoin(force = false) {
   }
 }
 
-// When user returns to this tab/window after joining Telegram
+// When user returns to this tab/window after joining Telegram or WhatsApp
 window.addEventListener('focus', () => {
   checkAndCompleteTgJoin(false);
+  if (typeof updateGateState === 'function') updateGateState();
 });
 
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
     checkAndCompleteTgJoin(false);
+    if (typeof updateGateState === 'function') updateGateState();
   }
 });
 
@@ -2582,5 +2645,47 @@ function showA2HSGuideModal() {
   }
   openModal('a2hs-guide-modal');
 }
+
+/* ── GUARDIAN: PERMANENT BACKGROUND WATERMARK ("FREE FOR All") ── */
+(function initWatermarkGuardian() {
+  const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 1024);
+  function verifyWatermark() {
+    let wm = document.getElementById('bg-watermark-layer');
+    if (!wm) {
+      wm = document.createElement('div');
+      wm.id = 'bg-watermark-layer';
+      wm.className = 'bg-watermark-layer';
+      wm.setAttribute('aria-hidden', 'true');
+      wm.innerHTML = `
+        <div class="bg-watermark-inner">
+          <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+          <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+          <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+          <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+          <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+          <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+          <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+          <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+        </div>
+      `;
+      document.body.prepend(wm);
+    }
+    wm.style.display = 'flex';
+    wm.style.visibility = 'visible';
+    wm.style.zIndex = '99990';
+    if (!isMobile) {
+      if (!document.hasFocus()) {
+        wm.style.opacity = '0.35';
+      } else if (wm.style.opacity !== '0.35') {
+        wm.style.opacity = '0.12';
+      }
+    }
+    wm.style.pointerEvents = 'none';
+  }
+  verifyWatermark();
+  if (!isMobile) {
+    setInterval(verifyWatermark, 2000);
+  }
+})();
 
 

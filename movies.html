@@ -18,8 +18,190 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Exo+2:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="styles.css">
+  
+  <!-- ANTI-INSPECT & DEVTOOLS DETECTION SCRIPT -->
+  <script>
+    (function() {
+      'use strict';
+      // Disable right-click context menu
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+      }, { capture: true });
+
+      // Disable DevTools & source inspection shortcuts
+      window.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || e.keyCode === 123) {
+          e.preventDefault();
+          e.stopPropagation();
+          triggerInspectBlock();
+          return false;
+        }
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c', 'K', 'k'].includes(e.key)) {
+          e.preventDefault();
+          e.stopPropagation();
+          triggerInspectBlock();
+          return false;
+        }
+        if ((e.ctrlKey || e.metaKey) && (e.key === 'u' || e.key === 'U')) {
+          e.preventDefault();
+          e.stopPropagation();
+          triggerInspectBlock();
+          return false;
+        }
+        if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+      }, { capture: true });
+
+      let isBlocked = false;
+      function triggerInspectBlock() {
+        isBlocked = true;
+        document.documentElement.classList.add('inspect-blocked');
+        const blocker = document.getElementById('inspect-blocker');
+        if (blocker) blocker.style.display = 'flex';
+      }
+
+      function unblockInspect() {
+        if (!isBlocked) return;
+        isBlocked = false;
+        document.documentElement.classList.remove('inspect-blocked');
+        const blocker = document.getElementById('inspect-blocker');
+        if (blocker) blocker.style.display = 'none';
+      }
+
+      const isMobileDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 1024);
+
+      function detectDevTools() {
+        // Mobile / Android devices do not have desktop devtools; running debugger loops causes
+        // severe frame drops. Bypassing on mobile keeps Android scrolling at 60/120fps.
+        if (isMobileDevice) return;
+
+        const threshold = 160;
+        const wDiff = window.outerWidth - window.innerWidth;
+        const hDiff = window.outerHeight - window.innerHeight;
+        if (wDiff > threshold || hDiff > threshold) {
+          triggerInspectBlock();
+          return;
+        }
+
+        const t0 = performance.now();
+        /* eslint-disable no-debugger */
+        debugger;
+        /* eslint-enable no-debugger */
+        const t1 = performance.now();
+        if (t1 - t0 > 100) {
+          triggerInspectBlock();
+          return;
+        }
+
+        if (isBlocked) {
+          unblockInspect();
+        }
+      }
+
+      // Anti-screenshot keyboard detection (PrintScreen, Win+Shift+S, Mac Cmd+Shift+3/4/5)
+      function handleScreenshotAttempt(e) {
+        const isPrintKey = e.key === 'PrintScreen' || e.keyCode === 44;
+        const isWinSnip = (e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'S' || e.key === 's');
+        const isMacScreen = (e.metaKey) && e.shiftKey && ['3', '4', '5'].includes(e.key);
+
+        if (isPrintKey || isWinSnip || isMacScreen) {
+          if (e.preventDefault) e.preventDefault();
+          if (e.stopPropagation) e.stopPropagation();
+
+          // Overwrite clipboard immediately so screenshot cannot be pasted
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText('⚠️ Screenshots are disabled on REDRMY • FREE FOR ALL');
+            }
+          } catch(err) {}
+
+          triggerScreenshotShield();
+          return false;
+        }
+      }
+
+      window.addEventListener('keydown', handleScreenshotAttempt, { capture: true });
+      window.addEventListener('keyup', handleScreenshotAttempt, { capture: true });
+
+      function triggerScreenshotShield() {
+        const shield = document.getElementById('screenshot-shield');
+        if (shield) {
+          shield.classList.add('active');
+          setTimeout(() => {
+            shield.classList.remove('active');
+          }, 2200);
+        }
+        if (typeof showToast === 'function') {
+          showToast('🚫 Screenshots are restricted on REDRMY!');
+        }
+      }
+
+      // Boost "FREE FOR ALL" watermark visibility when window loses focus (desktop only)
+      if (!isMobileDevice) {
+        window.addEventListener('blur', function() {
+          const wm = document.getElementById('bg-watermark-layer');
+          if (wm) wm.style.opacity = '0.35';
+        });
+        window.addEventListener('focus', function() {
+          const wm = document.getElementById('bg-watermark-layer');
+          if (wm) wm.style.opacity = '0.12';
+        });
+
+        setInterval(detectDevTools, 1500);
+        window.addEventListener('resize', detectDevTools);
+      }
+    })();
+  </script>
 </head>
 <body>
+  <!-- INSPECT MODE & DEVTOOLS RESTRICTION OVERLAY -->
+  <div id="inspect-blocker" role="alert" aria-live="assertive">
+    <div class="inspect-blocker-card">
+      <div class="inspect-blocker-icon">🛡️</div>
+      <div class="inspect-blocker-badge">SECURITY NOTICE</div>
+      <div class="inspect-blocker-title">INSPECT MODE RESTRICTED</div>
+      <div class="inspect-blocker-desc">
+        Developer Tools and Inspect Mode have been detected.<br>
+        For platform security, the website cannot load while DevTools is open.
+      </div>
+      <div class="inspect-blocker-tip">
+        👉 <b>Please close Inspect Mode / Developer Tools</b> to load and use REDRMY.
+      </div>
+      <button type="button" class="btn-inspect-reload" onclick="window.location.reload()">RELOAD WEBSITE ↻</button>
+    </div>
+  </div>
+
+  <!-- ANTI-SCREENSHOT FLASH SHIELD -->
+  <div id="screenshot-shield" role="alert" aria-live="assertive">
+    <div class="screenshot-shield-card">
+      <div style="font-size:3rem;margin-bottom:12px">🚫</div>
+      <div class="screenshot-shield-badge">SCREENSHOT RESTRICTED</div>
+      <div class="screenshot-shield-title">Screenshots Not Allowed</div>
+      <div class="screenshot-shield-desc">
+        Screen capture and screenshots are disabled on this platform.<br>
+        <b style="color:#38bdf8;font-size:0.92rem;display:inline-block;margin-top:8px">FREE FOR ALL • REDRMY</b>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERMANENT BACKGROUND WATERMARK: FREE FOR ALL -->
+  <div id="bg-watermark-layer" class="bg-watermark-layer" aria-hidden="true">
+    <div class="bg-watermark-inner">
+      <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+      <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+      <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+      <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+      <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+      <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+      <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+      <div class="bg-watermark-line">FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All • FREE FOR All</div>
+    </div>
+  </div>
+
   <!-- BACKGROUND CANVAS & FX -->
   <canvas id="canvas-bg"></canvas>
   <div id="aurora-layer">
@@ -526,8 +708,9 @@
       const canvas = document.getElementById('canvas-bg');
       if (!canvas) return;
 
-      // On mobile, size the canvas once and leave it static so bw_bg.jpg renders properly without GPU loop
-      if (window.innerWidth <= 768 || ('ontouchstart' in window && window.innerWidth <= 1024)) {
+      // On mobile/Android devices, leave canvas static to eliminate GPU overhead
+      const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 1024);
+      if (isMobile) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         return;
