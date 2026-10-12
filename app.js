@@ -300,8 +300,12 @@ const PROV=[
     {n:'Study IQ',l:L.siq,t:'web',url:'https://spidyiq.vercel.app'},
     {n:'Unacademy',l:L.un,t:'web',url:'https://spidyunacademy.vercel.app/'}]},
   {id:'akkix',name:'AkkiXstudy',logo:'https://files.catbox.moe/ihorqr.jpg',plats:[
-    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://akkistudy.netlify.app/'},
-    {n:'Unacademy',l:L.un,t:'web',url:'https://akkistudy.netlify.app/'}]},
+    {n:'Main Web',l:'https://files.catbox.moe/ihorqr.jpg',t:'web',url:'https://akki-study-x.netlify.app/'},
+    {n:'PW Catalog',l:L.pw,t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=pw_catalog'},
+    {n:'IIT-JEE Batches',l:L.iit,t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'NEET Batches',l:L.pw,t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'Boards Batches',l:L.tb,t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'KGS Batches',l:L.kgs,t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'}]},
   {id:'itrms',name:'ITRMS',logo:'https://files.catbox.moe/5lzb53.jpg',plats:[
     {n:'Vibrant Academy',l:L.va,t:'web',url:'https://vibrant.nextmate.site/'},
     {n:'RG Vikramjeet',l:L.rgv,t:'web',url:'https://rgvikramjeet.nextmate.site/'},
@@ -1035,7 +1039,7 @@ function renderPlatformVisits(){
     { n: 'Physics Wallah (PW)', cat: 'JEE & NEET', u: 'https://pw.live', v: 'Popular' },
     { n: 'Next IAS / Vision IAS', cat: 'UPSC CSE', u: 'https://visionias.in', v: 'Featured' },
     { n: 'Unacademy Plus', cat: 'All Competitive Exams', u: 'https://unacademy.com', v: 'Active' },
-    { n: 'Telegram Study Bot', cat: 'REDRMY Official', u: 'https://t.me/Redrmy_bot', v: 'Verified' }
+    { n: 'Telegram Study Bot', cat: 'REDRMY Official', u: 'https://t.me/REDRMYCOURSESS?direct', v: 'Verified' }
   ];
   el.innerHTML = topPlats.map(p => `
     <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
