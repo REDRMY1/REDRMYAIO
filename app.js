@@ -169,13 +169,13 @@ const PROV=[
     {n:'Physics Wallah 2',l:L.pw,t:'web',gate:'https://vidcloud.eu.org/'},
     {n:'Physics Wallah 3',l:L.pw,t:'web',url:'https://m.pwmarco.site/study/batches'},
     {n:'Physics Wallah 4',l:L.pw,t:'web',url:'https://studyrays.cc/'},
-    {n:'Physics Wallah 5',l:L.pw,t:'web',url:'https://physicswallah.pwnexus.dpdns.org/study/batches'},
-    {n:'Physics Wallah 6',l:L.pw,t:'web',gate:'https://stream.testuk.org'},
+    {n:'Physics Wallah 5',l:L.pw,t:'web',url:'https://pw-codexstudy.vercel.app/'},
+    {n:'Physics Wallah 6',l:L.pw,t:'web',url:'https://www.learnxpw.site/study/batches'},
     {n:'Physics Wallah 7',l:L.pw,t:'web',gate:'http://pwsphere.vercel.app'},
-    {n:'PW Pi',l:L.pipro,t:'web',url:'https://pipro.deltastudy.fun/'},
+    {n:'PW Pi',l:L.pipro,t:'web',url:'https://pi.pwmarco.info/'},
     {n:'Pi 2',l:L.pipro,t:'web',url:'https://studyaura.online/study/pi'},
     {n:'Digital books',l:L.pw,t:'web',url:'https://books.streamfiles.eu.org/'},
-    {n:'Digital book 2',l:L.pw,t:'web',url:'https://books.studybeepro.site/'},
+    {n:'Digital book 2',l:L.pw,t:'web',url:'https://pikachu-books.vercel.app/'},
     {n:'Digital Book Test',l:L.pw,t:'web',url:'https://pwxbooks.pages.dev/'},
     {n:'Infinite Practice',l:L.pw,t:'web',url:'https://pwx.pages.dev/batch/infinite-practice'},
     {n:'Infinite Practice 2',l:L.pw,t:'web',url:'https://pwnexus.dpdns.org/pw-infinity-practice'},
@@ -195,7 +195,8 @@ const PROV=[
     {n:'Apna College',l:L.ac,t:'web',url:'https://coursaa-main.vercel.app/'},
     {n:'Apna College 2',l:L.ac,t:'web',url:'https://studyapkmod-apnacollege.vercel.app/'},
     {n:'Target Board',l:L.tb,t:'web',url:'https://studyapkmod-targetboard.vercel.app/'},
-    {n:'Vidyagram',l:L.vk,t:'web',url:'https://bat.vidyagram.workers.dev/'},
+    {n:'Vidyagram',l:L.vk,t:'web',url:'https://vidya.nexthope.site/'},
+    {n:'Yes Officer',l:'https://iili.io/Cm8DWen.jpg',t:'web',url:'https://yesofficer.nexthope.site/'},
     {n:'Vidyagram 2',l:L.vk,t:'web',url:'https://learnbyakp.site/vidyagram'},
     {n:'RG Vikramjeet',l:L.rgv,t:'web',url:'https://learnbyakp.site/vikaram'},
     {n:'Pramar Batches',l:'https://files.catbox.moe/3seq41.png',t:'web',url:'https://tgdoraemon.vercel.app'},
@@ -206,7 +207,7 @@ const PROV=[
     {n:'CDS Journey',l:L.cds,t:'web',url:'https://spidyuniversecds.vercel.app/'},
     {n:'Sachin Academy',l:'https://i.ibb.co/n8PJXJ5X/Screenshot-2026-08-28-16-25-52-876-com-android-chrome.png',t:'web',url:'https://sachinclassex1.vercel.app/'},
     {n:'Sachin Classes 2',l:'https://i.ibb.co/n8PJXJ5X/Screenshot-2026-08-28-16-25-52-876-com-android-chrome.png',t:'web',url:'https://sachin.nexthope.site'},
-    {n:'Toppers Wisdom',l:'https://www.topperswisdom.com/next_images/logo.png',t:'web',url:'https://studyapkmod-toperwis.vercel.app/'},
+    {n:'Toppers Wisdom',l:'https://www.topperswisdom.com/next_images/logo.png',t:'web',url:'https://tw.nexthope.site/'},
     {n:'GS Vision',l:'https://files.catbox.moe/mzecv5.png',t:'web',url:'https://nexthope.pages.dev/gsvision/'},
     {n:'Future Kul',l:'https://files.catbox.moe/ck8uz5.png',t:'web',url:'https://nexthope.pages.dev/futurekul/'},
     {n:'MD Classes',l:'https://iili.io/CehU8tn.png',t:'web',url:'https://mdclassesx.vercel.app/'},
@@ -215,7 +216,15 @@ const PROV=[
     {n:'Master Sahab',l:L.msahab,t:'web',url:'https://mastersahab.studybeepro.site/'},
     {n:'Padhle Akshay',l:L.pa,t:'web',url:'https://trms-akshay.nextmate.site/home'},
     {n:'Magnet Brain',l:L.mb,t:'web',url:'https://www.magnetbrains.com/'},
-    {n:'Pinnacle Book',l:'https://www.topperswisdom.com/next_images/logo.png',t:'web',url:'https://nexthope.pages.dev/pinnacle/'}]},
+    {n:'Pinnacle Book',l:'https://www.topperswisdom.com/next_images/logo.png',t:'web',url:'https://nexthope.pages.dev/pinnacle/'},
+    {n:'Dhruv Rathee',l:'https://imgyx.pages.dev/QdBbc',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'Coding Courses',l:'https://imgyx.pages.dev/N6nDF',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'English Speaking (Aleena Rais)',l:'https://imgyx.pages.dev/6lvhz',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'Video Editing',l:'https://imgyx.pages.dev/r4anO',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'Banking',l:'https://imgyx.pages.dev/HMVE4',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'BSc Nursing',l:'https://imgyx.pages.dev/dvZrR',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'UPSC',l:'https://imgyx.pages.dev/56DA7',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'Defense',l:'https://imgyx.pages.dev/xa1lZ',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'}]},
   {id:'redrmy2',name:'REDRMY 2.0',logo:'logo.png',plats:[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://redrmy-pw.vercel.app/'},
     {n:'Selection Way',l:L.sw,t:'web',url:'https://redrmy-sw.vercel.app/'}]},
@@ -248,7 +257,7 @@ const PROV=[
   {id:'studystark',name:'StudyStark',logo:'https://files.catbox.moe/tdfmzz.png',plats:[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://vidcloud.eu.org/'}]},
   {id:'nexthope',name:'NextHope',logo:'https://i.ibb.co/v4k8LdYN/nexthope.png',plats:[
-    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://nexthope.pages.dev/pw/'},
+    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pw.nexthope.site/study/batches'},
     {n:'Next Topper',l:L.nt,t:'web',url:'https://nexthope.pages.dev/nt/'},
     {n:'Mission Jeet',l:L.mj,t:'web',url:'https://nexthope.pages.dev/mj/'},
     {n:'Unacademy',l:L.un,t:'web',url:'https://nexthope.pages.dev/unacademy/'},
@@ -259,7 +268,12 @@ const PROV=[
     {n:'GS Vision',l:'https://files.catbox.moe/mzecv5.png',t:'web',url:'https://nexthope.pages.dev/gsvision/'},
     {n:'Future Kul',l:'https://files.catbox.moe/ck8uz5.png',t:'web',url:'https://nexthope.pages.dev/futurekul/'},
     {n:'Pinnacle Books',l:'https://www.topperswisdom.com/next_images/logo.png',t:'web',url:'https://nexthope.pages.dev/pinnacle/'},
-    {n:'Sachin Classes',l:'https://i.ibb.co/n8PJXJ5X/Screenshot-2026-08-28-16-25-52-876-com-android-chrome.png',t:'web',url:'https://sachin.nexthope.site'}]},
+    {n:'Sachin Classes',l:'https://i.ibb.co/n8PJXJ5X/Screenshot-2026-08-28-16-25-52-876-com-android-chrome.png',t:'web',url:'https://sachin.nexthope.site'},
+    {n:'Vidyagram',l:L.vk,t:'web',url:'https://vidya.nexthope.site/'},
+    {n:'Yes Officer',l:'https://iili.io/Cm8DWen.jpg',t:'web',url:'https://yesofficer.nexthope.site/'},
+    {n:'Target Board',l:L.tb,t:'web',url:'https://tb.nexthope.site/'},
+    {n:'Toppers Wisdom',l:'https://www.topperswisdom.com/next_images/logo.png',t:'web',url:'https://tw.nexthope.site/'},
+    {n:'Apna College',l:L.ac,t:'web',url:'https://nexthope.pages.dev/apnacollege/'}]},
   {id:'pwnexus',name:'PW Nexus',logo:'https://files.catbox.moe/kxt4x7.jpg',plats:[
     {n:'Physics Wallah 1',l:L.pw,t:'web',url:'https://pw.pwnexus.dpdns.org/'},
     {n:'Physics Wallah 2',l:L.pw,t:'web',url:'https://physicswallah.pwnexus.dpdns.org/study/batches'},
@@ -305,7 +319,17 @@ const PROV=[
     {n:'IIT-JEE Batches',l:L.iit,t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
     {n:'NEET Batches',l:L.pw,t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
     {n:'Boards Batches',l:L.tb,t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
-    {n:'KGS Batches',l:L.kgs,t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'}]},
+    {n:'KGS Batches',l:L.kgs,t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'Next Topper',l:L.nt,t:'web',url:'https://nt-akkistudyx.vercel.app/'},
+    {n:'Dhruv Rathee',l:'https://imgyx.pages.dev/QdBbc',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'Coding Courses',l:'https://imgyx.pages.dev/N6nDF',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'English Speaking (Aleena Rais)',l:'https://imgyx.pages.dev/6lvhz',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'Video Editing',l:'https://imgyx.pages.dev/r4anO',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'Apna College',l:L.ac,t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'Banking',l:'https://imgyx.pages.dev/HMVE4',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'BSc Nursing',l:'https://imgyx.pages.dev/dvZrR',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'UPSC',l:'https://imgyx.pages.dev/56DA7',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'},
+    {n:'Defense',l:'https://imgyx.pages.dev/xa1lZ',t:'web',url:'https://akkistudyxpro-44094a367971.herokuapp.com/app?view=home'}]},
   {id:'itrms',name:'ITRMS',logo:'https://files.catbox.moe/5lzb53.jpg',plats:[
     {n:'Vibrant Academy',l:L.va,t:'web',url:'https://vibrant.nextmate.site/'},
     {n:'RG Vikramjeet',l:L.rgv,t:'web',url:'https://rgvikramjeet.nextmate.site/'},
@@ -315,7 +339,7 @@ const PROV=[
     {n:'Vidyakul',l:L.vk,t:'web',url:'https://trmsvidyakul.nextmate.site/'},
     {n:'Padhle Akshay',l:L.pa,t:'web',url:'https://trms-akshay.nextmate.site/'},
     {n:'Test Sagar',l:L.tsagar,t:'web',url:'https://test-sagar-jet.vercel.app/'},
-    {n:'Apna College',l:L.ac,t:'web',url:'https://trms-ac.nextmate.site/'}]},
+    {n:'Apna College',l:L.ac,t:'web',url:'https://codextrms.vercel.app'}]},
   {id:'pwthor',name:'PW Thor',logo:'https://files.catbox.moe/1k15eb.jpg',plats:[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pwthor.live/study/batches'}]},
   {id:'studyratna',name:'Study Ratna',logo:'https://files.catbox.moe/tl1on1.jpg',plats:[
@@ -331,7 +355,8 @@ const PROV=[
     {n:'Unacademy',l:L.un,t:'web',url:'https://studypanda.live/una'},
     {n:'Vibrant Academy',l:L.va,t:'web',url:'https://studypanda.live/vibrant'},
     {n:'Master Sahab',l:L.msahab,t:'web',url:'https://mastersahab.studypanda.live/'},
-    {n:'Rojgar With Ankit',l:L.rwa,t:'web',url:'https://rwa.studypanda.live/'}]},
+    {n:'Rojgar With Ankit',l:L.rwa,t:'web',url:'https://rwa.studypanda.live/'},
+    {n:'Science & Fun',l:L.sf,t:'web',url:'https://studypanda.live/scienceandfun'}]},
   {id:'alpha',name:'AlphaStudySquad',logo:'https://files.catbox.moe/nf0aga.jpg',apk:'https://files.catbox.moe/fr3bnw.apk',plats:[
     {n:'Physics Wallah',l:L.pw,t:'app',url:null}]},
   {id:'promods',name:'PRO Mods',logo:'https://files.catbox.moe/8qxj63.jpg',plats:[
@@ -340,7 +365,8 @@ const PROV=[
     {n:'RWA Web',l:L.rwa,t:'web',url:'https://rojgarwithankitt.vercel.app'},
     {n:'Selection Way Test',l:L.sw,t:'web',url:'https://testrankingfree.vercel.app'},
     {n:'KGS',l:L.kgs,t:'web',url:'https://khanglobal.vercel.app'},
-    {n:'Unacademy',l:L.un,t:'web',url:'https://unacademyy.vercel.app'}]},
+    {n:'Unacademy',l:L.un,t:'web',url:'https://unacademyy.vercel.app'},
+    {n:'Yes Officer',l:'https://i.ibb.co/DH8zzc61/yesofficerlogo.png',t:'web',url:'https://yesofficerpro.pages.dev/'}]},
   {id:'sigma',name:'Sigma Study',logo:'https://files.catbox.moe/or00yi.jpg',plats:[
     {n:'Unacademy',l:L.un,t:'app',url:null,apk:'https://files.catbox.moe/zahlci.apk'},
     {n:'Study IQ',l:L.siq,t:'app',url:null,apk:'https://files.catbox.moe/n467aq.apk'},
@@ -371,7 +397,8 @@ const PROV=[
     {n:'Mission Jeet',l:L.mj,t:'web',url:'https://mission-jeet.primestudy.live/missionjeet/'},
     {n:'Unacademy',l:L.un,t:'web',url:'https://unacademy.primestudy.live/'},
     {n:'Vibrant Academy',l:L.va,t:'web',url:'https://vibrante.primestudy.live/'},
-    {n:'Selection Way',l:L.sw,t:'web',url:'https://sw.primestudy.live/'}]},
+    {n:'Selection Way',l:L.sw,t:'web',url:'https://sw.primestudy.live/'},
+    {n:'Rojgar With Ankit',l:L.rwa,t:'web',url:'https://rwa.primestudy.live/'}]},
   {id:'studybee',name:'Study Bee',logo:'https://i.ibb.co/s9QQQZhb/IMG-20260726-185202-057.jpg',plats:[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pw.studybeepro.site/auth'},
     {n:'Next Topper',l:L.nt,t:'web',url:'https://nt.studybeepro.site/'},
@@ -384,7 +411,10 @@ const PROV=[
     {n:'Master Sahab',l:L.msahab,t:'web',url:'https://mastersahab.studybeepro.site/'},
     {n:'Digital Book',l:L.pw,t:'web',url:'https://books.studybeepro.site/'},
     {n:'Sachin Classes',l:'https://i.ibb.co/n8PJXJ5X/Screenshot-2026-08-28-16-25-52-876-com-android-chrome.png',t:'web',url:'https://sachin.studybeepro.site/'},
-    {n:'Future Kul',l:'https://files.catbox.moe/ck8uz5.png',t:'web',url:'https://studybeepro.site/futurekul/'}]},
+    {n:'Future Kul',l:'https://files.catbox.moe/ck8uz5.png',t:'web',url:'https://studybeepro.site/futurekul/'},
+    {n:'Vidyagram',l:L.vk,t:'web',url:'https://vidya.studybeepro.site/'},
+    {n:'Science & Fun',l:L.sf,t:'web',url:'https://scienceandfun.studybeepro.site/'},
+    {n:'Yes Officer',l:'https://iili.io/Cm8DWen.jpg',t:'web',url:'https://yesofficer.studybeepro.site/'}]},
   {id:'pw4free',name:'PW4FREE',logo:L.pwf,plats:[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pw4free.in'},
     {n:'Lite PW',l:L.pw,t:'web',url:'https://pw4free.in'}]},
@@ -417,7 +447,8 @@ const PROV=[
     {n:'Topper Wisdom',l:'https://www.topperswisdom.com/next_images/logo.png',t:'web',url:'https://studyapkmod-toperwis.vercel.app/'},
     {n:'Gyaan Bindu',l:L.gb,t:'web',url:'https://studyapkmod.vercel.app/home.html?domainId=3377'},
     {n:'Target Board',l:L.tb,t:'web',url:'https://studyapkmod-targetboard.vercel.app/'},
-    {n:'Eduteria',l:'https://files.catbox.moe/e082of.png',t:'web',url:'https://studyapkmod-eduteria.vercel.app/'}]},
+    {n:'Eduteria',l:'https://files.catbox.moe/e082of.png',t:'web',url:'https://studyapkmod-eduteria.vercel.app/'},
+    {n:'Aash Official',l:'https://appx-wsb-gcp-mcdn.akamai.net.in/subject/2022-06-13-0.35413404256370096.webp',t:'web',url:'https://studyapkmod-aash.vercel.app/'}]},
   {id:'learnfree',name:'Learn Free',logo:L.lf,apk:'https://files.catbox.moe/jjvaqg.apk',plats:[
     {n:'Sigma Study',l:L.pw,t:'app',url:null,apk:'https://files.catbox.moe/4qplbp.apk'},
     {n:'Career Will',l:L.cw,t:'web',url:'https://sangam.free.nf/CW/course_index.html'},
@@ -433,7 +464,15 @@ const PROV=[
     {n:'Physics Wallah',l:L.pw,t:'app',url:null,apk:'https://files.catbox.moe/11yg6e.apk'},
     {n:'Target Board',l:L.tb,t:'app',url:null,apk:'https://files.catbox.moe/11yg6e.apk'},
     {n:'Eduteria',l:L.edut,t:'app',url:null,apk:'https://files.catbox.moe/11yg6e.apk'},
-    {n:'Future Kul',l:'https://files.catbox.moe/ck8uz5.png',t:'web',url:'https://mtaiirus.site/futurekul/'}]},
+    {n:'Future Kul',l:'https://files.catbox.moe/ck8uz5.png',t:'web',url:'https://mtaiirus.site/futurekul/'},
+    {n:'Selection Way',l:L.sw,t:'app',url:null,apk:'https://files.catbox.moe/11yg6e.apk'},
+    {n:'IearnFree Education',l:L.lf,t:'app',url:null,apk:'https://files.catbox.moe/11yg6e.apk'},
+    {n:'KGS Test',l:L.kgs,t:'app',url:null,apk:'https://files.catbox.moe/11yg6e.apk'},
+    {n:'Test Ranking',l:L.sw,t:'app',url:null,apk:'https://files.catbox.moe/11yg6e.apk'},
+    {n:'Vidya Education',l:L.vk,t:'app',url:null,apk:'https://files.catbox.moe/11yg6e.apk'},
+    {n:'StudyIO',l:L.siq,t:'app',url:null,apk:'https://files.catbox.moe/11yg6e.apk'},
+    {n:'CW Classes',l:L.cw,t:'app',url:null,apk:'https://files.catbox.moe/11yg6e.apk'},
+    {n:'IFAS Premium',l:L.gen,t:'app',url:null,apk:'https://files.catbox.moe/11yg6e.apk'}]},
   {id:'pwjarvis',name:'PW Jarvis',logo:L.pwj,plats:[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pwjarvis.com/'}]},
   {id:'darkuniverse',name:'Dark Universe',logo:'https://files.catbox.moe/9ivw0m.jpg',plats:[
@@ -442,16 +481,22 @@ const PROV=[
     {n:'KGS',l:L.kgs,t:'web',url:'https://www.darkuniverse.site/kgs'},
     {n:'Pinnacle Book',l:'https://www.topperswisdom.com/next_images/logo.png',t:'web',url:'https://www.darkuniverse.site/pinnacle-books'},
     {n:'GS Vision',l:'https://files.catbox.moe/mzecv5.png',t:'web',url:'https://www.darkuniverse.site/gs-vision'},
-    {n:'Selection Way',l:L.sw,t:'web',url:'https://www.darkuniverse.site/selection-way'},
+    {n:'Selection Way',l:L.sw,t:'web',url:'https://selectionways.netlify.app/'},
     {n:'Future Kul',l:'https://files.catbox.moe/ck8uz5.png',t:'web',url:'https://www.darkuniverse.site/futurekul'},
     {n:'Topper Wisdom',l:'https://www.topperswisdom.com/next_images/logo.png',t:'web',url:'https://www.darkuniverse.site/topper-wisdom'},
     {n:'Apna College',l:L.ac,t:'web',url:'https://www.darkuniverse.site/apna-college'},
     {n:'Study IQ',l:L.siq,t:'web',url:'https://www.darkuniverse.site/studyiq'},
-    {n:'CDS Journey',l:L.cds,t:'web',url:'https://www.darkuniverse.site/cds-journey'}]},
+    {n:'CDS Journey',l:L.cds,t:'web',url:'https://www.darkuniverse.site/cds-journey'},
+    {n:'Mission Jeet',l:L.mj,t:'web',url:'https://mission-jeet-dark.netlify.app/'},
+    {n:'Yes Officer',l:'https://iili.io/Cm8DWen.jpg',t:'web',url:'https://yes9ffc3r.netlify.app/'},
+    {n:'Sachin Academy',l:L.sachin,t:'web',url:'https://sachinacademy.netlify.app/'},
+    {n:'Rojgar With Ankit',l:L.rwa,t:'web',url:'https://rojgarwithhankit.netlify.app/'}]},
   {id:'studyparcham',name:'Study Parcham',logo:L.sp,plats:[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://studyparcham.in/pw/'},
     {n:'Next Topper',l:L.nt,t:'web',url:'https://studyparcham.in/nt/'},
-    {n:'Mission Jeet',l:L.mj,t:'web',url:'https://studyparcham.in/mj/'}]},
+    {n:'Mission Jeet',l:L.mj,t:'web',url:'https://studyparcham.in/mj/'},
+    {n:'Vibrant Academy',l:L.va,t:'web',url:'https://platform.studyparcham.in/vibrant'},
+    {n:'Selection Way',l:L.sw,t:'web',url:'https://platform.studyparcham.in/sway'}]},
   {id:'ophub',name:'OP Hub',logo:'https://files.catbox.moe/tfv70j.jpg',plats:[
     {n:'Kompetishuns',l:L.pw,t:'web',url:'https://kuch-nahi-02.github.io/kompetition-dn/'},
     {n:'Allen',l:L.al,t:'web',url:'https://dusra-aur.github.io/alien-jaddu/'},
@@ -477,8 +522,10 @@ const PROV=[
     {n:'Unacademy Offline',l:L.un,t:'web',url:'https://uno-studysquad.pages.dev/'}]},
   {id:'pwmacro',name:'PW Macro',logo:'https://files.catbox.moe/rnjg3r.jpg',plats:[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://m.pwmarco.site/study/batches'},
-    {n:'Rojgar With Ankit',l:L.rwa,t:'web',url:'https://rwamarco.vercel.app/'}]},
+    {n:'Rojgar With Ankit',l:L.rwa,t:'web',url:'https://rwamarco.vercel.app/'},
+    {n:'Pi',l:L.pipro,t:'web',url:'https://pi.pwmarco.info/'}]},
   {id:'vidyaverse',name:'Vidyaverse',logo:'https://i.ibb.co/pBRvQqNh/IMG-20260824-085341-961.jpg',plats:[
+    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pwxyro.ai.studio/'},
     {n:'Next Topper',l:L.nt,t:'web',url:'https://vidya-verse.ai.studio/next-toppers'},
     {n:'Mission Jeet',l:L.mj,t:'web',url:'https://vidya-verse.ai.studio/mission-jeet'},
     {n:'KGS',l:L.kgs,t:'web',url:'https://vidya-verse.ai.studio/khan-gs'},
@@ -488,11 +535,14 @@ const PROV=[
     {n:'Next Topper',l:L.nt,t:'web',url:'https://TheDevcoderZ.pages.dev/nexttoppers'},
     {n:'Physics Wallah',l:L.pw,t:'web',url:'http://PW.examcrushers.in'}]},
   {id:'learntopper',name:'Learn Topper',logo:'https://files.catbox.moe/vev4go.jpg',plats:[
-    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pw.learntopper.in/'},
-    {n:'Next Topper',l:L.nt,t:'web',url:'https://nt1.learntopper.in/'},
-    {n:'Mission Jeet',l:L.mj,t:'web',url:'https://mj.learntopper.in/'},
-    {n:'Selection Way',l:L.sw,t:'web',url:'https://sw.learntopper.in/'},
-    {n:'GS Vision',l:'https://files.catbox.moe/mzecv5.png',t:'web',url:'https://gs.learntopper.in/'}]},
+    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pw.lrnt.ccwu.cc/'},
+    {n:'Next Topper',l:L.nt,t:'web',url:'https://nt.lrnt.ccwu.cc/'},
+    {n:'Mission Jeet',l:L.mj,t:'web',url:'https://mj.lrnt.ccwu.cc/'},
+    {n:'Selection Way',l:L.sw,t:'web',url:'https://sw.lrnt.ccwu.cc/'},
+    {n:'GS Vision',l:'https://files.catbox.moe/mzecv5.png',t:'web',url:'https://gs.learntopper.in/'},
+    {n:'Vibrant Academy',l:L.va,t:'web',url:'https://vt.lrnt.ccwu.cc/'},
+    {n:'Apna College',l:L.ac,t:'web',url:'https://ac.lrnt.ccwu.cc/'},
+    {n:'Future Kul',l:'https://files.catbox.moe/ck8uz5.png',t:'web',url:'https://fk.lrnt.ccwu.cc/'}]},
   {id:'asmultiverseNew',name:'AS Multiverse New',logo:'https://files.catbox.moe/ig737i.png',plats:[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pw.gemtara.in'},
     {n:'Books',l:L.pw,t:'web',url:'https://books.asmultiverse.in/'},
@@ -503,12 +553,15 @@ const PROV=[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://www.learnxpw.site/study/batches'},
     {n:'Pi',l:L.pipro,t:'web',url:'https://www.learnxpw.site/study/pi'},
     {n:'Next Topper',l:L.nt,t:'web',url:'https://www.learnxpw.site/study/nexttoppers'},
-    {n:'Mission Jeet',l:L.mj,t:'web',url:'https://www.learnxpw.site/study/missionjeet'}]},
+    {n:'Mission Jeet',l:L.mj,t:'web',url:'https://www.learnxpw.site/study/missionjeet'},
+    {n:'Selection Way',l:L.sw,t:'web',url:'https://www.learnxpw.site/study/sway'}]},
   {id:'batuniverse',name:'Bat Universe',logo:'https://files.catbox.moe/7mhvle.jpg',plats:[
-    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://bat.unuversepw.workers.dev/'},
-    {n:'Vidyagram',l:L.vk,t:'web',url:'https://bat.vidyagram.workers.dev/'},
-    {n:'KGS',l:L.kgs,t:'web',url:'https://bat.kgss.workers.dev/'},
-    {n:'Next Topper',l:L.nt,t:'web',url:'https://bat.nexttopper.workers.dev'}]},
+    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://bat.unuverse.workers.dev/'},
+    {n:'Vidyagram',l:L.vk,t:'web',url:'https://bat.unuverse.workers.dev/'},
+    {n:'KGS',l:L.kgs,t:'web',url:'https://bat.unuverse.workers.dev/app/ba535b18-1070-404c-8160-808b6ecb7040'},
+    {n:'Next Topper',l:L.nt,t:'web',url:'https://bat.nexttopper.workers.dev'},
+    {n:'Career Will',l:L.cw,t:'web',url:'https://bat.unuverse.workers.dev/'},
+    {n:'Vidyakul',l:L.vk,t:'web',url:'https://bat.unuverse.workers.dev/app/b498eafb-9fa6-4dd7-89fc-382e958a86f8'}]},
   {id:'agsir',name:'Ag Sir',logo:'https://files.catbox.moe/53wnbb.jpg',plats:[
     {n:'Ag Sir',l:'https://files.catbox.moe/53wnbb.jpg',t:'bot',url:'https://t.me/ag_sir_2027'}]},
   {id:'sarvam2027',name:'Sarvam 2027',logo:L.srv,plats:[
@@ -517,7 +570,7 @@ const PROV=[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pw.nextstudys.site/'},
     {n:'Pi',l:L.pipro,t:'web',url:'https://next-study-pi.faizan92048.workers.dev/'}]},
   {id:'eduzex2',name:'EduZex',logo:'https://eduzex.is-great.org/pw.png',plats:[
-    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://eduzex-pw.pages.dev/'},
+    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://eduzex-pw.pages.dev/batches'},
     {n:'Mission Jeet',l:L.mj,t:'web',url:'https://eduzex.is-great.org/mj/'},
     {n:'Padhle Akshay',l:L.pa,t:'web',url:'https://eduzex.is-great.org/padhleakshay/batches.php'}]},
   {id:'sdvbot',name:'Svd Bot',logo:'https://files.catbox.moe/3j473z.jpg',plats:[
@@ -532,16 +585,22 @@ const PROV=[
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://studyaura.online/study/batches'},
     {n:'Pi',l:L.pipro,t:'web',url:'https://studyaura.online/study/pi'},
     {n:'Next Topper',l:L.nt,t:'web',url:'https://studyaura.online/study/nt'},
-    {n:'Mission Jeet',l:L.mj,t:'web',url:'https://studyaura.online/study/jeet'}]},
+    {n:'Mission Jeet',l:L.mj,t:'web',url:'https://studyaura.online/study/jeet'},
+    {n:'Vibrant Academy',l:L.va,t:'web',url:'https://studyaura.online/study/vt'}]},
   {id:'eduvibe',name:'Edu Vibe',logo:'https://files.catbox.moe/9ydyci.jpg',plats:[
-    {n:'Next Topper',l:L.nt,t:'web',url:'https://eduvibe-nt.pages.dev/'}]},
+    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pw.eduvibe.cc.cd/'},
+    {n:'Next Topper',l:L.nt,t:'web',url:'https://nt.eduvibe.cc.cd/'},
+    {n:'Mission Jeet',l:L.mj,t:'web',url:'https://mj.eduvibe.cc.cd/'},
+    {n:'Vibrant Academy',l:L.va,t:'web',url:'https://va.eduvibe.cc.cd/'}]},
   {id:'studyfox',name:'Study Fox',logo:'https://i.ibb.co/27hXCBDR/IMG-20260819-124208-228.jpg',plats:[
-    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://study-fox.mscilearn.in/batches'},
+    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://pw.studyfox.eu.cc/'},
+    {n:'Next Topper',l:L.nt,t:'web',url:'https://studyfox.cc.cd/'},
     {n:'Vibrant Academy',l:L.va,t:'web',url:'https://study-fox.ai.studio/'}]},
   {id:'thescholarverse2',name:'TheScholarVerse',logo:'https://files.catbox.moe/13o8d8.png',plats:[
-    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://thescholarverse.site/study/batches'}]},
+    {n:'Physics Wallah',l:L.pw,t:'web',url:'https://thescholarverse.site/study/batches'},
+    {n:'Pinnacle Books',l:'https://www.topperswisdom.com/next_images/logo.png',t:'web',url:'https://thescholarverse.site/pinnacle'}]},
   {id:'ebookofficial2',name:'Ebook Official',logo:'https://files.catbox.moe/8nucve.jpg',plats:[
-    {n:'Next Topper',l:L.nt,t:'web',url:'https://ebooksofficial.pages.dev/'}]},
+    {n:'Next Topper',l:L.nt,t:'web',url:'https://ebookofficial.vercel.app/dashboard'}]},
   {id:'tgdoremon',name:'TG Doremon',logo:'https://files.catbox.moe/ri5tex.jpg',plats:[
     {n:'Pramar Batches',l:'https://files.catbox.moe/3seq41.png',t:'web',url:'https://tgdoraemon.vercel.app/'}]},
   {id:'eduspark2',name:'Edu Spark',logo:'https://files.catbox.moe/koojhn.jpg',plats:[
@@ -552,7 +611,20 @@ const PROV=[
     {n:'Physics Wallah',l:L.pw,t:'bot',url:'https://t.me/RangeXCoder_studybot?start=ref_7974991150'},
     {n:'Next Topper',l:L.nt,t:'bot',url:'https://t.me/RangeXCoder_studybot?start=ref_7974991150'},
     {n:'Mission Jeet',l:L.mj,t:'bot',url:'https://t.me/RangeXCoder_studybot?start=ref_7974991150'},
-    {n:'Vidyakul',l:L.vk,t:'bot',url:'https://t.me/RangeXCoder_studybot?start=ref_7974991150'}]},
+    {n:'Vidyakul',l:L.vk,t:'bot',url:'https://t.me/RangeXCoder_studybot?start=ref_7974991150'},
+    {n:'Pi',l:L.pipro,t:'bot',url:'https://t.me/RangeXCoder_studybot?start=ref_7974991150'}]},
+  {id:'prepro',name:'Prepro',logo:'https://files.catbox.moe/0e30j4.jpg',plats:[
+    {n:'Prepro Books',l:'https://files.catbox.moe/0e30j4.jpg',t:'web',url:'https://prepbooks.lovable.app/material'},
+    {n:'Jee Test',l:'https://files.catbox.moe/0e30j4.jpg',t:'web',url:'https://prepjeetest.vercel.app/'}]},
+  {id:'pikachu',name:'Pikachu',logo:'https://files.catbox.moe/6e396y.png',plats:[
+    {n:'Digital Book',l:L.pw,t:'web',url:'https://pikachu-books.vercel.app/'},
+    {n:'Neet Test',l:'https://files.catbox.moe/6e396y.png',t:'web',url:'https://www.neetpulse.online/'}]},
+  {id:'studypython',name:'Study Python',logo:'https://files.catbox.moe/1phadr.png',plats:[
+    {n:'Selection Way',l:L.sw,t:'web',url:'https://www.studypython.xyz/pway/'},
+    {n:'Sachin Academy',l:L.sachin,t:'web',url:'https://www.studypython.xyz/pythonacademy/index.html'},
+    {n:'Future Kul',l:'https://files.catbox.moe/ck8uz5.png',t:'web',url:'https://www.studypython.xyz/pythonkul/index.html'}]},
+  {id:'spidystudy',name:'Spidy Study',logo:'https://files.catbox.moe/sl8zwn.jpg',plats:[
+    {n:'Next Topper',l:L.nt,t:'web',url:'https://spidystudynt.vercel.app/'}]},
 ];
 
 /* ── STUDY HUBS DATA ── */
@@ -569,7 +641,7 @@ const STUDY_HUBS=[
     {n:'Jee',l:'logo.png',t:'web',url:'https://learnx10test.vercel.app/'},
     {n:'Rank Yoddha',l:'https://files.catbox.moe/fiud51.jpg',t:'web',url:'https://web.rankyodha.com/'},
     {n:'Jee Test',l:'logo.png',t:'web',url:'https://PrepJeeTest.vercel.app'},
-    {n:'Jee & Neet Test',l:'logo.png',t:'web',url:'https://spark-kmx-test.onrender.com/'}]},
+    {n:'Jee & Neet Test',l:'logo.png',t:'web',url:'https://spark-kmx-test.onrender.com/?q='}]},
   {id:'bookish',name:'Bookish',logo:L.bk,badge:'BOOKS · 100K+',featured:true,plats:[
     {n:'Bookish',l:L.bk,t:'web',url:'https://bookish.nextmate.site/'}]},
   {id:'bookverse',name:'Book Verse',logo:'https://i.ibb.co/QjxMsGHn/IMG-20260811-210436-792.jpg',badge:'BOOKS · 100K+',featured:true,plats:[
@@ -598,9 +670,9 @@ const STUDY_HUBS=[
     {n:'CUET Test',l:'https://files.catbox.moe/wxf48g.png',t:'web',url:'http://commercesehoga.github.io/dashboard'},
     {n:'Class 9 to 12 Notes',l:'https://files.catbox.moe/j4l3h8.png',t:'web',url:'https://thunderstudy.github.io/cbse/topper-notes/'}]},
   {id:'allexamtest',name:'All Exam Test',logo:'logo.png',badge:'TESTS',plats:[
-    {n:'All Exam Test',l:'logo.png',t:'web',url:'https://prep-os.vercel.app/'},
-    {n:'NLM Test 11th',l:'logo.png',t:'web',url:'https://nlm-test.vercel.app/'},
-    {n:'Quizrr Part Test',l:'logo.png',t:'web',url:'https://quizrr-test.vercel.app/'}]},
+    {n:'All Exam Test',l:'logo.png',t:'web',url:'https://codex-prep-os.vercel.app/'},
+    {n:'NLM Test 11th',l:'logo.png',t:'web',url:'https://codex-nl-mtest11th.vercel.app/'},
+    {n:'Quizrr Part Test',l:'logo.png',t:'web',url:'https://codex-quizrrtest.vercel.app/'}]},
   {id:'ebookofficial',name:'Ebook Official',logo:'https://files.catbox.moe/8nucve.jpg',badge:'BOOKS',plats:[
     {n:'Books',l:'https://files.catbox.moe/uwchqa.png',t:'web',url:'https://freekitaab.netlify.app/'},
     {n:'Books Alt',l:'https://files.catbox.moe/uwchqa.png',t:'web',url:'http://ebooksofficial.vercel.app'},
@@ -2334,92 +2406,120 @@ async function loadNetFull(){
 
 /* ── LIQUID BACKGROUND CANVAS ENGINE ── */
 function initLiquidBackground(){
-  const canvas = document.getElementById('canvas-bg');
-  if(!canvas) return;
+  // Disabled: Clean minimal lightweight layout with zero GPU/animation overhead
+}
 
-  // On mobile/Android devices, leave canvas static to eliminate GPU overhead
-  const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 1024);
-  if (isMobile) {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    return;
+/* ── AUTO-SCROLLING PROMO BANNER CAROUSEL ── */
+let bannerCurrentSlide = 0;
+let bannerAutoTimer = null;
+const BANNER_AUTO_DELAY = 3600; // 3.6s smooth interval
+
+function updateBannerTrack() {
+  const track = document.getElementById('promo-banner-track');
+  const dots = document.querySelectorAll('.banner-dot');
+  if (!track) return;
+  track.style.transform = 'translate3d(-' + (bannerCurrentSlide * 100) + '%, 0, 0)';
+  dots.forEach((dot, idx) => {
+    dot.classList.toggle('active', idx === bannerCurrentSlide);
+  });
+}
+
+function goToBannerSlide(index) {
+  const slides = document.querySelectorAll('.promo-banner-slide');
+  const total = slides.length || 3;
+  bannerCurrentSlide = (index + total) % total;
+  updateBannerTrack();
+  resetBannerTimer();
+}
+window.goToBannerSlide = goToBannerSlide;
+
+function nextBannerSlide() {
+  goToBannerSlide(bannerCurrentSlide + 1);
+}
+window.nextBannerSlide = nextBannerSlide;
+
+function prevBannerSlide() {
+  goToBannerSlide(bannerCurrentSlide - 1);
+}
+window.prevBannerSlide = prevBannerSlide;
+
+function startBannerTimer() {
+  stopBannerTimer();
+  bannerAutoTimer = setInterval(() => {
+    nextBannerSlide();
+  }, BANNER_AUTO_DELAY);
+}
+
+function stopBannerTimer() {
+  if (bannerAutoTimer) {
+    clearInterval(bannerAutoTimer);
+    bannerAutoTimer = null;
   }
+}
 
-  const ctx = canvas.getContext('2d');
-  if(!ctx) return;
+function resetBannerTimer() {
+  stopBannerTimer();
+  startBannerTimer();
+}
 
-  let width = 0, height = 0;
-  const dpr = isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.5);
-  const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+function initPromoBannerCarousel() {
+  const carousel = document.getElementById('promo-banner');
+  if (!carousel) return;
 
-  function resize(){
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    if(mouse.x === 0 && mouse.y === 0){
-      mouse.x = mouse.targetX = width / 2;
-      mouse.y = mouse.targetY = height / 2;
+  // Touch Swipe Support for Android & Low-end mobile devices
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let isSwiping = false;
+
+  carousel.addEventListener('touchstart', (e) => {
+    stopBannerTimer();
+    if (e.touches && e.touches[0]) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isSwiping = true;
     }
-  }
-  resize();
-  window.addEventListener('resize', resize, { passive: true });
-
-  window.addEventListener('mousemove', e => {
-    mouse.targetX = e.clientX;
-    mouse.targetY = e.clientY;
   }, { passive: true });
 
-  window.addEventListener('touchmove', e => {
-    if(e.touches && e.touches[0]){
-      mouse.targetX = e.touches[0].clientX;
-      mouse.targetY = e.touches[0].clientY;
+  carousel.addEventListener('touchmove', (e) => {
+    if (!isSwiping || !e.touches || !e.touches[0]) return;
+    const diffX = e.touches[0].clientX - touchStartX;
+    const diffY = e.touches[0].clientY - touchStartY;
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      // Swiping horizontally
     }
   }, { passive: true });
 
-  // 5 organic fluid metaballs
-  const blobs = [
-    { x: 0.22, y: 0.28, r: 260, color: [59, 130, 246], phase: 0, speed: 0.0008 },
-    { x: 0.78, y: 0.22, r: 300, color: [99, 102, 241], phase: 1.5, speed: 0.0006 },
-    { x: 0.5, y: 0.65, r: 270, color: [6, 182, 212], phase: 3.1, speed: 0.0007 },
-    { x: 0.88, y: 0.78, r: 240, color: [168, 85, 247], phase: 4.5, speed: 0.0005 },
-    { x: 0.12, y: 0.82, r: 250, color: [37, 99, 235], phase: 2.2, speed: 0.0008 }
-  ];
-
-  let t = 0;
-  function draw(){
-    if(document.hidden){
-      requestAnimationFrame(draw);
-      return;
+  carousel.addEventListener('touchend', (e) => {
+    if (!isSwiping) return;
+    isSwiping = false;
+    const touchEndX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : touchStartX;
+    const diffX = touchEndX - touchStartX;
+    if (Math.abs(diffX) > 35) {
+      if (diffX < 0) {
+        nextBannerSlide();
+      } else {
+        prevBannerSlide();
+      }
+    } else {
+      startBannerTimer();
     }
-    t += 0.015;
-    mouse.x += (mouse.targetX - mouse.x) * 0.04;
-    mouse.y += (mouse.targetY - mouse.y) * 0.04;
+  }, { passive: true });
 
-    ctx.clearRect(0, 0, width, height);
+  // Hover pause for desktop
+  carousel.addEventListener('mouseenter', stopBannerTimer);
+  carousel.addEventListener('mouseleave', startBannerTimer);
 
-    blobs.forEach((b, i) => {
-      const cx = (b.x + Math.sin(t * 0.7 + b.phase) * 0.1) * width + (mouse.x - width/2) * 0.04 * (i % 2 === 0 ? 1 : -1);
-      const cy = (b.y + Math.cos(t * 0.6 + b.phase) * 0.1) * height + (mouse.y - height/2) * 0.04 * (i % 2 === 0 ? -1 : 1);
-      const cr = b.r * (1 + Math.sin(t * 1.1 + b.phase) * 0.12);
+  // Pause when tab/screen is hidden to conserve battery & CPU on Android
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopBannerTimer();
+    } else {
+      startBannerTimer();
+    }
+  });
 
-      const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, cr);
-      const [r, g, bl] = b.color;
-      grad.addColorStop(0, `rgba(${r}, ${g}, ${bl}, 0.24)`);
-      grad.addColorStop(0.55, `rgba(${r}, ${g}, ${bl}, 0.08)`);
-      grad.addColorStop(1, `rgba(${r}, ${g}, ${bl}, 0)`);
-
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(cx, cy, cr, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
-    requestAnimationFrame(draw);
-  }
-
-  draw();
+  updateBannerTrack();
+  startBannerTimer();
 }
 
 /* ── INITIALIZATION ── */
@@ -2431,6 +2531,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(typeof renderAll === 'function') renderAll();
   if(typeof renderFavs === 'function') renderFavs();
   if(typeof renderStudyHubs === 'function') renderStudyHubs();
+  if(typeof initPromoBannerCarousel === 'function') initPromoBannerCarousel();
   if(typeof updateTimerUI === 'function') updateTimerUI();
   if(typeof initMotiv === 'function') initMotiv();
   if(typeof initWeather === 'function') initWeather();
@@ -2676,7 +2777,7 @@ function showA2HSGuideModal() {
     }
     wm.style.display = 'flex';
     wm.style.visibility = 'visible';
-    wm.style.zIndex = '99990';
+    wm.style.zIndex = '0';
     if (!isMobile) {
       if (!document.hasFocus()) {
         wm.style.opacity = '0.35';

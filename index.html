@@ -62,100 +62,13 @@
 
       let isBlocked = false;
       function triggerInspectBlock() {
-        isBlocked = true;
-        document.documentElement.classList.add('inspect-blocked');
         const blocker = document.getElementById('inspect-blocker');
         if (blocker) blocker.style.display = 'flex';
       }
 
       function unblockInspect() {
-        if (!isBlocked) return;
-        isBlocked = false;
-        document.documentElement.classList.remove('inspect-blocked');
         const blocker = document.getElementById('inspect-blocker');
         if (blocker) blocker.style.display = 'none';
-      }
-
-      const isMobileDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 1024);
-
-      function detectDevTools() {
-        // Mobile / Android devices do not have desktop devtools; running debugger loops causes
-        // frame drops and stutters. Bypassing on mobile keeps Android scrolling at 60/120fps.
-        if (isMobileDevice) return;
-
-        const threshold = 160;
-        const wDiff = window.outerWidth - window.innerWidth;
-        const hDiff = window.outerHeight - window.innerHeight;
-        if (wDiff > threshold || hDiff > threshold) {
-          triggerInspectBlock();
-          return;
-        }
-
-        const t0 = performance.now();
-        /* eslint-disable no-debugger */
-        debugger;
-        /* eslint-enable no-debugger */
-        const t1 = performance.now();
-        if (t1 - t0 > 100) {
-          triggerInspectBlock();
-          return;
-        }
-
-        if (isBlocked) {
-          unblockInspect();
-        }
-      }
-
-      // Anti-screenshot keyboard detection (PrintScreen, Win+Shift+S, Mac Cmd+Shift+3/4/5)
-      function handleScreenshotAttempt(e) {
-        const isPrintKey = e.key === 'PrintScreen' || e.keyCode === 44;
-        const isWinSnip = (e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'S' || e.key === 's');
-        const isMacScreen = (e.metaKey) && e.shiftKey && ['3', '4', '5'].includes(e.key);
-
-        if (isPrintKey || isWinSnip || isMacScreen) {
-          if (e.preventDefault) e.preventDefault();
-          if (e.stopPropagation) e.stopPropagation();
-
-          try {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              navigator.clipboard.writeText('⚠️ Screenshots are disabled on REDRMY AIO • FREE FOR ALL');
-            }
-          } catch(err) {}
-
-          triggerScreenshotShield();
-          return false;
-        }
-      }
-
-      window.addEventListener('keydown', handleScreenshotAttempt, { capture: true });
-      window.addEventListener('keyup', handleScreenshotAttempt, { capture: true });
-
-      function triggerScreenshotShield() {
-        const shield = document.getElementById('screenshot-shield');
-        if (shield) {
-          shield.classList.add('active');
-          setTimeout(() => {
-            shield.classList.remove('active');
-          }, 2200);
-        }
-        if (typeof showToast === 'function') {
-          showToast('🚫 Screenshots are restricted on REDRMY AIO!');
-        }
-      }
-
-      // Boost "FREE FOR ALL" watermark visibility when window loses focus (desktop only)
-      if (!isMobileDevice) {
-        window.addEventListener('blur', function() {
-          const wm = document.getElementById('bg-watermark-layer');
-          if (wm) wm.style.opacity = '0.35';
-        });
-        window.addEventListener('focus', function() {
-          const wm = document.getElementById('bg-watermark-layer');
-          if (wm) wm.style.opacity = '0.12';
-        });
-
-        setInterval(detectDevTools, 1500);
-        window.addEventListener('resize', detectDevTools);
       }
     })();
   </script>
@@ -415,10 +328,10 @@
         <button id="pg-pop-cross" onclick="onTgCrossClick()" style="position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid var(--border2);color:var(--t3);font-size:11px;cursor:default;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1;font-family:var(--fm);font-weight:700" type="button" aria-label="Close available in 5 seconds" disabled>5s</button>
         <img src="logo.png" class="pg-popup-logo" alt="REDRMY" onerror="this.src='logo.png'">
         <div class="pg-popup-title">Join REDRMY Telegram!</div>
-        <div class="pg-popup-sub">Join our official channel &amp; bot to unlock this platform. Join and return to continue!</div>
+        <div class="pg-popup-sub">Join our official channel &amp; community to unlock this platform. Join and return to continue!</div>
         <div style="display:flex;flex-direction:column;gap:8px">
           <a href="https://t.me/REDRMYCOURSESS" target="_blank" onclick="startTgJoin('https://t.me/REDRMYCOURSESS')" class="pg-popup-join"><span>📱 JOIN COURSES</span></a>
-          <a href="https://t.me/REDRMYCOURSESS?direct" target="_blank" onclick="startTgJoin('https://t.me/REDRMYCOURSESS?direct')" class="pg-popup-join" style="background:linear-gradient(135deg,#6366f1,#3b82f6)"><span>🤖 REQUEST BOT</span></a>
+          <a href="https://t.me/REDRMYCOURSESS?direct" target="_blank" onclick="startTgJoin('https://t.me/REDRMYCOURSESS?direct')" class="pg-popup-join" style="background:linear-gradient(135deg,#6366f1,#3b82f6)"><span>✉️ REQUEST COURSES</span></a>
         </div>
         <div id="pg-countdown-hint" style="margin-top:10px;font-size:0.66rem;color:var(--t3);font-family:var(--fm)">
           Close option unlocks in <b id="pg-cd-sec" style="color:var(--b);font-weight:700">5</b>s
@@ -463,7 +376,7 @@
   </div>
 
   <!-- WELCOME NAME POPUP (STARTING DASHBOARD SETUP - ASKED ONLY ONCE) -->
-  <div id="welcome-overlay" style="display:none;position:fixed;inset:0;background:rgba(8,11,20,0.85);backdrop-filter:blur(28px) saturate(190%);-webkit-backdrop-filter:blur(28px) saturate(190%);z-index:200000;align-items:center;justify-content:center;padding:20px">
+  <div id="welcome-overlay" style="display:none;position:fixed;inset:0;background:rgba(8,11,20,0.85);-webkit-z-index:200000;align-items:center;justify-content:center;padding:20px">
     <div style="background:rgba(15,23,42,0.85);border:1px solid rgba(255,255,255,0.16);border-radius:24px;padding:32px 24px;max-width:350px;width:100%;text-align:center;position:relative;box-shadow:0 25px 60px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.2)">
       <button onclick="closeWelcome()" style="position:absolute;top:12px;right:12px;background:none;border:none;color:var(--t2);font-size:16px;cursor:pointer;padding:4px" type="button" title="Skip">✕</button>
       <img src="logo.png" style="width:64px;height:64px;margin:0 auto 12px;display:block;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.4)" alt="REDRMY" onerror="this.src='logo.png'">
@@ -614,9 +527,20 @@
     </a>
     <div class="nav-right">
       <span id="time-top">--:--:--</span>
-      <button class="nav-ic" onclick="openModal('calc-modal')" title="Calculator" type="button">
-        <svg viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v4h10V4H7zm0 6v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zm-8 4v2h2v-2H7zm4 0v2h2v-2H7zm4 0v2h2v-2H7zm-8 4v2h2v-2H7zm4 0v2h2v-2H7zm4 0v2h2v-2H7z"/></svg>
-      </button>
+      <!-- WHATSAPP HEADER LOGO BUTTON -->
+      <a href="https://whatsapp.com/channel/0029Vb8ffHG65yDIpz3v9T3U" target="_blank" rel="noopener noreferrer" class="btn-wa-header" title="Join REDRMY on WhatsApp" aria-label="Join WhatsApp Channel">
+        <svg viewBox="0 0 24 24" class="wa-icon" fill="currentColor">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        </svg>
+        <span class="btn-wa-label">WHATSAPP</span>
+      </a>
+      <!-- TELEGRAM HEADER LOGO BUTTON (IN PLACE OF CALCULATOR) -->
+      <a href="https://t.me/REDRMYCOURSESS" target="_blank" rel="noopener noreferrer" class="btn-tg-header" title="Join REDRMY Channel on Telegram" aria-label="Join Telegram Channel">
+        <svg viewBox="0 0 24 24" class="tg-icon" fill="currentColor">
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+        </svg>
+        <span class="btn-tg-label">TELEGRAM</span>
+      </a>
       <button class="nav-ic" onclick="openModal('timer-modal')" title="Focus Timer" type="button">
         <svg viewBox="0 0 24 24"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0 2C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10h4v2h-6V7h2v5z" fill="currentColor"/></svg>
       </button>
@@ -666,9 +590,39 @@
       </div>
 
       <!-- FULL HUB BUTTON -->
-      <a href="movies.html" style="display:block;margin-top:14px;padding:11px 14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.16);border-radius:12px;color:var(--t1);text-align:center;text-decoration:none;font-family:var(--fd);font-size:.74rem;font-weight:800;transition:all .2s;box-shadow:0 4px 16px rgba(0,0,0,0.3);backdrop-filter:blur(16px)">
+      <a href="movies.html" style="display:block;margin-top:14px;padding:11px 14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.16);border-radius:12px;color:var(--t1);text-align:center;text-decoration:none;font-family:var(--fd);font-size:.74rem;font-weight:800;transition:all .2s;box-shadow:0 4px 16px rgba(0,0,0,0.3);">
         🍿 OPEN FULL ENTERTAINMENT HUB (94+ PLATFORMS) →
       </a>
+    </div>
+  </div>
+
+  <!-- HOW TO STAY SAFE ON TELEGRAM MODAL -->
+  <div class="modal-ov" id="tg-safety-modal" onclick="if(event.target===this)closeModal('tg-safety-modal')">
+    <div class="modal-box" style="max-width:480px;text-align:left;position:relative">
+      <button class="modal-x" onclick="closeModal('tg-safety-modal')" type="button">✕</button>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div style="width:42px;height:42px;border-radius:12px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0">⚠️</div>
+        <div>
+          <div style="font-family:var(--fm);font-size:.54rem;font-weight:800;color:#f59e0b;letter-spacing:1px;text-transform:uppercase">SECURITY ADVISORY</div>
+          <div class="modal-ttl" style="margin-bottom:0;font-size:1.02rem;color:#f8fafc">HOW TO STAY SAFE ON TELEGRAM</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 14px;margin-bottom:14px">
+        <ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:12px;font-family:var(--fb);font-size:.82rem;line-height:1.55;color:#e2e8f0">
+          <li><strong>🚫 Never pay using gift cards</strong> or gift card codes.</li>
+          <li><strong>🎥 Ask for a course demo</strong> before paying.</li>
+          <li><strong>💳 Pay only via UPI</strong> and verify the recipient.</li>
+          <li><strong>📸 Save screenshots</strong> of chats and payment proofs.</li>
+          <li><strong>🛡️ If scammed, report at</strong> <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;text-decoration:underline;font-weight:700">cybercrime.gov.in</a> or call <a href="tel:1930" style="color:#ef4444;font-weight:700;text-decoration:none">1930</a>.</li>
+        </ol>
+      </div>
+      <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <span style="font-size:1.1rem">⚠️</span>
+        <span style="font-family:var(--fd);font-size:.78rem;font-weight:800;color:#fbbf24">Stay Alert. Verify Before You Pay!</span>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <button class="btn-msave" onclick="closeModal('tg-safety-modal')" style="padding:10px 24px;font-size:.74rem;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;font-weight:800;border-radius:10px;cursor:pointer;border:none" type="button">GOT IT 👍</button>
+      </div>
     </div>
   </div>
 
@@ -724,6 +678,10 @@
           <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M13 10h7l-9 12V14H4l9-12z"/></svg>
           Explore Portals
         </button>
+        <button class="hero-cta-safe" onclick="openModal('tg-safety-modal')" type="button">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v6h-2V7zm0 8h2v2h-2v-2z"/></svg>
+          How to Stay Safe on TG
+        </button>
         <a href="movies.html" class="hero-cta-secondary">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
           REDRMY Enjoy
@@ -758,10 +716,29 @@
 
 
 
-    <!-- OFFICIAL PROMO / HERO BANNER -->
+    <!-- OFFICIAL PROMO / HERO BANNER CAROUSEL (3 BANNERS AUTO-SCROLLING) -->
     <div class="wrap" style="padding-top:0;padding-bottom:14px">
-      <div class="promo-banner-container" id="promo-banner">
-        <img src="banner.png" alt="REDRMY Official Banner" class="promo-banner-img" loading="lazy" decoding="async" width="1983" height="793" style="aspect-ratio: 1983 / 793;">
+      <div class="promo-banner-carousel" id="promo-banner" aria-label="Official Banners Carousel" role="region">
+        <div class="promo-banner-track" id="promo-banner-track">
+          <div class="promo-banner-slide">
+            <img src="banner.png" alt="REDRMY Official Banner 1" class="promo-banner-img" fetchpriority="high" loading="eager" width="1983" height="793">
+          </div>
+          <div class="promo-banner-slide">
+            <img src="banner2.png" alt="REDRMY Official Banner 2" class="promo-banner-img" loading="lazy" decoding="async" width="1672" height="941" onerror="this.src='BANNER 2.png'">
+          </div>
+          <div class="promo-banner-slide">
+            <img src="banner3.png" alt="REDRMY Official Banner 3" class="promo-banner-img" loading="lazy" decoding="async" width="2048" height="768" onerror="this.src='BANNER 3.png'">
+          </div>
+        </div>
+        <!-- Banner Carousel Indicators -->
+        <div class="promo-banner-dots" id="promo-banner-dots" aria-label="Banner pagination">
+          <button class="banner-dot active" onclick="goToBannerSlide(0)" aria-label="Banner 1" type="button"></button>
+          <button class="banner-dot" onclick="goToBannerSlide(1)" aria-label="Banner 2" type="button"></button>
+          <button class="banner-dot" onclick="goToBannerSlide(2)" aria-label="Banner 3" type="button"></button>
+        </div>
+        <!-- Banner Navigation Arrows -->
+        <button class="banner-arrow banner-arrow-prev" onclick="prevBannerSlide()" aria-label="Previous Banner" type="button">‹</button>
+        <button class="banner-arrow banner-arrow-next" onclick="nextBannerSlide()" aria-label="Next Banner" type="button">›</button>
       </div>
     </div>
 
@@ -803,12 +780,25 @@
     <div class="wrap" style="padding-top:24px;padding-bottom:24px">
       <div class="footer-in">
         <div class="footer-brand">
-          <img src="logo.png" alt="REDRMY" style="width:28px;height:28px;object-fit:contain;border-radius:6px" onerror="this.src='logo.png'">
-          <span style="font-family:var(--fd);font-size:.85rem;font-weight:800;color:var(--t1)">REDRMY AIO</span>
+          <img src="logo.png" alt="REDRMY" style="width:30px;height:30px;object-fit:contain;border-radius:8px" onerror="this.src='logo new.png'">
+          <span style="font-family:var(--fd);font-size:.9rem;font-weight:800;color:var(--t1)">REDRMY AIO</span>
         </div>
         <div class="footer-soc">
-          <a href="https://t.me/REDRMYCOURSESS" target="_blank" class="footer-tg-btn">📱 REDRMY COURSES</a>
-          <a href="https://t.me/REDRMYCOURSESS?direct" target="_blank" class="footer-tg-btn">🤖 REQUEST / ADD BOT</a>
+          <a href="https://t.me/REDRMYCOURSESS" target="_blank" rel="noopener noreferrer" class="footer-btn footer-btn-tg" title="Join REDRMY Telegram Channel">
+            <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/></svg>
+            <span>TELEGRAM CHANNEL</span>
+          </a>
+          <a href="https://whatsapp.com/channel/0029Vb8ffHG65yDIpz3v9T3U" target="_blank" rel="noopener noreferrer" class="footer-btn footer-btn-wa" title="Join REDRMY WhatsApp Channel">
+            <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            <span>WHATSAPP COMMUNITY</span>
+          </a>
+          <a href="https://t.me/REDRMYCOURSESS?direct" target="_blank" rel="noopener noreferrer" class="footer-btn footer-btn-msg" title="Message REDRMY Admin">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+            <span>DIRECT MESSAGE / REQUEST</span>
+          </a>
+          <a href="movies.html" class="footer-btn footer-btn-portal" title="Free Movies, Anime & Web Series">
+            <span>🍿 MOVIES &amp; ENTERTAINMENT</span>
+          </a>
         </div>
         <div class="footer-copy">Built with ❤️ in India 🇮🇳 | REDRMY AIO © 2026</div>
         <button class="back-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" type="button">↑ Back to Top</button>
@@ -871,10 +861,10 @@
               <a href="https://t.me/REDRMYCOURSESS" target="_blank" class="btn-study">JOIN NOW</a>
             </div>
             <div class="plat-card" onclick="window.open('https://t.me/REDRMYCOURSESS?direct','_blank')">
-              <img src="logo.png" class="plat-logo" alt="Request Bot" width="44" height="44" loading="lazy" decoding="async" onerror="this.src='https://files.catbox.moe/1phadr.png'">
-              <div class="plat-name">Request Bot</div>
-              <span class="pbadge pbw">BOT</span>
-              <a href="https://t.me/REDRMYCOURSESS?direct" target="_blank" class="btn-study">OPEN BOT</a>
+              <img src="logo.png" class="plat-logo" alt="Course Request &amp; Help" width="44" height="44" loading="lazy" decoding="async" onerror="this.src='https://files.catbox.moe/1phadr.png'">
+              <div class="plat-name">Course Request &amp; Help</div>
+              <span class="pbadge pbw">DIRECT</span>
+              <a href="https://t.me/REDRMYCOURSESS?direct" target="_blank" class="btn-study">CONTACT US</a>
             </div>
           </div>
         </div>
@@ -885,7 +875,7 @@
   <!-- ══ PROFILE PAGE ══ -->
   <div class="page" id="page-profile">
     <div class="profile-page">
-      <div id="prof-subnav" style="position:sticky;top:var(--nh);z-index:800;background:var(--nb);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;gap:0;overflow-x:auto;scrollbar-width:none;padding:0 4px">
+      <div id="prof-subnav" style="position:sticky;top:var(--nh);z-index:800;background:var(--nb);border-bottom:1px solid var(--border);display:flex;gap:0;overflow-x:auto;scrollbar-width:none;padding:0 4px">
         <button class="prof-tab-btn active" id="ptab-overview" onclick="switchProfTab('overview')" type="button">👤 Profile</button>
         <button class="prof-tab-btn" id="ptab-stats" onclick="switchProfTab('stats')" type="button">📊 Stats</button>
         <button class="prof-tab-btn" id="ptab-tools" onclick="switchProfTab('tools')" type="button">🛠️ Tools</button>
@@ -1034,8 +1024,9 @@
             <button onclick="openModal('notes-modal')" class="btn-p-edit" style="padding:12px;text-align:center" type="button">📝 My Notes</button>
             <button onclick="openModal('todo-modal')" class="btn-p-edit" style="padding:12px;text-align:center" type="button">📋 Study To-Do</button>
             <a href="https://t.me/REDRMYCOURSESS?direct" target="_blank" class="btn-p-edit" style="padding:12px;text-align:center;text-decoration:none">💡 Build With Us</a>
-            <a href="https://t.me/REDRMYCOURSESS?direct" target="_blank" class="btn-p-edit" style="padding:12px;text-align:center;text-decoration:none">🤖 Request Bot</a>
+            <a href="https://t.me/REDRMYCOURSESS?direct" target="_blank" class="btn-p-edit" style="padding:12px;text-align:center;text-decoration:none">✉️ Request Courses</a>
             <a href="https://t.me/REDRMYCOURSESS" target="_blank" class="btn-p-edit" style="padding:12px;text-align:center;text-decoration:none">📢 Telegram</a>
+            <a href="https://whatsapp.com/channel/0029Vb8ffHG65yDIpz3v9T3U" target="_blank" class="btn-p-edit" style="padding:12px;text-align:center;text-decoration:none;color:#25d366">💬 WhatsApp</a>
           </div>
         </div>
       </div>
