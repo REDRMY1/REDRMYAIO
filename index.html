@@ -188,8 +188,8 @@
   </div>
 
 
-  <!-- COMMUNITY GATE MODAL: TELEGRAM OR WHATSAPP (MANDATORY BEFORE ENTERING NAME) -->
-  <div id="community-gate-modal" role="dialog" aria-modal="true" aria-label="Join Official Community to Unlock">
+  <!-- COMMUNITY GATE MODAL: TELEGRAM AND WHATSAPP (MANDATORY FORCE JOIN TO BOTH BEFORE ENTERING NAME) -->
+  <div id="community-gate-modal" role="dialog" aria-modal="true" aria-label="Join Official Communities to Unlock">
     <div class="gate-card-wrapper">
       <div class="gate-card-ambient"></div>
       <div class="gate-card">
@@ -198,10 +198,10 @@
         </div>
         <div class="gate-badge">
           <span class="gate-pulse-dot"></span>
-          <span>1-TAP UNLOCK • JOIN EITHER ONE</span>
+          <span id="gate-badge-text">MANDATORY • JOIN BOTH COMMUNITIES</span>
         </div>
         <div class="gate-title">Join REDRMY Official</div>
-        <div class="gate-subtitle">Join our official <b>Telegram</b> or <b>WhatsApp</b> channel to instantly unlock the platform.</div>
+        <div class="gate-subtitle">Join both our official <b>Telegram Channel</b> and <b>WhatsApp Community</b> to unlock access &amp; set up your profile.</div>
         
         <div class="gate-channels-list">
           <!-- Telegram Channel -->
@@ -213,19 +213,20 @@
                 </svg>
               </div>
               <div>
-                <div class="gate-channel-name">REDRMY Telegram</div>
+                <div class="gate-channel-step" id="gate-step-tg">STEP 1</div>
+                <div class="gate-channel-name">REDRMY Telegram Channel</div>
                 <div class="gate-channel-desc">Free courses, lectures &amp; batches</div>
               </div>
             </div>
             <span id="gate-status-tg" class="gate-pill-status gate-pill-pending">JOIN ↗</span>
           </a>
 
-          <!-- Minimalist Luxury Divider -->
+          <!-- Luxury AND Divider -->
           <div class="gate-or-divider">
-            <span class="gate-or-text">OR</span>
+            <span class="gate-or-text" id="gate-and-text">&amp;</span>
           </div>
 
-          <!-- WhatsApp Channel -->
+          <!-- WhatsApp Community -->
           <a id="gate-btn-wa" href="https://whatsapp.com/channel/0029Vb8ffHG65yDIpz3v9T3U" target="_blank" onclick="handleGateClick('wa')" class="gate-channel-item item-wa">
             <div class="gate-channel-left">
               <div class="gate-channel-icon gate-icon-wa">
@@ -234,7 +235,8 @@
                 </svg>
               </div>
               <div>
-                <div class="gate-channel-name">Official WhatsApp</div>
+                <div class="gate-channel-step" id="gate-step-wa">STEP 2</div>
+                <div class="gate-channel-name">Official WhatsApp Community</div>
                 <div class="gate-channel-desc">Instant alerts &amp; platform updates</div>
               </div>
             </div>
@@ -243,11 +245,11 @@
         </div>
 
         <div id="gate-action-msg" class="gate-instruction">
-          👉 Join <b>Telegram</b> or <b>WhatsApp</b> above to unlock access.
+          👉 Step 1: Join <b>Telegram Channel</b> &amp; Step 2: Join <b>WhatsApp Community</b>
         </div>
 
         <button id="gate-unlock-btn" onclick="submitCommunityGate()" class="gate-unlock-btn" type="button" disabled>
-          🔒 JOIN EITHER CHANNEL TO CONTINUE
+          🔒 JOIN BOTH CHANNELS TO UNLOCK (0/2)
         </button>
       </div>
     </div>
@@ -375,16 +377,20 @@
     </div>
   </div>
 
-  <!-- WELCOME NAME POPUP (STARTING DASHBOARD SETUP - ASKED ONLY ONCE) -->
-  <div id="welcome-overlay" style="display:none;position:fixed;inset:0;background:rgba(8,11,20,0.85);-webkit-z-index:200000;align-items:center;justify-content:center;padding:20px">
-    <div style="background:rgba(15,23,42,0.85);border:1px solid rgba(255,255,255,0.16);border-radius:24px;padding:32px 24px;max-width:350px;width:100%;text-align:center;position:relative;box-shadow:0 25px 60px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.2)">
-      <button onclick="closeWelcome()" style="position:absolute;top:12px;right:12px;background:none;border:none;color:var(--t2);font-size:16px;cursor:pointer;padding:4px" type="button" title="Skip">✕</button>
-      <img src="logo.png" style="width:64px;height:64px;margin:0 auto 12px;display:block;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.4)" alt="REDRMY" onerror="this.src='logo.png'">
-      <div style="font-family:var(--fd);font-size:1.05rem;font-weight:900;color:var(--t1);margin-bottom:4px;letter-spacing:-0.2px">Personalize Your Dashboard</div>
-      <div style="color:var(--t2);font-size:.76rem;margin-bottom:20px;line-height:1.45">Enter your name to set up your study goals, timer streaks, and profile.</div>
-      <input class="modal-inp" id="welcome-name-inp" placeholder="Enter your name..." maxlength="24" style="margin-bottom:14px;text-align:center;font-size:1rem;font-weight:700;background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.15);border-radius:12px;height:44px" onkeydown="if(event.key==='Enter')saveWelcomeName()">
-      <button onclick="saveWelcomeName()" style="width:100%;padding:12px;background:linear-gradient(135deg,#3b82f6,#6366f1);border:none;border-radius:12px;color:#fff;font-family:var(--fd);font-size:.72rem;font-weight:800;letter-spacing:0.5px;cursor:pointer;box-shadow:0 4px 18px rgba(59,130,246,0.4)" type="button">CONTINUE TO DASHBOARD ⚡</button>
-      <div style="margin-top:12px"><button onclick="closeWelcome()" style="background:none;border:none;color:var(--t3);font-family:var(--fm);font-size:.56rem;cursor:pointer" type="button">Skip for now →</button></div>
+  <!-- WELCOME NAME POPUP (STARTING DASHBOARD SETUP - MANDATORY NAME ONBOARDING) -->
+  <div id="welcome-overlay" style="display:none;position:fixed;inset:0;background:radial-gradient(circle at 50% 32%, rgba(14, 25, 48, 0.94), rgba(3, 4, 8, 0.98));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:260000;align-items:center;justify-content:center;padding:20px">
+    <div style="background:linear-gradient(155deg, rgba(18, 26, 44, 0.94) 0%, rgba(10, 14, 24, 0.98) 100%);border:1px solid rgba(255,255,255,0.18);border-radius:28px;padding:34px 24px 28px;max-width:360px;width:100%;text-align:center;position:relative;box-shadow:0 35px 80px -15px rgba(0,0,0,0.85),0 0 50px rgba(56,189,248,0.15),inset 0 1px 0 rgba(255,255,255,0.28)">
+      <div class="gate-logo-box" style="margin-bottom:12px">
+        <img src="logo.png" class="gate-logo-img" alt="REDRMY" onerror="this.src='logo.png'">
+      </div>
+      <div class="gate-badge" style="margin-bottom:10px">
+        <span class="gate-pulse-dot"></span>
+        <span>FINAL STEP • PROFILE SETUP</span>
+      </div>
+      <div style="font-family:var(--fd);font-size:1.25rem;font-weight:900;color:var(--t1);margin-bottom:6px;letter-spacing:-0.3px">What should we call you?</div>
+      <div style="color:var(--t2);font-size:.78rem;margin-bottom:20px;line-height:1.5;padding:0 4px">Enter your name to unlock your personalized dashboard, study streaks &amp; platform tools.</div>
+      <input class="modal-inp" id="welcome-name-inp" placeholder="Enter your name..." maxlength="24" autocomplete="name" style="margin-bottom:14px;text-align:center;font-size:1.02rem;font-weight:700;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:14px;height:46px;color:#fff;width:100%;outline:none;transition:border-color 0.25s ease,box-shadow 0.25s ease" onkeydown="if(event.key==='Enter')saveWelcomeName()">
+      <button onclick="saveWelcomeName()" id="welcome-continue-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#3b82f6 0%,#6366f1 100%);border:1px solid rgba(255,255,255,0.3);border-radius:14px;color:#fff;font-family:var(--fd);font-size:.76rem;font-weight:800;letter-spacing:0.5px;cursor:pointer;box-shadow:0 6px 25px rgba(59,130,246,0.45);transition:all 0.25s ease" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'" type="button">CONTINUE TO DASHBOARD ⚡</button>
     </div>
   </div>
 
