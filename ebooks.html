@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ebooks Official | A New Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apple-like Typography styling: Prefers SF Pro, falls back to Inter */
+        :root {
+            --font-apple: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", sans-serif;
+        }
+
+        body {
+            font-family: var(--font-apple);
+            background-color: #000000;
+            color: #f5f5f7;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: opacity 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        /* Subtle glowing background orbs */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -1;
+            opacity: 0.45;
+            animation: float 12s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 450px;
+            height: 450px;
+            background: linear-gradient(135deg, #0071e3 0%, #4facfe 100%);
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 550px;
+            height: 550px;
+            background: linear-gradient(135deg, #8a2387 0%, #e94057 50%, #f27121 100%);
+            bottom: -150px;
+            right: -100px;
+            animation-delay: -6s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 60px) scale(1.05); }
+        }
+
+        /* Adjusted Typography Utilities - Removed thin, added stronger weights */
+        .font-regular-apple { font-weight: 400; letter-spacing: -0.01em; }
+        .font-medium-apple { font-weight: 500; letter-spacing: -0.015em; }
+        .font-semibold-apple { font-weight: 600; letter-spacing: -0.015em; }
+        .font-bold-apple { font-weight: 700; letter-spacing: -0.02em; }
+        
+        .text-gradient {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-gradient-accent {
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Highly Professional Apple-style Button */
+        .apple-btn {
+            background: #ffffff;
+            color: #000000;
+            padding: 16px 36px;
+            border-radius: 999px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            border: none;
+            box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+        }
+
+        .apple-btn:hover {
+            transform: scale(1.03);
+            background: #f5f5f7;
+            box-shadow: 0 6px 24px rgba(255, 255, 255, 0.25);
+        }
+
+        .apple-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .apple-btn:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* Initial Load Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUpAnim 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+
+        @keyframes fadeUpAnim {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Progress Bar Refinement */
+        .progress-container {
+            width: 240px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 30px auto;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ffffff 0%, #a1a1a6 100%);
+            transition: width 1s linear;
+            border-radius: 4px;
+        }
+
+        /* Join Channel Popup */
+        #tg-popup{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .4s cubic-bezier(0.16,1,0.3,1)}
+        #tg-popup.show{opacity:1;pointer-events:all}
+        .tg-card{background:rgba(255,255,255,0.06);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid rgba(255,255,255,0.15);border-radius:28px;padding:40px 30px 32px;max-width:360px;width:100%;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5);transform:scale(.85) translateY(24px);transition:transform .4s cubic-bezier(0.34,1.56,0.64,1)}
+        #tg-popup.show .tg-card{transform:scale(1) translateY(0)}
+        .tg-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#f5f5f7;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+        .tg-close:hover{background:rgba(255,255,255,0.18)}
+        .tg-logo{width:68px;height:68px;object-fit:contain;margin:0 auto 16px;display:block;border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+        .tg-title{font-size:1.1rem;font-weight:700;letter-spacing:-0.015em;color:#fff;margin-bottom:8px}
+        .tg-sub{font-size:.88rem;color:#a1a1a6;margin-bottom:24px;line-height:1.55}
+        .tg-join{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;background:linear-gradient(135deg,#0088cc,#005599);color:#fff;border-radius:999px;font-weight:600;font-size:.9rem;text-decoration:none;width:100%;justify-content:center;box-shadow:0 8px 24px rgba(0,136,204,.4);transition:all .3s}
+        .tg-join:hover{transform:scale(1.02)}
+        .tg-joined{margin-top:14px;background:none;border:none;color:#a1a1a6;font-size:.82rem;cursor:pointer;text-decoration:underline}
+    </style>
+</head>
+<body>
+
+    <!-- Background Orbs for Premium Vibe -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div id="tg-popup">
+      <div class="tg-card">
+        <button class="tg-close" onclick="closeTgPopup()" type="button">✕</button>
+        <img src="https://files.catbox.moe/1phadr.png" alt="CodexStudys" class="tg-logo">
+        <div class="tg-title">Join CodexStudys Community</div>
+        <div class="tg-sub">Keys, platform access, tutorials &amp; updates. 12K+ students already inside!</div>
+        <a href="https://t.me/codexstudys" target="_blank" class="tg-join" onclick="setTimeout(closeTgPopup,1400)">📢 Join Channel</a>
+        <button class="tg-joined" onclick="closeTgPopup()" type="button">✓ Already joined</button>
+      </div>
+    </div>
+
+    <div class="z-10 max-w-4xl px-6 text-center">
+        <!-- Logo / Icon -->
+        <div class="fade-up mb-8 flex justify-center">
+            <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-2xl">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Main Headlines - Adjusted Weights -->
+        <h1 class="fade-up delay-1 text-5xl md:text-7xl font-medium-apple mb-4 text-white">
+            The ultimate collection.
+        </h1>
+        <h2 class="fade-up delay-2 text-4xl md:text-6xl font-bold-apple text-gradient mb-6">
+            10th, 11th & 12th. <br class="hidden md:block" />
+            <span class="text-gradient-accent text-3xl md:text-5xl">Combined. Latest.</span>
+        </h2>
+        
+        <p class="fade-up delay-3 text-lg md:text-xl text-[#a1a1a6] font-regular-apple max-w-2xl mx-auto mb-10 leading-relaxed">
+            We have completely redesigned our platform. You are now being redirected to our beautifully crafted new home for all your study materials.
+        </p>
+
+        <!-- Redirect UI -->
+        <div class="fade-up delay-4">
+            <div class="text-sm text-[#a1a1a6] font-semibold-apple tracking-wide uppercase mb-2" id="countdown-text">
+                Redirecting automatically in <span id="countdown" class="text-white font-bold-apple">15</span> seconds
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+
+            <button onclick="triggerRedirect()" class="apple-btn mt-6">
+                <span class="font-semibold-apple">Go to Ebooks Official</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const targetUrl = "https://ebooksofficial.vercel.app/";
+        let timeLeft = 15;
+        const countdownEl = document.getElementById('countdown');
+        const progressBar = document.getElementById('progress-bar');
+        let interval = null;
+        let redirectStarted = false;
+
+        function showTgPopup(){
+            const p = document.getElementById('tg-popup');
+            if (p) p.classList.add('show');
+        }
+        function closeTgPopup(){
+            const p = document.getElementById('tg-popup');
+            if (p) p.classList.remove('show');
+            startRedirectFlow();
+        }
+        window.addEventListener('load', showTgPopup);
+
+        function startRedirectFlow(){
+            if (redirectStarted) return;
+            redirectStarted = true;
+
+            // Start Progress Bar Animation mapped to 15 seconds
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+                progressBar.style.transition = 'width 15s linear';
+            }, 100);
+
+            // Countdown Logic
+            interval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft >= 0) {
+                    countdownEl.innerText = timeLeft;
+                }
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    triggerRedirect();
+                }
+            }, 1000);
+        }
+
+        // Beautiful Redirect Transition
+        function triggerRedirect() {
+            clearInterval(interval);
+            
+            // Fade out the body gracefully
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'scale(0.98)';
+            
+            // Wait for fade out animation to complete, then redirect
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 800);
+        }
+    </script>
+</body>
+</html>
