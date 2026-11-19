@@ -36,6 +36,21 @@ function closePopup(){
   p.style.transition='opacity .38s';p.style.opacity='0';
   setTimeout(()=>{p.style.display='none';},380);
 }
+function init15sTelegramPopup(){
+  setTimeout(()=>{
+    const p=document.getElementById('popup');
+    if(!p)return;
+    p.style.display='flex';
+    requestAnimationFrame(()=>{
+      p.style.opacity='1';
+    });
+  }, 15000);
+}
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', init15sTelegramPopup);
+} else {
+  init15sTelegramPopup();
+}
 
 /* ── EMBEDDED PAGES ── */
 const EMBEDDED_PAGES={
@@ -188,6 +203,7 @@ const L={
 /* ── MAIN PROVIDERS DATA (ALL LINKS PRESERVED) ── */
 const PROV=[
   {id:'redrmyaio',name:'REDRMY AIO',logo:'logo.png',best:true,plats:[
+    {n:'RedrMyCollege',l:'logo.png',t:'web',url:'https://redrmycollege.netlify.app/'},
     {n:'Physics Wallah 1',l:L.pw,t:'web',url:'https://stream.aryavidya.cc/#/batches'},
     {n:'Physics Wallah 2',l:L.pw,t:'web',url:'https://pwmarco-og-06656c44b005-d9e101c9f09c.herokuapp.com/study'},
     {n:'Physics Wallah 3',l:L.pw,t:'web',url:'https://www.learnxpw.site/study/batches'},
@@ -285,6 +301,7 @@ const PROV=[
     {n:'Hitesh Chaudhary',l:'https://imgyx.pages.dev/Sfo0V',t:'web',url:'https://app.akkistudyx.in/app?view=home'},
     {n:'Sketch Book By Abhishek',l:'https://i.postimg.cc/pybKhcQf/Sketchbook-By-Abhishek.png',t:'web',url:'https://asmultiverse.app/?tab=home&app=6a3d1c9cd754c8894bf5812a'}]},
   {id:'redrmy2',name:'REDRMY 2.0',logo:'logo.png',plats:[
+    {n:'RedrMyCollege',l:'logo.png',t:'web',url:'https://redrmycollege.netlify.app/'},
     {n:'Physics Wallah',l:L.pw,t:'web',url:'https://codexstudy.dpdns.org/pw/'},
     {n:'PW Digital Books',l:L.pw,t:'web',url:'https://books.streamfiles.eu.org/'},
     {n:'PI',l:L.pipro,t:'web',url:'https://codexstudy.dpdns.org/pi/'},
